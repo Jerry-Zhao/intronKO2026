@@ -1,0 +1,324 @@
+
+library(ggplot2)
+
+
+###### Loading expression data
+######
+# GCT format, which contains two rows of header data. 
+# The first two columns contain the gene ID and gene name; since gene names are 
+# not unique, all GTEx tables are indexed by GENCODE/ENSEMBL gene ID
+
+tpm.df <- read.delim("GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_tpm.gct",
+                     as.is=T, row.names=1, check.names=FALSE, skip=2)
+
+gene.names.df <- tpm.df[, 'Description', drop=FALSE]
+tpm.df <- tpm.df[, !(names(tpm.df) %in% c('Description'))]
+head(tpm.df)
+cat(paste("Number of genes in table: ", dim(tpm.df)[1]))    # Number of genes in table:  56200
+
+
+###### Selecting samples and subsets of the data
+###### 
+sample.df <- read.delim("GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt", as.is=TRUE, header=TRUE, row.names=1)
+head(sample.df)
+
+# a summary of analysis freeze samples of each data type
+table(sample.df['SMAFRZE'])
+#        EXCLUDE    OMNI  RNASEQ     WES     WGS 
+#    602    2700     450   17382     979     838
+
+# focus on the RNA-seq samples
+rnaseq.sample.df <- sample.df[sample.df['SMAFRZE']=='RNASEQ', ]
+head(rnaseq.sample.df) 
+
+
+### Violin plot and boxplot 
+
+### HS6ST3
+### 
+gene <- tpm.df['ENSG00000185352.8', ] ## expression of a specific gene: HS6ST3
+gene[,1:10]
+data.total <- data.frame(TPM=
+    c(
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Cortex', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Frontal Cortex (BA9)', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Anterior cingulate cortex (BA24)', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Hippocampus', ])],use.names = FALSE),
+
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Skin', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Esophagus', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Adipose Tissue', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Heart', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Muscle', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Colon', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Thyroid', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Nerve', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Lung', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Breast', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Stomach', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Pancreas', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Spleen', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Liver', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Small Intestine',])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Salivary Gland', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Kidney', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Bladder', ])],use.names = FALSE)),
+    Type=(
+    c(
+      rep("aaaCtx",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Cortex', ]))),
+      rep("aabFCtx",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Frontal Cortex (BA9)', ]))),
+      rep("aacACtx",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Anterior cingulate cortex (BA24)', ]))),
+      rep("aadHip",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Hippocampus', ]))),
+      rep("bSkin",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Skin', ]))),              
+      rep("cEsophagus",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Esophagus', ]))),
+      rep("eAdiposeTissue",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Adipose Tissue', ]))),
+      rep("gHeart",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Heart', ]))),
+      rep("hMuscle",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Muscle', ]))),
+      rep("iColon",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Colon', ]))),
+      rep("jThyroid",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Thyroid', ]))),
+      rep("kNerve",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Nerve', ]))),
+      rep("lLung",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Lung', ]))),
+      rep("mBreast",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Breast', ]))),
+      rep("oStomach",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Stomach', ]))),
+      rep("pPancreas",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Pancreas', ]))),
+      rep("tSpleen",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Spleen', ]))),
+      rep("uLiver",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Liver', ]))),
+      rep("vSmallIntestine",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Small Intestine', ]))),
+      rep("xSalivaryGland",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Salivary Gland', ]))),
+      rep("zKidney",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Kidney', ]))),
+      rep("zBladder",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Bladder', ]))))))
+
+data.total[1:5,]
+ 
+
+ggplot(data.total, aes(x = Type, y = TPM)) +
+  geom_violin(aes(fill = Type), trim = FALSE) +
+  geom_boxplot(width = 0.1) +
+  theme_classic() +
+  theme(legend.position = "none")
+ 
+png("Plot_boxplot_GTEx_TPM_HS6ST3_2024.png",width = 500, height = 500)
+boxplot(data.total$TPM~factor(data.total$Type), col="deeppink",outcol="grey70", ylim=c(0,40))
+abline(h=3, lty=3)
+dev.off() 
+
+
+
+
+ 
+
+
+#### HS6ST1
+#### 
+gene <- tpm.df['ENSG00000136720.6', ] ## expression of a specific gene: HS6ST3
+gene[,1:10]
+data.total <- data.frame(TPM=
+    c(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Cortex', ])],use.names = FALSE),
+       unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Frontal Cortex (BA9)', ])],use.names = FALSE),
+       unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Anterior cingulate cortex (BA24)', ])],use.names = FALSE),
+       unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Hippocampus', ])],use.names = FALSE),
+
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Skin', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Esophagus', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Adipose Tissue', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Heart', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Muscle', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Colon', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Thyroid', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Nerve', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Lung', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Breast', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Stomach', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Pancreas', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Spleen', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Liver', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Small Intestine',])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Salivary Gland', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Kidney', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Bladder', ])],use.names = FALSE)),
+    Type=(
+    c(
+      rep("aaaCtx",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Cortex', ]))),
+      rep("aabFCtx",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Frontal Cortex (BA9)', ]))),
+      rep("aacACtx",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Anterior cingulate cortex (BA24)', ]))),
+      rep("aadHip",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Hippocampus', ]))),
+
+      rep("bSkin",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Skin', ]))),              
+      rep("cEsophagus",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Esophagus', ]))),
+      rep("eAdiposeTissue",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Adipose Tissue', ]))),
+      rep("gHeart",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Heart', ]))),
+      rep("hMuscle",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Muscle', ]))),
+      rep("iColon",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Colon', ]))),
+      rep("jThyroid",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Thyroid', ]))),
+      rep("kNerve",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Nerve', ]))),
+      rep("lLung",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Lung', ]))),
+      rep("mBreast",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Breast', ]))),
+      rep("oStomach",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Stomach', ]))),
+      rep("pPancreas",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Pancreas', ]))),
+      rep("tSpleen",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Spleen', ]))),
+      rep("uLiver",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Liver', ]))),
+      rep("vSmallIntestine",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Small Intestine', ]))),
+      rep("xSalivaryGland",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Salivary Gland', ]))),
+      rep("zKidney",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Kidney', ]))),
+      rep("zBladder",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Bladder', ]))))))
+
+data.total[1:5,]
+
+ggplot(data.total, aes(x = Type, y = TPM)) +
+  geom_violin(aes(fill = Type), trim = FALSE) +
+  geom_boxplot(width = 0.1) +
+  theme_classic() +
+  theme(legend.position = "none")
+
+png("Plot_boxplot_GTEx_TPM_HS6ST1_2024.png",width = 500, height = 500)
+boxplot(data.total$TPM~factor(data.total$Type), col="deeppink",outcol="grey70", ylim=c(0,80))
+abline(h=3, lty=3)
+dev.off() 
+ 
+
+
+
+
+
+#### GPC5
+#### 
+gene <- tpm.df['ENSG00000179399.14', ]
+gene[,1:10]
+data.total <- data.frame(TPM=
+    c(
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Cortex', ])],use.names = FALSE),
+       unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Frontal Cortex (BA9)', ])],use.names = FALSE),
+       unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Anterior cingulate cortex (BA24)', ])],use.names = FALSE),
+       unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Hippocampus', ])],use.names = FALSE),
+
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Skin', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Esophagus', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Adipose Tissue', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Heart', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Muscle', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Colon', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Thyroid', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Nerve', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Lung', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Breast', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Stomach', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Pancreas', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Spleen', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Liver', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Small Intestine',])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Salivary Gland', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Kidney', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Bladder', ])],use.names = FALSE)),
+    Type=(
+    c(
+      rep("aaaCtx",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Cortex', ]))),
+      rep("aabFCtx",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Frontal Cortex (BA9)', ]))),
+      rep("aacACtx",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Anterior cingulate cortex (BA24)', ]))),
+      rep("aadHip",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Hippocampus', ]))),
+
+      rep("bSkin",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Skin', ]))),              
+      rep("cEsophagus",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Esophagus', ]))),
+      rep("eAdiposeTissue",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Adipose Tissue', ]))),
+      rep("gHeart",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Heart', ]))),
+      rep("hMuscle",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Muscle', ]))),
+      rep("iColon",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Colon', ]))),
+      rep("jThyroid",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Thyroid', ]))),
+      rep("kNerve",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Nerve', ]))),
+      rep("lLung",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Lung', ]))),
+      rep("mBreast",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Breast', ]))),
+      rep("oStomach",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Stomach', ]))),
+      rep("pPancreas",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Pancreas', ]))),
+      rep("tSpleen",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Spleen', ]))),
+      rep("uLiver",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Liver', ]))),
+      rep("vSmallIntestine",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Small Intestine', ]))),
+      rep("xSalivaryGland",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Salivary Gland', ]))),
+      rep("zKidney",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Kidney', ]))),
+      rep("zBladder",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Bladder', ]))))))
+
+data.total[1:5,]
+
+ggplot(data.total, aes(x = Type, y = TPM)) +
+  geom_violin(aes(fill = Type), trim = FALSE) +
+  geom_boxplot(width = 0.1) +
+  theme_classic() +
+  theme(legend.position = "none")
+
+png("Plot_boxplot_GTEx_TPM_GPC5_2024.png",width = 500, height = 500)
+boxplot(data.total$TPM~factor(data.total$Type), col="deeppink",outcol="grey70", ylim=c(0,20))
+abline(h=3, lty=3)
+dev.off() 
+
+
+
+#### GPC1
+#### 
+gene <- tpm.df['ENSG00000063660.8', ]
+gene[,1:10]
+data.total <- data.frame(TPM=
+    c(
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Cortex', ])],use.names = FALSE),
+       unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Frontal Cortex (BA9)', ])],use.names = FALSE),
+       unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Anterior cingulate cortex (BA24)', ])],use.names = FALSE),
+       unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Hippocampus', ])],use.names = FALSE),
+
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Skin', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Esophagus', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Adipose Tissue', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Heart', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Muscle', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Colon', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Thyroid', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Nerve', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Lung', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Breast', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Stomach', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Pancreas', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Spleen', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Liver', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Small Intestine',])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Salivary Gland', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Kidney', ])],use.names = FALSE),
+      unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Bladder', ])],use.names = FALSE)),
+    Type=(
+    c(
+      rep("aaaCtx",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Cortex', ]))),
+      rep("aabFCtx",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Frontal Cortex (BA9)', ]))),
+      rep("aacACtx",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Anterior cingulate cortex (BA24)', ]))),
+      rep("aadHip",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Hippocampus', ]))),
+
+      rep("bSkin",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Skin', ]))),              
+      rep("cEsophagus",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Esophagus', ]))),
+      rep("eAdiposeTissue",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Adipose Tissue', ]))),
+      rep("gHeart",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Heart', ]))),
+      rep("hMuscle",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Muscle', ]))),
+      rep("iColon",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Colon', ]))),
+      rep("jThyroid",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Thyroid', ]))),
+      rep("kNerve",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Nerve', ]))),
+      rep("lLung",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Lung', ]))),
+      rep("mBreast",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Breast', ]))),
+      rep("oStomach",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Stomach', ]))),
+      rep("pPancreas",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Pancreas', ]))),
+      rep("tSpleen",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Spleen', ]))),
+      rep("uLiver",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Liver', ]))),
+      rep("vSmallIntestine",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Small Intestine', ]))),
+      rep("xSalivaryGland",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Salivary Gland', ]))),
+      rep("zKidney",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Kidney', ]))),
+      rep("zBladder",length(rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Bladder', ]))))))
+
+data.total[1:5,]
+
+ggplot(data.total, aes(x = Type, y = TPM)) +
+  geom_violin(aes(fill = Type), trim = FALSE) +
+  geom_boxplot(width = 0.1) +
+  theme_classic() +
+  theme(legend.position = "none")
+
+png("Plot_boxplot_GTEx_TPM_GPC1_2024.png",width = 500, height = 500)
+boxplot(data.total$TPM~factor(data.total$Type), col="deeppink",outcol="grey70", ylim=c(0,400))
+abline(h=3, lty=3)
+dev.off() 
+
+
+
+
+

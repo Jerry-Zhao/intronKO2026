@@ -1,0 +1,1044 @@
+0. (from Linux)Raw data download and rename 
+ # Download from Novogene website
+ wget -r -c ftp://X202SC24012475-Z01-F001:pu472670@usftp21.novogene.com:21/
+
+ # rename
+mv KO_QKRO240000047-1A_22GV57LT3_S1_L001_I1_001.fastq.gz KO_22G_S1_L001_I1_001.fastq.gz
+mv KO_QKRO240000047-1A_22GV57LT3_S1_L001_I2_001.fastq.gz KO_22G_S1_L001_I2_001.fastq.gz
+mv KO_QKRO240000047-1A_22GV57LT3_S1_L001_R1_001.fastq.gz KO_22G_S1_L001_R1_001.fastq.gz
+mv KO_QKRO240000047-1A_22GV57LT3_S1_L001_R2_001.fastq.gz KO_22G_S1_L001_R2_001.fastq.gz
+mv KO_QKRO240000047-1A_22JKTWLT3_S1_L006_I1_001.fastq.gz KO_22J_S1_L006_I1_001.fastq.gz
+mv KO_QKRO240000047-1A_22JKTWLT3_S1_L006_I2_001.fastq.gz KO_22J_S1_L006_I2_001.fastq.gz
+mv KO_QKRO240000047-1A_22JKTWLT3_S1_L006_R1_001.fastq.gz KO_22J_S1_L006_R1_001.fastq.gz
+mv KO_QKRO240000047-1A_22JKTWLT3_S1_L006_R2_001.fastq.gz KO_22J_S1_L006_R2_001.fastq.gz
+
+mv WT_QKRO240000046-1A_22H7VKLT3_S1_L001_I1_001.fastq.gz WT_22H_S1_L001_I1_001.fastq.gz
+mv WT_QKRO240000046-1A_22H7VKLT3_S1_L001_I2_001.fastq.gz WT_22H_S1_L001_I2_001.fastq.gz
+mv WT_QKRO240000046-1A_22H7VKLT3_S1_L001_R1_001.fastq.gz WT_22H_S1_L001_R1_001.fastq.gz
+mv WT_QKRO240000046-1A_22H7VKLT3_S1_L001_R2_001.fastq.gz WT_22H_S1_L001_R2_001.fastq.gz
+mv WT_QKRO240000046-1A_22H7VKLT3_S1_L008_I1_001.fastq.gz WT_22H_S1_L008_I1_001.fastq.gz
+mv WT_QKRO240000046-1A_22H7VKLT3_S1_L008_I2_001.fastq.gz WT_22H_S1_L008_I2_001.fastq.gz
+mv WT_QKRO240000046-1A_22H7VKLT3_S1_L008_R1_001.fastq.gz WT_22H_S1_L008_R1_001.fastq.gz
+mv WT_QKRO240000046-1A_22H7VKLT3_S1_L008_R2_001.fastq.gz WT_22H_S1_L008_R2_001.fastq.gz
+mv WT_QKRO240000046-1A_22KFCTLT3_S1_L004_I1_001.fastq.gz WT_22K_S1_L004_I1_001.fastq.gz
+mv WT_QKRO240000046-1A_22KFCTLT3_S1_L004_I2_001.fastq.gz WT_22K_S1_L004_I2_001.fastq.gz
+mv WT_QKRO240000046-1A_22KFCTLT3_S1_L004_R1_001.fastq.gz WT_22K_S1_L004_R1_001.fastq.gz
+mv WT_QKRO240000046-1A_22KFCTLT3_S1_L004_R2_001.fastq.gz WT_22K_S1_L004_R2_001.fastq.gz
+mv WT_QKRO240000046-1A_22KFCTLT3_S1_L005_I1_001.fastq.gz WT_22K_S1_L005_I1_001.fastq.gz
+mv WT_QKRO240000046-1A_22KFCTLT3_S1_L005_I2_001.fastq.gz WT_22K_S1_L005_I2_001.fastq.gz
+mv WT_QKRO240000046-1A_22KFCTLT3_S1_L005_R1_001.fastq.gz WT_22K_S1_L005_R1_001.fastq.gz
+mv WT_QKRO240000046-1A_22KFCTLT3_S1_L005_R2_001.fastq.gz WT_22K_S1_L005_R2_001.fastq.gz
+mv WT_QKRO240000046-1A_22KFCTLT3_S1_L006_I1_001.fastq.gz WT_22K_S1_L006_I1_001.fastq.gz
+mv WT_QKRO240000046-1A_22KFCTLT3_S1_L006_I2_001.fastq.gz WT_22K_S1_L006_I2_001.fastq.gz
+mv WT_QKRO240000046-1A_22KFCTLT3_S1_L006_R1_001.fastq.gz WT_22K_S1_L006_R1_001.fastq.gz
+mv WT_QKRO240000046-1A_22KFCTLT3_S1_L006_R2_001.fastq.gz WT_22K_S1_L006_R2_001.fastq.gz
+mv WT_QKRO240000046-1A_22KFCTLT3_S1_L007_I1_001.fastq.gz WT_22K_S1_L007_I1_001.fastq.gz
+mv WT_QKRO240000046-1A_22KFCTLT3_S1_L007_I2_001.fastq.gz WT_22K_S1_L007_I2_001.fastq.gz
+mv WT_QKRO240000046-1A_22KFCTLT3_S1_L007_R1_001.fastq.gz WT_22K_S1_L007_R1_001.fastq.gz
+mv WT_QKRO240000046-1A_22KFCTLT3_S1_L007_R2_001.fastq.gz WT_22K_S1_L007_R2_001.fastq.gz
+mv WT_QKRO240000046-1A_22KFCTLT3_S1_L008_I1_001.fastq.gz WT_22K_S1_L008_I1_001.fastq.gz
+mv WT_QKRO240000046-1A_22KFCTLT3_S1_L008_I2_001.fastq.gz WT_22K_S1_L008_I2_001.fastq.gz
+mv WT_QKRO240000046-1A_22KFCTLT3_S1_L008_R1_001.fastq.gz WT_22K_S1_L008_R1_001.fastq.gz
+mv WT_QKRO240000046-1A_22KFCTLT3_S1_L008_R2_001.fastq.gz WT_22K_S1_L008_R2_001.fastq.gz
+
+
+cellranger count --id=KO_count \
+--fastqs=/media/RNAseq/iKO/FASTQ/KO \
+--sample=KO_22G,KO_22J \
+--transcriptome=/home/jerry/Tools/Genome/CellRanger/mm10_tdtomato_cre
+
+## analyze two technical replicates separately
+## to make sure the above merged analysis is correct 
+cellranger count --id=KO_22G_count \
+--fastqs=/media/RNAseq/iKO/FASTQ/KO \
+--sample=KO_22G \
+--transcriptome=/home/jerry/Tools/Genome/CellRanger/mm10_tdtomato_cre
+
+cellranger count --id=KO_22J_count \
+--fastqs=/media/RNAseq/iKO/FASTQ/KO \
+--sample=KO_22J \
+--transcriptome=/home/jerry/Tools/Genome/CellRanger/mm10_tdtomato_cre
+
+
+cellranger count --id=WT_count \
+--fastqs=/media/RNAseq/iKO/FASTQ/WT \
+--sample=WT_22H,WT_22K \
+--transcriptome=/home/jerry/Tools/Genome/CellRanger/mm10_tdtomato_cre
+
+
+
+
+
+1. Load data
+
+library(Seurat)
+library(dplyr)
+library(patchwork)
+library(magrittr) ## %>% pipe operator
+library(tidyr)
+library(Matrix)
+library("reshape2")
+library("gplots")
+packageVersion("Seurat") ## ‘5.0.3’
+
+
+
+# Setup the Seurat objects
+
+# Load the WT and KO dataset
+wt.data <- Read10X(data.dir = "WT_count")
+ko.data <- Read10X(data.dir = "KO_count")
+
+
+# Initialize the Seurat object with the raw (non-normalized data).
+wt <- CreateSeuratObject(counts = wt.data, project = "WT", min.cells = 3, min.features = 200)
+ko <- CreateSeuratObject(counts = ko.data, project = "KO", min.cells = 3, min.features = 200)
+
+wt
+# An object of class Seurat 
+# 20295 features across 9329 samples within 1 assay 
+# Active assay: RNA (20295 features, 0 variable features)
+#  1 layer present: counts
+
+ko
+# An object of class Seurat 
+# 20113 features across 9904 samples within 1 assay 
+# Active assay: RNA (20113 features, 0 variable features)
+#  1 layer present: counts
+
+wt@meta.data$group <- "WT"
+ko@meta.data$group <- "KO"
+
+# merge objects
+inko <- merge(wt, y=ko, add.cell.ids=c("WT", "KO"), project = "inKO")
+
+inko@meta.data[1:5,]
+inko@meta.data
+inko
+# An object of class Seurat 
+# 20903 features across 19233 samples within 1 assay 
+# Active assay: RNA (20903 features, 0 variable features)
+#  2 layers present: counts.WT, counts.KO
+
+table(inko$orig.ident)
+#  KO   WT 
+# 9904 9329 
+
+saveRDS(inko,"Jerry_inKO2024_SeuratObject_Raw_20240408.rds")
+
+
+
+2. QC
+
+# inko <- readRDS("Jerry_inKO2024_SeuratObject_Raw_20240408.rds")
+inko
+
+# The [[ operator can add columns to object metadata. This is a great place to stash QC stats
+inko[["percent.mt"]] <- PercentageFeatureSet(inko, pattern = "^mt-")
+
+# Show QC metrics for the first 5 cells
+head(inko@meta.data, 5)
+
+# In the example below, we visualize QC metrics, and use these to filter cells.
+# We filter cells that have unique feature counts over 5000 or less than 200
+# We filter cells that have >5% mitochondrial counts
+ 
+# Visualize QC metrics as a violin plot
+pdf("Jerry_inKO2024_QC_nFeature_nCount_mt.pdf")
+VlnPlot(inko, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
+dev.off() 
+
+# FeatureScatter is typically used to visualize feature-feature relationships, but can be used
+# for anything calculated by the object, i.e. columns in object metadata, PC scores etc.
+# Since there is a rare subset of cells with an outlier level of high mitochondrial percentage 
+# and also low Feture content, we filter these as well
+pdf("Jerry_inKO2024_QC_nCount_mt.pdf")
+FeatureScatter(inko, feature1 = "nCount_RNA", feature2 = "percent.mt") ## 20
+dev.off()
+pdf("Jerry_inKO2024_QC_nCount_nFeature.pdf")
+FeatureScatter(inko, feature1 = "nCount_RNA", feature2 = "nFeature_RNA") ## 7500 features
+dev.off() 
+
+# We filter out cells that have unique gene counts over 7500 or less than 200 
+# We filter cells that have >=20% mitochondrial counts
+inko <- subset(inko, subset = nFeature_RNA > 200 & nFeature_RNA < 7500 & percent.mt < 20)
+inko
+# An object of class Seurat 
+# 20903 features across 19222 samples within 1 assay 
+# Active assay: RNA (20903 features, 0 variable features)
+#  2 layers present: counts.WT, counts.KO
+
+table(inko@meta.data$orig.ident)
+#   KO   WT 
+# 9897 9325
+
+pdf("Jerry_inKO2024_QC_nFeature_nCount_mt_AfterFilter.pdf")
+VlnPlot(inko, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
+dev.off()
+ 
+saveRDS(inko,"Jerry_inKO2024_SeuratObject_AfterFilter_20240408.rds")
+
+
+
+
+
+
+3.Normalization
+
+# inko <- readRDS("Jerry_inKO2024_SeuratObject_AfterFilter_20240408.rds")
+
+#####
+##### Normalizing the data
+#####
+# After removing unwanted cells from the dataset, the next step is to normalize the data. 
+# By default, we employ a global-scaling normalization method “LogNormalize” that normalizes 
+# the feature expression measurements for each cell by the total expression, multiplies this 
+# by a scale factor (10,000 by default), and log-transforms the result. Normalized values are 
+# stored in mngpanc[["RNA"]]@data.
+ 
+inko <- NormalizeData(inko, normalization.method = "LogNormalize", scale.factor = 10000)
+
+
+######
+###### Identification of highly variable features (feature selection)
+######
+# We next calculate a subset of features that exhibit high cell-to-cell variation in the dataset 
+# (i.e, they are highly expressed in some cells, and lowly expressed in others). 
+# Our procedure in Seurat is described in detail here, and improves on previous versions by directly 
+# modeling the mean-variance relationship inherent in single-cell data, and is implemented in the 
+# FindVariableFeatures() function. By default, we return 2,000 features per dataset. 
+# These will be used in downstream analysis, like PCA.
+ 
+inko <- FindVariableFeatures(inko, selection.method = "vst", nfeatures = 2000)
+
+# Identify the 10 most highly variable genes
+top10 <- head(VariableFeatures(inko), 10)
+
+# plot variable features with and without labels
+png("Jerry_inKO2024_Norm_variable_features.png", width = 1200, height = 1200)
+plot1 <- VariableFeaturePlot(inko)
+plot2 <- LabelPoints(plot = plot1, points = top10, repel = TRUE)
+plot1+plot2
+dev.off()
+
+
+
+######
+###### Scaling the data
+###### 
+# Next, we apply a linear transformation (‘scaling’) that is a standard pre-processing step prior 
+# to dimensional reduction techniques like PCA. The ScaleData() function:
+#     Shifts the expression of each gene, so that the mean expression across cells is 0
+#     Scales the expression of each gene, so that the variance across cells is 1
+# This step gives equal weight in downstream analyses, so that highly-expressed genes do not dominate
+# The results of this are stored in cortex[["RNA"]]@scale.data
+
+all.genes <- rownames(inko)
+inko <- ScaleData(inko, features = all.genes)
+
+
+
+######
+###### Perform linear dimensional reduction
+######
+# Next we perform PCA on the scaled data. By default, only the previously determined variable features are 
+# used as input, but can be defined using features argument if you wish to choose a different subset.
+
+inko <- RunPCA(inko, features = VariableFeatures(object = inko))
+
+## Seurat provides several useful ways of visualizing both cells and features that define the PCA, 
+# including VizDimReduction(), DimPlot(), and DimHeatmap()
+ 
+# Examine and visualize PCA results a few different ways
+print(inko[["pca"]], dims = 1:5, nfeatures = 5)
+VizDimLoadings(inko, dims = 1:2, reduction = "pca")
+DimPlot(inko, reduction = "pca")
+
+# In particular DimHeatmap() allows for easy exploration of the primary sources of heterogeneity 
+# in a dataset, and can be useful when trying to decide which PCs to include for further downstream 
+# analyses. Both cells and features are ordered according to their PCA scores. Setting cells to a 
+# number plots the ‘extreme’ cells on both ends of the spectrum, which dramatically speeds plotting 
+# for large datasets. Though clearly a supervised analysis, we find this to be a valuable tool for 
+# exploring correlated feature sets.
+DimHeatmap(inko, dims = 1, cells = 500, balanced = TRUE)
+png("Jerry_inKO2024_PCA_DimHeatmap.png", width = 1200, height = 1200)
+DimHeatmap(inko, dims = 1:30, cells = 500, balanced = TRUE)
+dev.off()
+
+
+######
+###### Determine the ‘dimensionality’ of the dataset
+###### 
+# To overcome the extensive technical noise in any single feature for scRNA-seq data, Seurat 
+# clusters cells based on their PCA scores, with each PC essentially representing a ‘metafeature’ 
+# that combines information across a correlated feature set. The top principal components therefore 
+# represent a robust compression of the dataset. However, how many components should we choose to include? 10? 20? 100?
+
+# In Macosko et al, we implemented a resampling test inspired by the JackStraw procedure. While 
+# still available in Seurat (see previous vignette), this is a slow and computationally expensive 
+# procedure, and we is no longer routinely used in single cell analysis.
+
+# An alternative heuristic method generates an ‘Elbow plot’: a ranking of principle components based 
+# on the % of variance explained by each one (ElbowPlot() function). In this example, we can observe 
+# an ‘elbow’ around PC9-10, suggesting that the majority of true signal is captured in the first 10 PCs.
+ 
+pdf("Jerry_inKO2024_PCA_ElbowPlot.pdf")
+ElbowPlot(inko, ndims = 40) ## Not clear, maybe 30
+dev.off()
+
+# Identifying the true dimensionality of a dataset – can be challenging/uncertain for the user. We 
+# therefore suggest these three approaches to consider. The first is more supervised, exploring PCs 
+# to determine relevant sources of heterogeneity, and could be used in conjunction with GSEA for 
+# example. The second implements a statistical test based on a random null model, but is time-consuming 
+# for large datasets, and may not return a clear PC cutoff. The third is a heuristic that is commonly 
+# used, and can be calculated instantly. In this example, all three approaches yielded similar results, 
+# but we might have been justified in choosing anything between PC 7-12 as a cutoff.
+# 
+# We chose 10 here, but encourage users to consider the following:
+# Dendritic cell and NK aficionados may recognize that genes strongly associated with PCs 12 and 13 
+# define rare immune subsets (i.e. MZB1 is a marker for plasmacytoid DCs). However, these groups are 
+# so rare, they are difficult to distinguish from background noise for a dataset of this size without 
+# prior knowledge.
+# We encourage users to repeat downstream analyses with a different number of PCs (10, 15, or even 50!). 
+# As you will observe, the results often do not differ dramatically.
+# We advise users to err on the higher side when choosing this parameter. For example, performing 
+# downstream analyses with only 5 PCs does significantly and adversely affect results.
+
+saveRDS(inko,"Jerry_inKO2024_SeuratObject_AfterPCA_20240408.rds")
+
+
+
+4. Data Integratation & cluster the cells 
+
+# We now aim to integrate data from the two conditions, so that cells from the same cell 
+# type/subpopulation will cluster together.
+
+# We often refer to this procedure as intergration/alignment. When aligning two genome 
+# sequences together, identification of shared/homologous regions can help to interpret 
+# differences between the sequences as well. Similarly for scRNA-seq integration, our goal 
+# is not to remove biological differences across conditions, but to learn shared cell 
+# types/states in an initial step - specifically because that will enable us to compare 
+# control stimulated and control profiles for these individual cell types.
+
+# The Seurat v5 integration procedure aims to return a single dimensional reduction that 
+# captures the shared sources of variance across multiple layers, so that cells in a similar 
+# biological state will cluster. The method returns a dimensional reduction (i.e. integrated.cca) 
+# which can be used for visualization and unsupervised clustering analysis. To evaluate 
+# performance, we can use cell type labels pre-loaded in the seurat_annotations metadata column.
+
+# Seurat v5 enables streamlined integrative analysis using the IntegrateLayers function. The method# currently supports five integration methods. Each of these methods performs integration in low-
+# dimensional space, and returns a dimensional reduction (i.e. integrated.rpca)
+# shared cell types across batches:
+#  Anchor-based CCA integration (method=CCAIntegration)
+#  Anchor-based RPCA integration (method=RPCAIntegration)
+#  Harmony (method=HarmonyIntegration)
+#  FastMNN (method= FastMNNIntegration)
+#  scVI (method=scVIIntegration)
+# Note that our anchor-based RPCA integration represents a faster and more conservative 
+# (less correction) method for integration.
+
+#### CCA
+inko <- IntegrateLayers(object = inko, method = CCAIntegration, orig.reduction = "pca",
+                        new.reduction = "integrated.cca", verbose = FALSE)
+
+# join layers after integration
+inko[["RNA"]] <- JoinLayers(inko[["RNA"]])
+
+
+
+###### 
+###### Cluster the cells
+###### 
+# Seurat applies a graph-based clustering approach, building upon initial strategies in (Macosko et al). 
+# Importantly, the distance metric which drives the clustering analysis (based on previously identified 
+# PCs) remains the same. However, our approach to partitioning the cellular distance matrix into clusters 
+# has dramatically improved. Our approach was heavily inspired by recent manuscripts which applied 
+# graph-based clustering approaches to scRNA-seq data [SNN-Cliq, Xu and Su, Bioinformatics, 2015] and 
+# CyTOF data [PhenoGraph, Levine et al., Cell, 2015]. Briefly, these methods embed cells in a graph 
+# structure - for example a K-nearest neighbor (KNN) graph, with edges drawn between cells with similar 
+# feature expression patterns, and then attempt to partition this graph into highly interconnected 
+# ‘quasi-cliques’ or ‘communities’.
+
+# As in PhenoGraph, we first construct a KNN graph based on the euclidean distance in PCA space, and 
+# refine the edge weights between any two cells based on the shared overlap in their local neighborhoods 
+# (Jaccard similarity). This step is performed using the FindNeighbors() function, and takes as input 
+# the previously defined dimensionality of the dataset (first 10 PCs).
+
+# To cluster the cells, we next apply modularity optimization techniques such as the Louvain algorithm 
+# (default) or SLM [SLM, Blondel et al., Journal of Statistical Mechanics], to iteratively group cells 
+# together, with the goal of optimizing the standard modularity function. The FindClusters() function 
+# implements this procedure, and contains a resolution parameter that sets the ‘granularity’ of the 
+# downstream clustering, with increased values leading to a greater number of clusters. We find that 
+# setting this parameter between 0.4-1.2 typically returns good results for single-cell datasets of 
+# around 3K cells. Optimal resolution often increases for larger datasets. The clusters can be found 
+# using the Idents() function
+
+inko <- FindNeighbors(inko, reduction = "integrated.cca", dims = 1:30)
+inko <- FindClusters(inko, resolution = 0.5)
+
+# Look at cluster IDs of the first 5 cells
+head(Idents(inko), 5)
+
+
+#####
+##### Run non-linear dimensional reduction (UMAP/tSNE)
+#####
+# Seurat offers several non-linear dimensional reduction techniques, such as tSNE and UMAP, to visualize 
+# and explore these datasets. The goal of these algorithms is to learn underlying structure in the dataset,
+# to place similar cells together in low-dimensional space. Therefore, cells that are grouped together 
+# within graph-based clusters determined above should co-localize on these dimension reduction plots.
+
+# While we and others have routinely found 2D visualization techniques like tSNE and UMAP to be valuable 
+# tools for exploring datasets, all visualization techniques have limitations, and cannot fully represent 
+# the complexity of the underlying data. In particular, these methods aim to preserve local distances in 
+# the dataset (i.e. ensuring that cells with very similar gene expression profiles co-localize), but often
+#  do not preserve more global relationships. We encourage users to leverage techniques like UMAP for 
+# visualization, but to avoid drawing biological conclusions solely on the basis of visualization.
+
+inko <- RunUMAP(inko, dims = 1:30, reduction = "integrated.cca")
+ 
+pdf("Jerry_inKO2024_DimPlot_Label.pdf")
+DimPlot(inko, reduction = "umap", label = TRUE)
+dev.off()
+pdf("Jerry_inKO2024_DimPlot_noLabel.pdf")
+DimPlot(inko, reduction = "umap", label = FALSE)
+dev.off()
+
+pdf("Jerry_inKO2024_DimPlot_noLabel_group.pdf")
+DimPlot(inko, reduction = "umap", label = FALSE, group.by = "group")
+dev.off()
+png("Jerry_inKO2024_DimPlot_noLabel_group2.png", width = 1400, height = 1000)
+DimPlot(inko, reduction = "umap", split.by = "group")
+dev.off()
+
+saveRDS(inko,"Jerry_inKO2024_SeuratObject_AftertUMAP_20240408.rds")
+
+
+
+
+
+5. Identify conserved cell type markers
+library(Seurat)
+library(magrittr) ## %>% pipe operator
+library(dplyr)
+library(tidyr)
+library(Matrix)
+library("reshape2")
+library("gplots")
+library("ggplot2")
+packageVersion("Seurat") ## [1] ‘5.0.3’
+
+inko <- readRDS("Jerry_inKO2024_SeuratObject_AftertUMAP_20240408.rds")
+
+##### 
+##### Identify conserved cell type markers
+##### 
+# To identify canonical cell type marker genes that are conserved across conditions, we provide 
+# the FindConservedMarkers() function. This function performs differential gene expression testing 
+# for each dataset/group and combines the p-values using meta-analysis methods from the MetaDE R 
+# package. For example, we can calculated the genes that are conserved markers irrespective of 
+# stimulation condition in cluster 6 (NK cells).
+
+# install.packages('BiocManager')
+# BiocManager::install('multtest')
+# install.packages('metap')
+# install.packages('devtools')
+# devtools::install_github('immunogenomics/presto')
+library('metap')
+library('presto')
+
+#######Neurons#####
+VlnPlot(inko, features = c("Snap25","Grin2b","Slc17a7","Gad1","Gad2"))
+## Excitatory: 1  3  4  5  6  8  13  15  23  24  25 
+## Inhibatory: 7  16   19   20  
+## Granule neuroblasts: 14
+
+
+
+## Inhibitory neurons (7, 16, 19, 20)
+VlnPlot(inko, features = c("Sst","Vip","Npy","Meis2","Gad1","Pvalb"))
+cluster7.markers <- FindConservedMarkers(inko, ident.1 = 7,grouping.var = "group", verbose = FALSE)
+head(cluster7.markers, n = 20) ## Sst
+cluster16.markers <- FindConservedMarkers(inko, ident.1 = 16,grouping.var = "group", verbose = FALSE)
+head(cluster16.markers, n = 10) ## Vip 
+cluster19.markers <- FindConservedMarkers(inko, ident.1 = 19,grouping.var = "group", verbose = FALSE)
+head(cluster19.markers, n = 20) ## Npy
+cluster20.markers <- FindConservedMarkers(inko, ident.1 = 20,grouping.var = "group", verbose = FALSE)
+head(cluster20.markers, n = 20) ## Meis2
+VlnPlot(inko, features = c("Gpr88","Adora2a","Penk","Mhrt","Cpne5","Rgs9","Meis2","Six3","Isl1","Gnal"))
+
+
+## Excitatory neurons 
+cluster1.markers <- FindConservedMarkers(inko, ident.1 = 1,grouping.var = "group", verbose = FALSE)
+head(cluster1.markers, n = 20)
+
+
+
+## Granule neuroblasts: 14
+cluster14.markers <- FindConservedMarkers(inko, ident.1 = 14,grouping.var = "group", verbose = FALSE)
+head(cluster14.markers, n = 20)
+VlnPlot(inko, features = c("Igfbpl1","Top2a","Cnpy1","Knl1","Neil3","Hmmr","Eomes","Esco2","Aurkb","Draxin","Cdca2","Kif4"))
+
+
+######## Astrocytes: 0 
+VlnPlot(inko, features = c("Gfap","S100b","Aldh1l1","Slc1a3","Aldoc","Sox9")) ## Slc1a3=GLAST
+
+####### Adult neural stem cell (radial glial-like cell, RGL): 29 
+VlnPlot(inko, features = c("Gfap","S100b","Aldh1l1","Slc1a3","Aldoc","Sox9","Apoe","Sox2","Id4"))
+
+###### Microglia: 10 24 28
+VlnPlot(inko, features = c("Cx3cr1","Tmem119","Aif1","Itgam","Siglech")) # Aif1= Iba1 Itgam=Cd11b
+
+####### Oligodendrocyte: 2
+VlnPlot(inko, features = c("Mbp","Plp1","Mog","Mag","Ermn","Mobp"))
+
+####### OPC: 9
+VlnPlot(inko, features = c("Pdgfra","Vcan","Cspg4","Olig2"))
+
+
+## perivascular fibroblast : 11
+cluster11.markers <- FindConservedMarkers(inko, ident.1 = 11,grouping.var = "group", verbose = FALSE)
+head(cluster11.markers, n = 20) ##
+VlnPlot(inko, features = c("Dcn","Col1a1","Ranbp3l","Slc6a13","Col1a2","Igfbp2","Col3a1"))
+
+
+## endothelial cells (BBB) : 12
+cluster12.markers <- FindConservedMarkers(inko, ident.1 = 12,grouping.var = "group", verbose = FALSE)
+head(cluster12.markers, n = 20) ##
+VlnPlot(inko, features = c("Cldn5","Pecam1","Flt1","Ptprb","Egfl7","Adgrl4","Ly6c1","Ly6a"))
+
+## Choroid plexus cells: 17
+cluster17.markers <- FindConservedMarkers(inko, ident.1 = 17,grouping.var = "group", verbose = FALSE)
+head(cluster17.markers, n = 20) ##
+VlnPlot(inko, features = c("Gmnc","Otx2","Tmem72","Prlr","Kl","Col4a3"))
+
+## ependymal cells : 18
+cluster18.markers <- FindConservedMarkers(inko, ident.1 = 18,grouping.var = "group", verbose = FALSE)
+head(cluster18.markers, n = 20) ##
+VlnPlot(inko, features = c("Dnah12","Dnah6","Rarres2","Ttc21a","Cfap46","Tmem212","Spag17","Rgs22","Dnah11","Ttll6","Rassf9","Dnah9"))
+ 
+## pericytes : 21
+cluster21.markers <- FindConservedMarkers(inko, ident.1 = 21,grouping.var = "group", verbose = FALSE)
+head(cluster21.markers, n = 20) ##
+VlnPlot(inko, features = c("Atp13a5","Kcnj8","Vtn","Abcc9","Slc38a11","Carmn","Tbx3os1","Notch3"))
+
+## dura fibroblast: 22
+cluster22.markers <- FindConservedMarkers(inko, ident.1 = 22,grouping.var = "group", verbose = FALSE)
+head(cluster22.markers, n = 20) ##
+VlnPlot(inko, features = c("Fxyd5","Mgp","Slc47a1","Slc26a7","Adamtsl3","Bnc2","Ahnak2","Prg4","Cdh1","Tnfrsf11b"))
+
+##  Cajal-Retzius cells : 26
+cluster26.markers <- FindConservedMarkers(inko, ident.1 = 26,grouping.var = "group", verbose = FALSE)
+head(cluster26.markers, n = 20) ##
+VlnPlot(inko, features = c("Ndnf","Trp73","Lhx1","Ebf3","Reln","Nxph4","Vmn2r1","Nhlh2"))
+
+##  perivascular macrophages : 27
+cluster27.markers <- FindConservedMarkers(inko, ident.1 = 27,grouping.var = "group", verbose = FALSE)
+head(cluster27.markers, n = 20) ##
+VlnPlot(inko, features = c("Mrc1","Cd163","Lyve1","Lyz2","Ms4a7","F13a1","H2-Ab1","H2-Aa","H2-Eb1","Clec10a"))
+
+
+## Adult neurogenesis 
+VlnPlot(inko, features = c("Gfap","Nes","Sox2","Fabp7","Pax6","Eomes","Mcm2","Neurod1","Dcx","Ncam1","Prox1","Tubb3","Calb2","Rbfox3","Calb1"))
+
+
+## : 15
+cluster15.markers <- FindConservedMarkers(inko, ident.1 = 15,grouping.var = "group", verbose = FALSE)
+head(cluster15.markers, n = 20) ## 
+
+
+
+
+# find markers for every cluster compared to all remaining cells, report only the positive ones
+inko.markers <- FindAllMarkers(inko, only.pos = TRUE, min.pct = 0.15, logfc.threshold = 0.25)
+inko.markers %>% group_by(cluster) %>% top_n(n = 20, wt = avg_log2FC)
+
+saveRDS(inko.markers, file = "Jerry_inKO2024_SeuratObject_cluster_markers_20240412.rds")
+
+
+## UMAP with selected colors
+my_cols <- c(
+'1'='#FF5733','3'='#FF5733','4'='#FF5733','5'='#FF5733','6'='#FF5733','8'='#FF5733','13'='#FF5733','15'='#FF5733','23'='#FF5733','25'='#FF5733',
+'7'='#1ABC9C','16'='#1ABC9C','19'='#1ABC9C','20'='#1ABC9C',
+'0'='#8C564B',
+'2'='#FFC300',
+'9'='#ABA300',
+'10'='#C77CFF','24'='#C77CFF','28'='#C77CFF',
+'11'='#C7C7C7','12'='#C7C7C7','14'='#C7C7C7','17'='#C7C7C7','18'='#C7C7C7','21'='#C7C7C7','22'='#C7C7C7','26'='#C7C7C7','27'='#C7C7C7','29'='#C7C7C7')
+
+my_cols2 <- my_cols[order(as.integer(names(my_cols)))]
+scales::show_col(my_cols2)
+my_cols
+my_cols2
+
+pdf("Jerry_inKO2024_DimPlot_colors.pdf")
+DimPlot(inko, reduction = "umap", label = FALSE,cols=my_cols2)
+dev.off()
+
+
+### DotPlot 
+# NEEDS TO BE FIXED AND SET ORDER CORRECTLY
+Idents(inko) <- factor(Idents(inko), levels = c(
+"22","29","17","18","27","21","12","11","14","26","28","24","10","9","2","0","20","19","16","7","23","13","6","5","8","4","3","25","15","1"))
+ 
+markers.to.plot <- c("Slc17a7","Prox1","Satb2","Hs3st4","Dlc1","Fn1","Ntsr2","Gad1","Sst","Vip","Npy","Meis2","Slc1a3","Mbp","Olig1","Cx3cr1","Lhx1","Igfbpl1","Dcn","Cldn5","Atp13a5","Mrc1","Tmem212","Gmnc","Lpar1","Fxyd5")
+pdf("Jerry_inKO2024_DotPlot_markers.pdf")
+DotPlot(inko, features = markers.to.plot, dot.scale=8) +
+    RotatedAxis()
+dev.off()
+
+
+
+
+
+
+### Use this method to plot
+top20 <- inko.markers %>% group_by(cluster) %>% top_n(n = 20, wt = avg_log2FC)
+DoHeatmap(inko, features = top20$gene) + NoLegend()
+
+top20 <- inko.markers %>% group_by(cluster) %>% top_n(n = 20, wt = -pct.1)
+DoHeatmap(inko, features = top20$gene) + NoLegend()
+
+top20 <- inko.markers %>% group_by(cluster) %>% top_n(n = 20, wt = -pct.2)
+DoHeatmap(inko, features = top20$gene) + NoLegend()
+
+top20 <- inko.markers %>% group_by(cluster) %>% top_n(n = 20, wt = -p_val_adj)
+DoHeatmap(inko, features = top20$gene) + NoLegend()
+
+
+
+## cell numbers in each cluster
+table(Idents(inko))
+#    0    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15 
+# 2500 2256 2250 2012 1328  958  831  825  821  689  683  422  383  361  307  296 
+#   16   17   18   19   20   21   22   23   24   25   26   27   28   29 
+#  296  275  251  223  205  160  148  129  125  119  104   96   85   84 
+
+table(inko@meta.data[inko@meta.data$seurat_clusters==0,][,4]) # WT 1292  KO 1208 
+table(inko@meta.data[inko@meta.data$seurat_clusters==1,][,4]) # WT  963  KO 1293
+table(inko@meta.data[inko@meta.data$seurat_clusters==2,][,4]) # WT 1425  KO  825
+table(inko@meta.data[inko@meta.data$seurat_clusters==3,][,4]) # WT  692  KO 1320
+table(inko@meta.data[inko@meta.data$seurat_clusters==4,][,4]) # WT  583  KO  745
+table(inko@meta.data[inko@meta.data$seurat_clusters==5,][,4]) # WT  504  KO  454
+table(inko@meta.data[inko@meta.data$seurat_clusters==6,][,4]) # WT  304  KO  527
+table(inko@meta.data[inko@meta.data$seurat_clusters==7,][,4]) # WT  470  KO  355
+table(inko@meta.data[inko@meta.data$seurat_clusters==8,][,4]) # WT  229  KO  592
+table(inko@meta.data[inko@meta.data$seurat_clusters==9,][,4]) # WT  326  KO  363
+table(inko@meta.data[inko@meta.data$seurat_clusters==10,][,4]) # WT 372  KO  311
+table(inko@meta.data[inko@meta.data$seurat_clusters==11,][,4]) # WT 213  KO  209
+table(inko@meta.data[inko@meta.data$seurat_clusters==12,][,4]) # WT 183  KO  200
+table(inko@meta.data[inko@meta.data$seurat_clusters==13,][,4]) # WT 151  KO  210
+table(inko@meta.data[inko@meta.data$seurat_clusters==14,][,4]) # WT 126  KO  181
+table(inko@meta.data[inko@meta.data$seurat_clusters==15,][,4]) # WT 289  KO    7
+table(inko@meta.data[inko@meta.data$seurat_clusters==16,][,4]) # WT 140  KO  156
+table(inko@meta.data[inko@meta.data$seurat_clusters==17,][,4]) # WT 135  KO  140
+table(inko@meta.data[inko@meta.data$seurat_clusters==18,][,4]) # WT 121  KO  130
+table(inko@meta.data[inko@meta.data$seurat_clusters==19,][,4]) # WT  98  KO  125
+table(inko@meta.data[inko@meta.data$seurat_clusters==20,][,4]) # WT 150  KO   55
+table(inko@meta.data[inko@meta.data$seurat_clusters==21,][,4]) # WT  89  KO   71
+table(inko@meta.data[inko@meta.data$seurat_clusters==22,][,4]) # WT  71  KO   77
+table(inko@meta.data[inko@meta.data$seurat_clusters==23,][,4]) # WT  60  KO   69
+table(inko@meta.data[inko@meta.data$seurat_clusters==24,][,4]) # WT  56  KO   69
+table(inko@meta.data[inko@meta.data$seurat_clusters==25,][,4]) # WT  74  KO   45
+table(inko@meta.data[inko@meta.data$seurat_clusters==26,][,4]) # WT  68  KO   36
+table(inko@meta.data[inko@meta.data$seurat_clusters==27,][,4]) # WT  43  KO   53
+table(inko@meta.data[inko@meta.data$seurat_clusters==28,][,4]) # WT  50  KO   35
+table(inko@meta.data[inko@meta.data$seurat_clusters==29,][,4]) # WT  48  KO   36
+
+
+### DEGs
+inko@meta.data[1:5,]
+inko$celltype.ko <- paste(inko$seurat_clusters, inko$group, sep = "_")
+inko@meta.data[1:5,]
+Idents(inko) <- "celltype.ko"
+Cluster0.KO.DEGs <- FindMarkers(inko, ident.1 = "0_KO", ident.2 = "0_WT", verbose = FALSE)
+head(Cluster0.KO.DEGs, n = 10)
+dim(Cluster0.KO.DEGs[Cluster0.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 -> 204
+dim(Cluster0.KO.DEGs[Cluster0.KO.DEGs$p_val_adj<0.01,]) ## FDR < 0.01 -> 174
+
+Cluster0.KO.DEGs <- FindMarkers(inko, ident.1 = "0_KO", ident.2 = "0_WT", verbose = FALSE)
+Cluster1.KO.DEGs <- FindMarkers(inko, ident.1 = "1_KO", ident.2 = "1_WT", verbose = FALSE)
+Cluster2.KO.DEGs <- FindMarkers(inko, ident.1 = "2_KO", ident.2 = "2_WT", verbose = FALSE)
+Cluster3.KO.DEGs <- FindMarkers(inko, ident.1 = "3_KO", ident.2 = "3_WT", verbose = FALSE)
+Cluster4.KO.DEGs <- FindMarkers(inko, ident.1 = "4_KO", ident.2 = "4_WT", verbose = FALSE)
+Cluster5.KO.DEGs <- FindMarkers(inko, ident.1 = "5_KO", ident.2 = "5_WT", verbose = FALSE)
+Cluster6.KO.DEGs <- FindMarkers(inko, ident.1 = "6_KO", ident.2 = "6_WT", verbose = FALSE)
+Cluster7.KO.DEGs <- FindMarkers(inko, ident.1 = "7_KO", ident.2 = "7_WT", verbose = FALSE)
+Cluster8.KO.DEGs <- FindMarkers(inko, ident.1 = "8_KO", ident.2 = "8_WT", verbose = FALSE)
+Cluster9.KO.DEGs <- FindMarkers(inko, ident.1 = "9_KO", ident.2 = "9_WT", verbose = FALSE)
+Cluster10.KO.DEGs <- FindMarkers(inko, ident.1 = "10_KO", ident.2 = "10_WT", verbose = FALSE)
+Cluster11.KO.DEGs <- FindMarkers(inko, ident.1 = "11_KO", ident.2 = "11_WT", verbose = FALSE)
+Cluster12.KO.DEGs <- FindMarkers(inko, ident.1 = "12_KO", ident.2 = "12_WT", verbose = FALSE)
+Cluster13.KO.DEGs <- FindMarkers(inko, ident.1 = "13_KO", ident.2 = "13_WT", verbose = FALSE)
+Cluster14.KO.DEGs <- FindMarkers(inko, ident.1 = "14_KO", ident.2 = "14_WT", verbose = FALSE)
+Cluster15.KO.DEGs <- FindMarkers(inko, ident.1 = "15_KO", ident.2 = "15_WT", verbose = FALSE)
+Cluster16.KO.DEGs <- FindMarkers(inko, ident.1 = "16_KO", ident.2 = "16_WT", verbose = FALSE)
+Cluster17.KO.DEGs <- FindMarkers(inko, ident.1 = "17_KO", ident.2 = "17_WT", verbose = FALSE)
+Cluster18.KO.DEGs <- FindMarkers(inko, ident.1 = "18_KO", ident.2 = "18_WT", verbose = FALSE)
+Cluster19.KO.DEGs <- FindMarkers(inko, ident.1 = "19_KO", ident.2 = "19_WT", verbose = FALSE)
+Cluster20.KO.DEGs <- FindMarkers(inko, ident.1 = "20_KO", ident.2 = "20_WT", verbose = FALSE)
+Cluster21.KO.DEGs <- FindMarkers(inko, ident.1 = "21_KO", ident.2 = "21_WT", verbose = FALSE)
+Cluster22.KO.DEGs <- FindMarkers(inko, ident.1 = "22_KO", ident.2 = "22_WT", verbose = FALSE)
+Cluster23.KO.DEGs <- FindMarkers(inko, ident.1 = "23_KO", ident.2 = "23_WT", verbose = FALSE)
+Cluster24.KO.DEGs <- FindMarkers(inko, ident.1 = "24_KO", ident.2 = "24_WT", verbose = FALSE)
+Cluster25.KO.DEGs <- FindMarkers(inko, ident.1 = "25_KO", ident.2 = "25_WT", verbose = FALSE)
+Cluster26.KO.DEGs <- FindMarkers(inko, ident.1 = "26_KO", ident.2 = "26_WT", verbose = FALSE)
+Cluster27.KO.DEGs <- FindMarkers(inko, ident.1 = "27_KO", ident.2 = "27_WT", verbose = FALSE)
+Cluster28.KO.DEGs <- FindMarkers(inko, ident.1 = "28_KO", ident.2 = "28_WT", verbose = FALSE)
+Cluster29.KO.DEGs <- FindMarkers(inko, ident.1 = "29_KO", ident.2 = "29_WT", verbose = FALSE)
+
+## FDR < 0.05
+dim(Cluster0.KO.DEGs[Cluster0.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 -> 204
+dim(Cluster1.KO.DEGs[Cluster1.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 -> 414
+dim(Cluster2.KO.DEGs[Cluster2.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 -> 103
+dim(Cluster3.KO.DEGs[Cluster3.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 -> 599
+dim(Cluster4.KO.DEGs[Cluster4.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 -> 441
+dim(Cluster5.KO.DEGs[Cluster5.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 -> 524
+dim(Cluster6.KO.DEGs[Cluster6.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 ->  57
+dim(Cluster7.KO.DEGs[Cluster7.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 -> 105
+dim(Cluster8.KO.DEGs[Cluster8.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 ->  91
+dim(Cluster9.KO.DEGs[Cluster9.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 ->  11
+dim(Cluster10.KO.DEGs[Cluster10.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 -> 6
+dim(Cluster11.KO.DEGs[Cluster11.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 -> 3
+dim(Cluster12.KO.DEGs[Cluster12.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 -> 3
+dim(Cluster13.KO.DEGs[Cluster13.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 ->24
+dim(Cluster14.KO.DEGs[Cluster14.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 -> 1
+dim(Cluster15.KO.DEGs[Cluster15.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 ->45
+dim(Cluster16.KO.DEGs[Cluster16.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 -> 5
+dim(Cluster17.KO.DEGs[Cluster17.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 -> 5
+dim(Cluster18.KO.DEGs[Cluster18.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 -> 1
+dim(Cluster19.KO.DEGs[Cluster19.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 -> 5
+dim(Cluster20.KO.DEGs[Cluster20.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 -> 4
+dim(Cluster21.KO.DEGs[Cluster21.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 -> 1
+dim(Cluster22.KO.DEGs[Cluster22.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 -> 1
+dim(Cluster23.KO.DEGs[Cluster23.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 -> 2
+dim(Cluster24.KO.DEGs[Cluster24.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 -> 3
+dim(Cluster25.KO.DEGs[Cluster25.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 -> 1
+dim(Cluster26.KO.DEGs[Cluster26.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 -> 1
+dim(Cluster27.KO.DEGs[Cluster27.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 -> 0
+dim(Cluster28.KO.DEGs[Cluster28.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 -> 1
+dim(Cluster29.KO.DEGs[Cluster29.KO.DEGs$p_val_adj<0.05,]) ## FDR < 0.05 -> 1
+
+
+## FDR < 0.05 & avg_log2FC >0 (Up-DEGs) 
+dim(Cluster0.KO.DEGs[Cluster0.KO.DEGs$p_val_adj<0.05 & Cluster0.KO.DEGs$avg_log2FC>0,]) ## 19
+dim(Cluster1.KO.DEGs[Cluster1.KO.DEGs$p_val_adj<0.05 & Cluster1.KO.DEGs$avg_log2FC>0,]) ## 24
+dim(Cluster2.KO.DEGs[Cluster2.KO.DEGs$p_val_adj<0.05 & Cluster2.KO.DEGs$avg_log2FC>0,]) ## 20
+dim(Cluster3.KO.DEGs[Cluster3.KO.DEGs$p_val_adj<0.05 & Cluster3.KO.DEGs$avg_log2FC>0,]) ## 53
+dim(Cluster4.KO.DEGs[Cluster4.KO.DEGs$p_val_adj<0.05 & Cluster4.KO.DEGs$avg_log2FC>0,]) ## 36
+dim(Cluster5.KO.DEGs[Cluster5.KO.DEGs$p_val_adj<0.05 & Cluster5.KO.DEGs$avg_log2FC>0,]) ## 15
+dim(Cluster6.KO.DEGs[Cluster6.KO.DEGs$p_val_adj<0.05 & Cluster6.KO.DEGs$avg_log2FC>0,]) ##  9
+dim(Cluster7.KO.DEGs[Cluster7.KO.DEGs$p_val_adj<0.05 & Cluster7.KO.DEGs$avg_log2FC>0,]) ## 14
+dim(Cluster8.KO.DEGs[Cluster8.KO.DEGs$p_val_adj<0.05 & Cluster8.KO.DEGs$avg_log2FC>0,]) ## 12
+dim(Cluster9.KO.DEGs[Cluster9.KO.DEGs$p_val_adj<0.05 & Cluster9.KO.DEGs$avg_log2FC>0,]) ##  5
+dim(Cluster10.KO.DEGs[Cluster10.KO.DEGs$p_val_adj<0.05 & Cluster10.KO.DEGs$avg_log2FC>0,]) ## 4 
+dim(Cluster11.KO.DEGs[Cluster11.KO.DEGs$p_val_adj<0.05 & Cluster11.KO.DEGs$avg_log2FC>0,]) ## 1
+dim(Cluster12.KO.DEGs[Cluster12.KO.DEGs$p_val_adj<0.05 & Cluster12.KO.DEGs$avg_log2FC>0,]) ## 2
+dim(Cluster13.KO.DEGs[Cluster13.KO.DEGs$p_val_adj<0.05 & Cluster13.KO.DEGs$avg_log2FC>0,]) ## 8
+dim(Cluster14.KO.DEGs[Cluster14.KO.DEGs$p_val_adj<0.05 & Cluster14.KO.DEGs$avg_log2FC>0,]) ## 1
+dim(Cluster15.KO.DEGs[Cluster15.KO.DEGs$p_val_adj<0.05 & Cluster15.KO.DEGs$avg_log2FC>0,]) ## 45
+dim(Cluster16.KO.DEGs[Cluster16.KO.DEGs$p_val_adj<0.05 & Cluster16.KO.DEGs$avg_log2FC>0,]) ## 1
+dim(Cluster17.KO.DEGs[Cluster17.KO.DEGs$p_val_adj<0.05 & Cluster17.KO.DEGs$avg_log2FC>0,]) ## 3
+dim(Cluster18.KO.DEGs[Cluster18.KO.DEGs$p_val_adj<0.05 & Cluster18.KO.DEGs$avg_log2FC>0,]) ## 1
+dim(Cluster19.KO.DEGs[Cluster19.KO.DEGs$p_val_adj<0.05 & Cluster19.KO.DEGs$avg_log2FC>0,]) ## 3
+dim(Cluster20.KO.DEGs[Cluster20.KO.DEGs$p_val_adj<0.05 & Cluster20.KO.DEGs$avg_log2FC>0,]) ## 1
+dim(Cluster21.KO.DEGs[Cluster21.KO.DEGs$p_val_adj<0.05 & Cluster21.KO.DEGs$avg_log2FC>0,]) ## 1
+dim(Cluster22.KO.DEGs[Cluster22.KO.DEGs$p_val_adj<0.05 & Cluster22.KO.DEGs$avg_log2FC>0,]) ## 1
+dim(Cluster23.KO.DEGs[Cluster23.KO.DEGs$p_val_adj<0.05 & Cluster23.KO.DEGs$avg_log2FC>0,]) ## 1
+dim(Cluster24.KO.DEGs[Cluster24.KO.DEGs$p_val_adj<0.05 & Cluster24.KO.DEGs$avg_log2FC>0,]) ## 1
+dim(Cluster25.KO.DEGs[Cluster25.KO.DEGs$p_val_adj<0.05 & Cluster25.KO.DEGs$avg_log2FC>0,]) ## 1
+dim(Cluster26.KO.DEGs[Cluster26.KO.DEGs$p_val_adj<0.05 & Cluster26.KO.DEGs$avg_log2FC>0,]) ## 1
+dim(Cluster27.KO.DEGs[Cluster27.KO.DEGs$p_val_adj<0.05 & Cluster27.KO.DEGs$avg_log2FC>0,]) ## 0
+dim(Cluster28.KO.DEGs[Cluster28.KO.DEGs$p_val_adj<0.05 & Cluster28.KO.DEGs$avg_log2FC>0,]) ## 1
+dim(Cluster29.KO.DEGs[Cluster29.KO.DEGs$p_val_adj<0.05 & Cluster29.KO.DEGs$avg_log2FC>0,]) ## 1
+
+## FDR < 0.05 & avg_log2FC <0 (Down-DEGs)
+dim(Cluster0.KO.DEGs[Cluster0.KO.DEGs$p_val_adj<0.05 & Cluster0.KO.DEGs$avg_log2FC<0,]) ## 185
+dim(Cluster1.KO.DEGs[Cluster1.KO.DEGs$p_val_adj<0.05 & Cluster1.KO.DEGs$avg_log2FC<0,]) ## 390
+dim(Cluster2.KO.DEGs[Cluster2.KO.DEGs$p_val_adj<0.05 & Cluster2.KO.DEGs$avg_log2FC<0,]) ##  83
+dim(Cluster3.KO.DEGs[Cluster3.KO.DEGs$p_val_adj<0.05 & Cluster3.KO.DEGs$avg_log2FC<0,]) ## 546
+dim(Cluster4.KO.DEGs[Cluster4.KO.DEGs$p_val_adj<0.05 & Cluster4.KO.DEGs$avg_log2FC<0,]) ## 405
+dim(Cluster5.KO.DEGs[Cluster5.KO.DEGs$p_val_adj<0.05 & Cluster5.KO.DEGs$avg_log2FC<0,]) ## 509
+dim(Cluster6.KO.DEGs[Cluster6.KO.DEGs$p_val_adj<0.05 & Cluster6.KO.DEGs$avg_log2FC<0,]) ##  48
+dim(Cluster7.KO.DEGs[Cluster7.KO.DEGs$p_val_adj<0.05 & Cluster7.KO.DEGs$avg_log2FC<0,]) ##  91
+dim(Cluster8.KO.DEGs[Cluster8.KO.DEGs$p_val_adj<0.05 & Cluster8.KO.DEGs$avg_log2FC<0,]) ##  79
+dim(Cluster9.KO.DEGs[Cluster9.KO.DEGs$p_val_adj<0.05 & Cluster9.KO.DEGs$avg_log2FC<0,]) ##   6
+dim(Cluster10.KO.DEGs[Cluster10.KO.DEGs$p_val_adj<0.05 & Cluster10.KO.DEGs$avg_log2FC<0,]) ## 2
+dim(Cluster11.KO.DEGs[Cluster11.KO.DEGs$p_val_adj<0.05 & Cluster11.KO.DEGs$avg_log2FC<0,]) ## 2
+dim(Cluster12.KO.DEGs[Cluster12.KO.DEGs$p_val_adj<0.05 & Cluster12.KO.DEGs$avg_log2FC<0,]) ## 1
+dim(Cluster13.KO.DEGs[Cluster13.KO.DEGs$p_val_adj<0.05 & Cluster13.KO.DEGs$avg_log2FC<0,]) ## 16
+dim(Cluster14.KO.DEGs[Cluster14.KO.DEGs$p_val_adj<0.05 & Cluster14.KO.DEGs$avg_log2FC<0,]) ## 0
+dim(Cluster15.KO.DEGs[Cluster15.KO.DEGs$p_val_adj<0.05 & Cluster15.KO.DEGs$avg_log2FC<0,]) ## 0
+dim(Cluster16.KO.DEGs[Cluster16.KO.DEGs$p_val_adj<0.05 & Cluster16.KO.DEGs$avg_log2FC<0,]) ## 4
+dim(Cluster17.KO.DEGs[Cluster17.KO.DEGs$p_val_adj<0.05 & Cluster17.KO.DEGs$avg_log2FC<0,]) ## 2
+dim(Cluster18.KO.DEGs[Cluster18.KO.DEGs$p_val_adj<0.05 & Cluster18.KO.DEGs$avg_log2FC<0,]) ## 0
+dim(Cluster19.KO.DEGs[Cluster19.KO.DEGs$p_val_adj<0.05 & Cluster19.KO.DEGs$avg_log2FC<0,]) ## 2
+dim(Cluster20.KO.DEGs[Cluster20.KO.DEGs$p_val_adj<0.05 & Cluster20.KO.DEGs$avg_log2FC<0,]) ## 3
+dim(Cluster21.KO.DEGs[Cluster21.KO.DEGs$p_val_adj<0.05 & Cluster21.KO.DEGs$avg_log2FC<0,]) ## 0
+dim(Cluster22.KO.DEGs[Cluster22.KO.DEGs$p_val_adj<0.05 & Cluster22.KO.DEGs$avg_log2FC<0,]) ## 0
+dim(Cluster23.KO.DEGs[Cluster23.KO.DEGs$p_val_adj<0.05 & Cluster23.KO.DEGs$avg_log2FC<0,]) ## 1
+dim(Cluster24.KO.DEGs[Cluster24.KO.DEGs$p_val_adj<0.05 & Cluster24.KO.DEGs$avg_log2FC<0,]) ## 2
+dim(Cluster25.KO.DEGs[Cluster25.KO.DEGs$p_val_adj<0.05 & Cluster25.KO.DEGs$avg_log2FC<0,]) ## 0
+dim(Cluster26.KO.DEGs[Cluster26.KO.DEGs$p_val_adj<0.05 & Cluster26.KO.DEGs$avg_log2FC<0,]) ## 0
+dim(Cluster27.KO.DEGs[Cluster27.KO.DEGs$p_val_adj<0.05 & Cluster27.KO.DEGs$avg_log2FC<0,]) ## 0
+dim(Cluster28.KO.DEGs[Cluster28.KO.DEGs$p_val_adj<0.05 & Cluster28.KO.DEGs$avg_log2FC<0,]) ## 0
+dim(Cluster29.KO.DEGs[Cluster29.KO.DEGs$p_val_adj<0.05 & Cluster29.KO.DEGs$avg_log2FC<0,]) ## 0
+
+## Save the comparisons
+write.table(Cluster0.KO.DEGs,file="DEGs_Cluster_0.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster1.KO.DEGs,file="DEGs_Cluster_1.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster2.KO.DEGs,file="DEGs_Cluster_2.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster3.KO.DEGs,file="DEGs_Cluster_3.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster4.KO.DEGs,file="DEGs_Cluster_4.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster5.KO.DEGs,file="DEGs_Cluster_5.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster6.KO.DEGs,file="DEGs_Cluster_6.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster7.KO.DEGs,file="DEGs_Cluster_7.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster8.KO.DEGs,file="DEGs_Cluster_8.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster9.KO.DEGs,file="DEGs_Cluster_9.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster10.KO.DEGs,file="DEGs_Cluster_10.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster11.KO.DEGs,file="DEGs_Cluster_11.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster12.KO.DEGs,file="DEGs_Cluster_12.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster13.KO.DEGs,file="DEGs_Cluster_13.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster14.KO.DEGs,file="DEGs_Cluster_14.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster15.KO.DEGs,file="DEGs_Cluster_15.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster16.KO.DEGs,file="DEGs_Cluster_16.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster17.KO.DEGs,file="DEGs_Cluster_17.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster18.KO.DEGs,file="DEGs_Cluster_18.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster19.KO.DEGs,file="DEGs_Cluster_19.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster20.KO.DEGs,file="DEGs_Cluster_20.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster21.KO.DEGs,file="DEGs_Cluster_21.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster22.KO.DEGs,file="DEGs_Cluster_22.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster23.KO.DEGs,file="DEGs_Cluster_23.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster24.KO.DEGs,file="DEGs_Cluster_24.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster25.KO.DEGs,file="DEGs_Cluster_25.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster26.KO.DEGs,file="DEGs_Cluster_26.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster27.KO.DEGs,file="DEGs_Cluster_27.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster28.KO.DEGs,file="DEGs_Cluster_28.xls",sep="\t",row.names=T,quote=F)
+write.table(Cluster29.KO.DEGs,file="DEGs_Cluster_29.xls",sep="\t",row.names=T,quote=F)
+
+### Save the entire workspace 
+save.image(file="Jerry_inKO2024_SeuratObject_AfterDEG_20240412.RData")
+
+
+
+7. cluster names
+
+library(Seurat)
+library(magrittr) ## %>% pipe operator
+library(dplyr)
+library(tidyr)
+library(Matrix)
+library("reshape2")
+library("gplots")
+library("ggplot2")
+packageVersion("Seurat") ## [1] ‘5.0.3’
+
+load("Jerry_inKO2024_SeuratObject_AfterDEG_20240412.RData")
+
+
+
+####################################################
+####  AggregateExpression for “pseudobulk” profiles
+#####################################################
+# We can aggregate cells of a similar type and condition together to create “pseudobulk” profiles 
+# using the AggregateExpression command. As an initial exploratory analysis, we can compare 
+# pseudobulk profiles of two cell types (naive CD4 T cells, and CD14 monocytes), and compare 
+# their gene expression profiles before and after stimulation. 
+library(cowplot)
+theme_set(theme_cowplot())
+aggregate_inko <- AggregateExpression(inko, group.by = c("seurat_clusters", "group"), return.seurat = TRUE)
+features <- rownames(x = aggregate_inko)
+
+
+#### Cluster 0 ###
+data0 <- FetchData(object = aggregate_inko, vars = features, cells = c("g0_WT", "g0_KO"))
+data0 <- as.data.frame(x = t(x = data0))
+data0[1:5,]
+
+gene0 <- read.table("DEGs_Cluster_0.xls",sep="\t",header=T, row.names=1)
+gene0[1:5,]
+gene0_up <- rownames(gene0[gene0$avg_log2FC > 0 & gene0$p_val_adj < 0.05,])
+gene0_down <- rownames(gene0[gene0$avg_log2FC < 0 & gene0$p_val_adj < 0.05,])
+data0_up <- data0[gene0_up,]
+data0_down <- data0[gene0_down,]
+dim(data0_up) # 19
+dim(data0_down) # 185
+
+pdf("AggregatePlot_Cluster0.pdf")
+plot(data0$g0_WT, data0$g0_KO, xlim=c(0,5),ylim=c(0,5),pch=21, col="gray28", bg=rgb(127,127,127,max=255), cex=1.5)
+points(data0_up$g0_WT, data0_up$g0_KO,pch=21, col="hotpink4", bg="hotpink", cex=1.5)
+points(data0_down$g0_WT, data0_down$g0_KO, pch=21, col="seagreen4", bg="seagreen1", cex=1.5)
+dev.off()
+
+
+#### Cluster 1 ###
+data1 <- FetchData(object = aggregate_inko, vars = features, cells = c("g1_WT", "g1_KO"))
+data1 <- as.data.frame(x = t(x = data1))
+data1[1:5,]
+
+gene1 <- read.table("DEGs_Cluster_1.xls",sep="\t",header=T, row.names=1)
+gene1[1:5,]
+gene1_up <- rownames(gene1[gene1$avg_log2FC > 0 & gene1$p_val_adj < 0.05,])
+gene1_down <- rownames(gene1[gene1$avg_log2FC < 0 & gene1$p_val_adj < 0.05,])
+data1_up <- data1[gene1_up,]
+data1_down <- data1[gene1_down,]
+dim(data1_up) # 24
+dim(data1_down) # 390
+
+pdf("AggregatePlot_Cluster1.pdf")
+plot(data1$g1_WT, data1$g1_KO, xlim=c(0,5),ylim=c(0,5),pch=21, col="gray28", bg=rgb(127,127,127,max=255), cex=1.5)
+points(data1_up$g1_WT, data1_up$g1_KO,pch=21, col="hotpink4", bg="hotpink", cex=1.5)
+points(data1_down$g1_WT, data1_down$g1_KO, pch=21, col="seagreen4", bg="seagreen1", cex=1.5)
+dev.off()
+
+
+#### Cluster 2 ###
+data2 <- FetchData(object = aggregate_inko, vars = features, cells = c("g2_WT", "g2_KO"))
+data2 <- as.data.frame(x = t(x = data2))
+data2[1:5,]
+
+gene2 <- read.table("DEGs_Cluster_2.xls",sep="\t",header=T, row.names=1)
+gene2[1:5,]
+gene2_up <- rownames(gene2[gene2$avg_log2FC > 0 & gene2$p_val_adj < 0.05,])
+gene2_down <- rownames(gene2[gene2$avg_log2FC < 0 & gene2$p_val_adj < 0.05,])
+data2_up <- data2[gene2_up,]
+data2_down <- data2[gene2_down,]
+dim(data2_up) # 20
+dim(data2_down) # 83
+
+pdf("AggregatePlot_Cluster2.pdf")
+plot(data2$g2_WT, data2$g2_KO, xlim=c(0,5),ylim=c(0,5),pch=21, col="gray28", bg=rgb(127,127,127,max=255), cex=1.5)
+points(data2_up$g2_WT, data2_up$g2_KO,pch=21, col="hotpink4", bg="hotpink", cex=1.5)
+points(data2_down$g2_WT, data2_down$g2_KO, pch=21, col="seagreen4", bg="seagreen1", cex=1.5)
+dev.off()
+
+
+#### Cluster 3 ###
+data3 <- FetchData(object = aggregate_inko, vars = features, cells = c("g3_WT", "g3_KO"))
+data3 <- as.data.frame(x = t(x = data3))
+data3[1:5,]
+
+gene3 <- read.table("DEGs_Cluster_3.xls",sep="\t",header=T, row.names=1)
+gene3[1:5,]
+gene3_up <- rownames(gene3[gene3$avg_log2FC > 0 & gene3$p_val_adj < 0.05,])
+gene3_down <- rownames(gene3[gene3$avg_log2FC < 0 & gene3$p_val_adj < 0.05,])
+data3_up <- data3[gene3_up,]
+data3_down <- data3[gene3_down,]
+dim(data3_up) # 53
+dim(data3_down) # 546
+
+pdf("AggregatePlot_Cluster3.pdf")
+plot(data3$g3_WT, data3$g3_KO, xlim=c(0,4),ylim=c(0,4),pch=21, col="gray28", bg=rgb(127,127,127,max=255), cex=1.5)
+points(data3_up$g3_WT, data3_up$g3_KO,pch=21, col="hotpink4", bg="hotpink", cex=1.5)
+points(data3_down$g3_WT, data3_down$g3_KO, pch=21, col="seagreen4", bg="seagreen1", cex=1.5)
+dev.off()
+
+
+#### Cluster 4 ###
+data4 <- FetchData(object = aggregate_inko, vars = features, cells = c("g4_WT", "g4_KO"))
+data4 <- as.data.frame(x = t(x = data4))
+data4[1:5,]
+
+gene4 <- read.table("DEGs_Cluster_4.xls",sep="\t",header=T, row.names=1)
+gene4[1:5,]
+gene4_up <- rownames(gene4[gene4$avg_log2FC > 0 & gene4$p_val_adj < 0.05,])
+gene4_down <- rownames(gene4[gene4$avg_log2FC < 0 & gene4$p_val_adj < 0.05,])
+data4_up <- data4[gene4_up,]
+data4_down <- data4[gene4_down,]
+dim(data4_up) # 36
+dim(data4_down) # 405
+
+pdf("AggregatePlot_Cluster4.pdf")
+plot(data4$g4_WT, data4$g4_KO, xlim=c(0,5),ylim=c(0,5),pch=21, col="gray28", bg=rgb(127,127,127,max=255), cex=1.5)
+points(data4_up$g4_WT, data4_up$g4_KO,pch=21, col="hotpink4", bg="hotpink", cex=1.5)
+points(data4_down$g4_WT, data4_down$g4_KO, pch=21, col="seagreen4", bg="seagreen1", cex=1.5)
+dev.off()
+
+
+#### Cluster 5 ###
+data5 <- FetchData(object = aggregate_inko, vars = features, cells = c("g5_WT", "g5_KO"))
+data5 <- as.data.frame(x = t(x = data5))
+data5[1:5,]
+
+gene5 <- read.table("DEGs_Cluster_5.xls",sep="\t",header=T, row.names=1)
+gene5[1:5,]
+gene5_up <- rownames(gene5[gene5$avg_log2FC > 0 & gene5$p_val_adj < 0.05,])
+gene5_down <- rownames(gene5[gene5$avg_log2FC < 0 & gene5$p_val_adj < 0.05,])
+data5_up <- data5[gene5_up,]
+data5_down <- data5[gene5_down,]
+dim(data5_up) # 15
+dim(data5_down) # 509
+
+pdf("AggregatePlot_Cluster5.pdf")
+plot(data5$g5_WT, data5$g5_KO, xlim=c(0,4),ylim=c(0,4),pch=21, col="gray28", bg=rgb(127,127,127,max=255), cex=1.5)
+points(data5_up$g5_WT, data5_up$g5_KO,pch=21, col="hotpink4", bg="hotpink", cex=1.5)
+points(data5_down$g5_WT, data5_down$g5_KO, pch=21, col="seagreen4", bg="seagreen1", cex=1.5)
+dev.off()
+
+
+#### Cluster 6 ###
+data6 <- FetchData(object = aggregate_inko, vars = features, cells = c("g6_WT", "g6_KO"))
+data6 <- as.data.frame(x = t(x = data6))
+data6[1:5,]
+
+gene6 <- read.table("DEGs_Cluster_6.xls",sep="\t",header=T, row.names=1)
+gene6[1:5,]
+gene6_up <- rownames(gene6[gene6$avg_log2FC > 0 & gene6$p_val_adj < 0.05,])
+gene6_down <- rownames(gene6[gene6$avg_log2FC < 0 & gene6$p_val_adj < 0.05,])
+data6_up <- data6[gene6_up,]
+data6_down <- data6[gene6_down,]
+dim(data6_up) # 9
+dim(data6_down) # 48
+
+pdf("AggregatePlot_Cluster6.pdf")
+plot(data6$g6_WT, data6$g6_KO, xlim=c(0,8),ylim=c(0,8),pch=21, col="gray28", bg=rgb(127,127,127,max=255), cex=1.5)
+points(data6_up$g6_WT, data6_up$g6_KO,pch=21, col="hotpink4", bg="hotpink", cex=1.5)
+points(data6_down$g6_WT, data6_down$g6_KO, pch=21, col="seagreen4", bg="seagreen1", cex=1.5)
+dev.off()
+
+
+#### Cluster 7 ###
+data7 <- FetchData(object = aggregate_inko, vars = features, cells = c("g7_WT", "g7_KO"))
+data7 <- as.data.frame(x = t(x = data7))
+data7[1:5,]
+ 
+gene7 <- read.table("DEGs_Cluster_7.xls",sep="\t",header=T, row.names=1)
+gene7[1:5,]
+gene7_up <- rownames(gene7[gene7$avg_log2FC > 0 & gene7$p_val_adj < 0.05,])
+gene7_down <- rownames(gene7[gene7$avg_log2FC < 0 & gene7$p_val_adj < 0.05,])
+data7_up <- data7[gene7_up,]
+data7_down <- data7[gene7_down,]
+dim(data7_up) # 14
+dim(data7_down) # 91
+
+pdf("AggregatePlot_Cluster7.pdf")
+plot(data7$g7_WT, data7$g7_KO, xlim=c(0,4),ylim=c(0,4),pch=21, col="gray28", bg=rgb(127,127,127,max=255), cex=1.5)
+points(data7_up$g7_WT, data7_up$g7_KO,pch=21, col="hotpink4", bg="hotpink", cex=1.5)
+points(data7_down$g7_WT, data7_down$g7_KO, pch=21, col="seagreen4", bg="seagreen1", cex=1.5)
+dev.off()
+
+
+#### Cluster 8 ###
+data8 <- FetchData(object = aggregate_inko, vars = features, cells = c("g8_WT", "g8_KO"))
+data8 <- as.data.frame(x = t(x = data8))
+data8[1:5,]
+ 
+gene8 <- read.table("DEGs_Cluster_8.xls",sep="\t",header=T, row.names=1)
+gene8[1:5,]
+gene8_up <- rownames(gene8[gene8$avg_log2FC > 0 & gene8$p_val_adj < 0.05,])
+gene8_down <- rownames(gene8[gene8$avg_log2FC < 0 & gene8$p_val_adj < 0.05,])
+data8_up <- data8[gene8_up,]
+data8_down <- data8[gene8_down,]
+dim(data8_up) # 12
+dim(data8_down) # 79
+
+pdf("AggregatePlot_Cluster8.pdf")
+plot(data8$g8_WT, data8$g8_KO, xlim=c(0,4),ylim=c(0,4),pch=21, col="gray28", bg=rgb(127,127,127,max=255), cex=1.5)
+points(data8_up$g8_WT, data8_up$g8_KO,pch=21, col="hotpink4", bg="hotpink", cex=1.5)
+points(data8_down$g8_WT, data8_down$g8_KO, pch=21, col="seagreen4", bg="seagreen1", cex=1.5)
+dev.off()
+
+
+
+
+

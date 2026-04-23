@@ -1,0 +1,29 @@
+Readme:
+
+1. Rename the FASTQ files
+mv HCKO1_CKDL230040267-1A_22GF7HLT3_L3_1.fq.gz Hs6st3_CMV_2023RNAseq_Hippocampus_KO_rep1_1.fastq.gz
+mv HCKO1_CKDL230040267-1A_22GF7HLT3_L3_2.fq.gz Hs6st3_CMV_2023RNAseq_Hippocampus_KO_rep1_2.fastq.gz
+mv HCKO2_CKDL230040268-1A_22GF7HLT3_L3_1.fq.gz Hs6st3_CMV_2023RNAseq_Hippocampus_KO_rep2_1.fastq.gz
+mv HCKO2_CKDL230040268-1A_22GF7HLT3_L3_2.fq.gz Hs6st3_CMV_2023RNAseq_Hippocampus_KO_rep2_2.fastq.gz
+mv HCKO3_CKDL230040269-1A_22GF7HLT3_L3_1.fq.gz Hs6st3_CMV_2023RNAseq_Hippocampus_KO_rep3_1.fastq.gz
+mv HCKO3_CKDL230040269-1A_22GF7HLT3_L3_2.fq.gz Hs6st3_CMV_2023RNAseq_Hippocampus_KO_rep3_2.fastq.gz
+mv HCKO4_CKDL230040270-1A_22GF7HLT3_L3_1.fq.gz Hs6st3_CMV_2023RNAseq_Hippocampus_KO_rep4_1.fastq.gz
+mv HCKO4_CKDL230040270-1A_22GF7HLT3_L3_2.fq.gz Hs6st3_CMV_2023RNAseq_Hippocampus_KO_rep4_2.fastq.gz
+mv HCKO5_CKDL230040271-1A_22GF7HLT3_L3_1.fq.gz Hs6st3_CMV_2023RNAseq_Hippocampus_KO_rep5_1.fastq.gz
+mv HCKO5_CKDL230040271-1A_22GF7HLT3_L3_2.fq.gz Hs6st3_CMV_2023RNAseq_Hippocampus_KO_rep5_2.fastq.gz
+
+mv HCWT1_CKDL230040262-1A_22GF7HLT3_L3_1.fq.gz Hs6st3_CMV_2023RNAseq_Hippocampus_WT_rep1_1.fastq.gz
+mv HCWT1_CKDL230040262-1A_22GF7HLT3_L3_2.fq.gz Hs6st3_CMV_2023RNAseq_Hippocampus_WT_rep1_2.fastq.gz
+mv HCWT2_CKDL230040263-1A_22GF7HLT3_L3_1.fq.gz Hs6st3_CMV_2023RNAseq_Hippocampus_WT_rep2_1.fastq.gz
+mv HCWT2_CKDL230040263-1A_22GF7HLT3_L3_2.fq.gz Hs6st3_CMV_2023RNAseq_Hippocampus_WT_rep2_2.fastq.gz
+mv HCWT3_CKDL230040264-1A_22GF7HLT3_L3_1.fq.gz Hs6st3_CMV_2023RNAseq_Hippocampus_WT_rep3_1.fastq.gz
+mv HCWT3_CKDL230040264-1A_22GF7HLT3_L3_2.fq.gz Hs6st3_CMV_2023RNAseq_Hippocampus_WT_rep3_2.fastq.gz
+mv HCWT4_CKDL230040265-1A_22GF7HLT3_L3_1.fq.gz Hs6st3_CMV_2023RNAseq_Hippocampus_WT_rep4_1.fastq.gz
+mv HCWT4_CKDL230040265-1A_22GF7HLT3_L3_2.fq.gz Hs6st3_CMV_2023RNAseq_Hippocampus_WT_rep4_2.fastq.gz
+mv HCWT5_CKDL230040266-1A_22GF7HLT3_L3_1.fq.gz Hs6st3_CMV_2023RNAseq_Hippocampus_WT_rep5_1.fastq.gz
+mv HCWT5_CKDL230040266-1A_22GF7HLT3_L3_2.fq.gz Hs6st3_CMV_2023RNAseq_Hippocampus_WT_rep5_2.fastq.gz
+
+
+gunzip *.gz 
+
+

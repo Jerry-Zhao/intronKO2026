@@ -1,0 +1,94 @@
+
+##### Cortex: WT vs HOMO ###### 
+library("DESeq2")
+options(width=300)
+
+countData <- read.table("Merged_Hs6st3iKO_RNAseq2022_male_cortex_hippocampus_whole_gene_Jerry.xls",sep="\t",header=T,row.names=1)
+countData[1:5,]
+countData2 <- countData[,c(1:10)]
+countData2[1:5,]
+
+colData2 <- data.frame(condition=c(
+  "Ctx_WT","Ctx_WT","Ctx_WT","Ctx_WT","Ctx_WT","Ctx_Homo","Ctx_Homo","Ctx_Homo","Ctx_Homo","Ctx_Homo"),
+  row.names=c(
+   "Cortex_WT1","Cortex_WT2","Cortex_WT3","Cortex_WT4","Cortex_WT5",
+   "Ctx_Homo1","Ctx_Homo2","Ctx_Homo3","Ctx_Homo4","Ctx_Homo5"))
+colData2
+
+dds <- DESeqDataSetFromMatrix(countData=countData2, colData=colData2, design=~condition)
+
+# keep <- rowSums(counts(dds)) >= 10 ## at least 10 reads total
+keep <- rowSums(counts(dds) >= 10) >= 3 ## at least 5 samples with >=10 counts; 5 = least replicate number
+dds <- dds[keep,]
+ 
+dds <- DESeq(dds) # Wald significance tests
+# dds <- DESeq(dds, test="LRT", reduced=~1) ## likelihood ratio test
+
+res <- results(dds,contrast=c("condition","Ctx_Homo","Ctx_WT"),alpha=0.05)
+resOrdered <- res[order(res$padj),]
+head(resOrdered)
+dim(as.data.frame(resOrdered))
+
+sum(resOrdered$padj < 0.05, na.rm=TRUE) ## Total DEG 14
+sum(resOrdered$padj < 0.05 & resOrdered$log2FoldChange>0, na.rm=TRUE) # Up 10
+sum(resOrdered$padj < 0.05 & resOrdered$log2FoldChange<0, na.rm=TRUE) # Down 4
+
+sum(resOrdered$padj < 0.01, na.rm=TRUE) ## Total DEG: FDR-0.01: 4
+sum(resOrdered$padj < 0.1, na.rm=TRUE) ## Total DEG:FDR-0.1:  20
+
+write.table(as.data.frame(resOrdered),file="DESeq2_Wald_Hs6st3iKO_RNAseq2022_male_Cortex_WT_HOMO_whole_gene.xls",sep="\t",quote=F)
+# write.table(as.data.frame(resOrdered),file="DESeq2_LRT_Hs6st3iKO_RNAseq2022_male_Cortex_WT_HOMO_whole_gene.xls",sep="\t",quote=F)
+
+
+
+
+
+
+
+
+##### Hippocampus: WT vs HOMO ###### 
+library("DESeq2")
+options(width=300)
+
+countData <- read.table("Merged_Hs6st3iKO_RNAseq2022_male_cortex_hippocampus_whole_gene_Jerry.xls",sep="\t",header=T,row.names=1)
+countData[1:5,]
+countData2 <- countData[,c(11:19)]
+countData2[1:5,]
+
+colData2 <- data.frame(condition=c(
+  "Hip_WT","Hip_WT","Hip_WT","Hip_WT","Hip_Homo","Hip_Homo","Hip_Homo","Hip_Homo","Hip_Homo"),
+  row.names=c(
+   "Hip_WT1","Hip_WT2","Hip_WT3","Hip_WT4",
+   "Hip_Homo1","Hip_Homo2","Hip_Homo3","Hip_Homo4","Hip_Homo5"))
+colData2
+
+dds <- DESeqDataSetFromMatrix(countData=countData2, colData=colData2, design=~condition)
+
+# keep <- rowSums(counts(dds)) >= 10 ## at least 10 reads total
+keep <- rowSums(counts(dds) >= 10) >= 3 ## at least 5 samples with >=10 counts; 5 = least replicate number
+dds <- dds[keep,]
+ 
+dds <- DESeq(dds) # Wald significance tests
+# dds <- DESeq(dds, test="LRT", reduced=~1) ## likelihood ratio test
+
+res <- results(dds,contrast=c("condition","Hip_Homo","Hip_WT"),alpha=0.05)
+resOrdered <- res[order(res$padj),]
+head(resOrdered)
+dim(as.data.frame(resOrdered))
+
+sum(resOrdered$padj < 0.05, na.rm=TRUE) ## Total DEG 2529
+sum(resOrdered$padj < 0.05 & resOrdered$log2FoldChange>0, na.rm=TRUE) # Up 815
+sum(resOrdered$padj < 0.05 & resOrdered$log2FoldChange<0, na.rm=TRUE) # Down 1714
+
+sum(resOrdered$padj < 0.01, na.rm=TRUE) ## Total DEG: FDR-0.01: 1475
+sum(resOrdered$padj < 0.1, na.rm=TRUE) ## Total DEG:FDR-0.1:  3351
+
+write.table(as.data.frame(resOrdered),file="DESeq2_Wald_Hs6st3iKO_RNAseq2022_male_Hippocampus_WT_HOMO_whole_gene.xls",sep="\t",quote=F)
+# write.table(as.data.frame(resOrdered),file="DESeq2_LRT_Hs6st3iKO_RNAseq2022_male_Hippocampus_WT_HOMO_whole_gene.xls",sep="\t",quote=F)
+
+# # CPM values
+#cpm_counts <- round(fpm(dds, robust = FALSE),3) # only count per million (CPM) 
+cpm_counts <- round(fpm(dds, robust = TRUE),3) # default, median of ratios method
+write.table(cpm_counts, file="DESeq2_CPM_Hs6st3iKO_RNAseq2022_male_Hippocampus_WT_HOMO_whole_gene.xls", sep="\t", quote=F)
+
+

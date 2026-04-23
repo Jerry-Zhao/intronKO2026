@@ -1,0 +1,32 @@
+
+## Hippocampus 
+total <- read.table("DESeq2_Wald_Hs6st3_CMV_2023RNAseq_Hippocampus_WT_KO_whole_gene.xls",header=T, sep="\t",row.names=1)
+total[1:5,]
+total2 <- total[complete.cases(total),] ## Remove padj-NA rows
+ 
+diffgene <- total2[total2$padj<0.05,]
+upgene <- diffgene[diffgene$log2FoldChange>0,]
+downgene <- diffgene[diffgene$log2FoldChange<0,]
+ 
+dim(total2)     # 17580
+dim(diffgene)  # 28
+dim(upgene)    # 22
+dim(downgene)  # 6
+
+summary(total2$log2FoldChange)
+#     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+# -6.39093 -0.05965 -0.00104  0.11033  0.10921  3.49436 
+summary(-log(total2$padj,10))
+0.00000  0.01148  0.02665  0.09531  0.08021 73.92746
+ 
+pdf("Volcano_plot_Hs6st3CMV_Hippocampus_whole_gene.pdf")
+plot(total2$log2FoldChange, -log(total2$padj,10), pch=21, col="gray28", bg=rgb(127,127,127,max=255), xlim=c(-4,4),ylim=c(0,20), cex=0.8)
+points(upgene$log2FoldChange, -log(upgene$padj,10), pch=21, col="hotpink4", bg="hotpink", cex=0.8)
+points(downgene$log2FoldChange, -log(downgene$padj,10), pch=21, col="seagreen4", bg="seagreen1", cex=0.8)
+dev.off()
+
+## Hs6st3 : log2FoldChange -6.390926 
+            padj           1.181803e-74 
+
+
+

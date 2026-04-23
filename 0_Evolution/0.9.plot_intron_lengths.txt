@@ -1,0 +1,127 @@
+
+### R 4.3.3
+### Vertebrate
+### Mammals
+human <- read.table("Intron_lengths_Homo_sapiens.GRCh38.100.xls", sep="\t",header=T)
+human2 <- human[order(-human$Length),]
+human2[1:5,]
+human100 <- human2[1:100,][,c(3,4)] 
+human100[1:5,]
+write.table(human2[1:100,],file="Extended_Table_Top100_long_introns_human.xls",sep="\t",quote=FALSE)
+
+mouse <- read.table("Intron_lengths_Mus_musculus.GRCm38.100.xls", sep="\t",header=T)
+mouse2 <- mouse[order(-mouse$Length),]
+mouse2[1:5,]
+mouse100 <- mouse2[1:100,][,c(3,4)]
+mouse100[1:5,]
+write.table(mouse2[1:100,],file="Extended_Table_Top100_long_introns_mouse.xls",sep="\t",quote=FALSE)
+
+
+### Birds
+chicken <- read.table("Intron_lengths_Gallus_gallus.GRCg6a.100.xls", sep="\t",header=T)
+chicken2 <- chicken[order(-chicken$Length),]
+chicken2[1:5,]
+chicken100 <- chicken2[1:100,][,c(3,4)]
+chicken100[1:5,]
+write.table(chicken2[1:100,],file="Extended_Table_Top100_long_introns_chicken.xls",sep="\t",quote=FALSE)
+
+finch <- read.table("Intron_lengths_Taeniopygia_guttata.bTaeGut1_v1.p.100.xls", sep="\t",header=T)
+finch2 <- finch[order(-finch$Length),]
+finch2[1:5,]
+finch100 <- finch2[1:100,][,c(3,4)]
+finch100[1:5,]
+write.table(finch2[1:100,],file="Extended_Table_Top100_long_introns_finch.xls",sep="\t",quote=FALSE)
+
+
+### Amphibians
+frog <- read.table("Intron_lengths_Xenopus_tropicalis.v9.1.100.xls", sep="\t",header=T)
+frog2 <- frog[order(-frog$Length),]
+frog2[1:5,]
+frog100 <- frog2[1:100,][,c(3,4)]
+frog100[1:5,]
+write.table(frog2[1:100,],file="Extended_Table_Top100_long_introns_frog.xls",sep="\t",quote=FALSE)
+
+toad <- read.table("Intron_lengths_Leptobrachium_leishanense.ASM966780v1.106.xls", sep="\t",header=T)
+toad2 <- toad[order(-toad$Length),]
+toad2[1:5,]
+toad100 <- toad2[1:100,][,c(3,4)]
+toad100[1:5,]
+write.table(toad2[1:100,],file="Extended_Table_Top100_long_introns_toad.xls",sep="\t",quote=FALSE)
+
+
+### Fishes 
+zebrafish <- read.table("Intron_lengths_Danio_rerio.GRCz11.100.xls", sep="\t",header=T)
+zebrafish2 <- zebrafish[order(-zebrafish$Length),]
+zebrafish2[1:5,]
+zebrafish100 <- zebrafish2[1:100,][,c(3,4)]
+zebrafish100[1:5,]
+write.table(zebrafish2[1:100,],file="Extended_Table_Top100_long_introns_zebrafish.xls",sep="\t",quote=FALSE)
+
+killifish <- read.table("Intron_lengths_Nothobranchius_furzeri.Nfu_20140520.106.xls", sep="\t",header=T)
+killifish2 <- killifish[order(-killifish$Length),]
+killifish2[1:5,]
+killifish100 <- killifish2[1:100,][,c(3,4)]
+killifish100[1:5,]
+write.table(killifish2[1:100,],file="Extended_Table_Top100_long_introns_killifish.xls",sep="\t",quote=FALSE)
+
+
+### Agnatha vertebrates 
+hagfish <- read.table("Intron_lengths_Eptatretus_burgeri.Eburgeri_3.2.100.xls", sep="\t",header=T)
+hagfish2 <- hagfish[order(-hagfish$Length),]
+hagfish2[1:5,]
+hagfish100 <- hagfish2[1:100,][,c(3,4)]
+hagfish100[1:5,]
+write.table(hagfish2[1:100,],file="Extended_Table_Top100_long_introns_hagfish.xls",sep="\t",quote=FALSE)
+ 
+
+#### Invertebrate
+fruitfly <- read.table("Intron_lengths_Drosophila_melanogaster.BDGP6.28.100.xls", sep="\t",header=T)
+fruitfly2 <- fruitfly[order(-fruitfly$Length),]
+fruitfly2[1:5,]
+fruitfly100 <- fruitfly2[1:100,][,c(3,4)]
+fruitfly100[1:5,]
+write.table(fruitfly2[1:100,],file="Extended_Table_Top100_long_introns_fruitfly.xls",sep="\t",quote=FALSE)
+ 
+worm <- read.table("Intron_lengths_Caenorhabditis_elegans.WBcel235.100.xls", sep="\t",header=T)
+worm2 <- worm[order(-worm$Length),]
+worm2[1:5,]
+worm100 <- worm2[1:100,][,c(3,4)]
+worm100[1:5,]
+write.table(worm2[1:100,],file="Extended_Table_Top100_long_introns_worm.xls",sep="\t",quote=FALSE)
+ 
+ciona <- read.table("Intron_lengths_Ciona_intestinalis.KH.100.xls", sep="\t",header=T)
+ciona2 <- ciona[order(-ciona$Length),]
+ciona2[1:5,]
+ciona100 <- ciona2[1:100,][,c(3,4)]
+ciona100[1:5,]
+write.table(ciona2[1:100,],file="Extended_Table_Top100_long_introns_ciona.xls",sep="\t",quote=FALSE)
+
+
+merged <- rbind(human100, mouse100, chicken100, finch100, frog100, toad100, zebrafish100, killifish100, hagfish100, fruitfly100, worm100, ciona100)
+merged[1:5,]
+
+### Boxplot
+pdf("Plot_Box_Intron_Lengths_12_species_Top100.pdf")
+boxplot(merged$Length~factor(merged$Name,levels=c("ciona","worm","fruitfly","hagfish","zebrafish", "killifish","frog","toad","chicken","zebrafinch","mouse","human")), col=c("grey","grey","grey","gold","gold","gold","gold","gold","gold","gold","deeppink","deeppink"), outcol="grey70",ylim=c(0,1000000))
+dev.off()
+
+
+merged1 <- rbind(fruitfly100, worm100, ciona100)
+summary(merged1$Length)
+#   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#   9563   12838   18149   38568   55271  268107 
+
+merged2 <- rbind(chicken100, finch100, frog100, toad100, zebrafish100, killifish100, hagfish100)
+summary(merged2$Length)
+#    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#  140427  162364  179420  183866  189902  757137 
+
+merged3 <- rbind(human100, mouse100)
+summary(merged3$Length)
+#    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#  281280  322705  391624  474498  487835 4384418 
+ 
+
+
+
+

@@ -1,0 +1,24 @@
+library("RColorBrewer")
+library("pheatmap")
+
+total <- read.table("DESeq2_Wald_Hs6st3iKO_RNAseq2022_male_Hippocampus_WT_HOMO_whole_gene.xls",header=T,row.names=1,sep="\t")
+total[1:5,]
+ 
+total2 <- na.omit(total) ## ## Remove rowas with NA
+degs <- total2[total2$padj<0.05,]
+dim(degs) ## 2529
+degs <- degs[order(-degs$log2FoldChange),]
+degs[1:5,]
+
+total_cpm <- read.table("DESeq2_CPM_Hs6st3iKO_RNAseq2022_male_Hippocampus_WT_HOMO_whole_gene.xls",header=T,row.names=1,sep="\t")
+degs2 <- total_cpm[row.names(degs),]
+dim(degs2) ## 2529 
+
+degs2[1:5,]
+deg_zscore <- t(scale(t(degs2)))
+ 
+pdf("DESeq2_CPM_Hippocampus_inKO_WT_DEGs_zscore_heatmap.pdf")
+pheatmap(deg_zscore, color = colorRampPalette(rev(brewer.pal(n =5, name ="RdYlGn")))(500), breaks = seq(-2, 2, length.out = 500), cluster_cols = FALSE, cluster_rows=FALSE)
+dev.off()
+
+

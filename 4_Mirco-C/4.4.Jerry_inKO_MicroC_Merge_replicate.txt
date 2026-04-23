@@ -1,0 +1,242 @@
+1. Merge the replicates from pai files 
+# merge-pairs.sh  from pairix/util 
+# will create output.pairs.gz and output.gz.px2
+./merge-pairs.sh MicroC_inKO_Hippo_WT_mapped MicroC_inKO_Hippo_WT1_mapped.pairs.gz MicroC_inKO_Hippo_WT2_mapped.pairs.gz
+
+./merge-pairs.sh MicroC_inKO_Hippo_KO_mapped MicroC_inKO_Hippo_KO1_mapped.pairs.gz MicroC_inKO_Hippo_KO2_mapped.pairs.gz
+
+
+2. Generating HiC contact maps using Juicer tools
+# Juicer Tools is used to convert .pairs file into a HiC contact matrix.
+# HiC is highly compressed binary representation of the contact matrix
+# Provides rapid random access to any genomic region matrix
+# Stores contact matrix at 9 different resolutions (2.5M, 1M, 500K, 250K, 100K, 
+# 50K, 25K, 10K, and 5K)
+
+# The .pairs file that you generated in the From fastq to final valid pairs bam file 
+# section can be used directly with Juicer tools to generate the HiC contact matrix
+
+# Visualizing .hic contact matrix
+# The visualization tool Juicebox can be used to visualize the contact matrix. You 
+# can either download a local version of the tool to your computer as a Java 
+# application or use a web version of Juicebox. Load your .hic file to visualize 
+# the contact map and zoom in to areas of interest.
+
+cp MicroC_inKO_Hippo_WT_mapped.pairs.gz MicroC_inKO_Hippo_WT_mapped.pairs_new.gz
+cp MicroC_inKO_Hippo_KO_mapped.pairs.gz MicroC_inKO_Hippo_KO_mapped.pairs_new.gz
+gunzip MicroC_inKO_Hippo_WT_mapped.pairs_new.gz
+gunzip MicroC_inKO_Hippo_KO_mapped.pairs_new.gz
+mv MicroC_inKO_Hippo_WT_mapped.pairs_new MicroC_inKO_Hippo_WT_mapped.pairs
+mv MicroC_inKO_Hippo_KO_mapped.pairs_new MicroC_inKO_Hippo_KO_mapped.pairs
+
+java -Xmx100000m  -Djava.awt.headless=true -jar /home/jerry/Tools/Juicer/juicer_tools_1.22.01.jar pre --threads 100 MicroC_inKO_Hippo_WT_mapped.pairs MicroC_inKO_Hippo_WT.hic mm10.genome
+
+java -Xmx100000m  -Djava.awt.headless=true -jar /home/jerry/Tools/Juicer/juicer_tools_1.22.01.jar pre --threads 100 MicroC_inKO_Hippo_KO_mapped.pairs MicroC_inKO_Hippo_KO.hic mm10.genome
+
+
+3. Generating cooler contact maps
+## From .pairs.gz and .pairs.gz.px2 to cooler contact matrix
+
+# Genereting single resolution contact map files
+# use the cload pairix utility of Cooler to generate contact maps
+cooler cload pairix -p 100 mm10.genome:1000 MicroC_inKO_Hippo_WT_mapped.pairs.gz MicroC_inKO_Hippo_WT_matrix_1kb.cool
+cooler cload pairix -p 100 mm10.genome:1000 MicroC_inKO_Hippo_KO_mapped.pairs.gz MicroC_inKO_Hippo_KO_matrix_1kb.cool
+ 
+
+# Genereting multi-resolutions files and visualizing the contact matrix
+# resolutions (kb):1 2 4 8 16 32 64 128 256 512 1024 2048 4096 8192 
+cooler zoomify --balance -p 100 MicroC_inKO_Hippo_WT_matrix_1kb.cool 
+cooler zoomify --balance -p 100 MicroC_inKO_Hippo_KO_matrix_1kb.cool
+
+
+
+4. A/B Compartments
+cd /home/jerry/Tools/Fanc-C
+source venv/bin/activate
+
+# Output(s): AB compartments, AB compartments bed, AB Eigenvector
+## 64 kb
+fanc compartments -f -v MicroC_inKO_WT_eigen_64kb.bed -d MicroC_inKO_WT_64kb.bed
+     -g Mus_musculus.GRCm38.93.mm10.fa MicroC_inKO_Hippo_WT_matrix_1kb.mcool@64000
+     MicroC_inKO_WT_64kb.ab
+
+fanc compartments -f -v MicroC_inKO_KO_eigen_64kb.bed -d MicroC_inKO_KO_64kb.bed
+     -g Mus_musculus.GRCm38.93.mm10.fa MicroC_inKO_Hippo_KO_matrix_1kb.mcool@64000
+     MicroC_inKO_KO_64kb.ab
+
+## 256 kb
+fanc compartments -f -v MicroC_inKO_WT_eigen_256kb.bed -d MicroC_inKO_WT_256kb.bed
+     -g Mus_musculus.GRCm38.93.mm10.fa MicroC_inKO_Hippo_WT_matrix_1kb.mcool@256000
+     MicroC_inKO_WT_256kb.ab
+
+fanc compartments -f -v MicroC_inKO_KO_eigen_256kb.bed -d MicroC_inKO_KO_256kb.bed
+     -g Mus_musculus.GRCm38.93.mm10.fa MicroC_inKO_Hippo_KO_matrix_1kb.mcool@256000
+     MicroC_inKO_KO_256kb.ab
+
+
+## plot: chr14
+# AB Eigenvector: The eigenvector of the correlation matrix is used to derive
+# compartment type and strength for each matrix bin. Generally, regions with positive
+# values are assigned the ‘A’, regions with negative values the ‘B’ compartment.
+fanc compartments -v MicroC_inKO_WT_256kb.ev.txt MicroC_inKO_WT_256kb.ab
+fanc compartments -v MicroC_inKO_KO_256kb.ev.txt MicroC_inKO_KO_256kb.ab
+
+fancplot -o MicroC_inKO_WT_256kb.ab_ev.png 14 -p square MicroC_inKO_WT_256kb.ab
+     -vmin -0.75 -vmax 0.75 -c RdBu_r -p line MicroC_inKO_WT_256kb.ev.txt
+fancplot -o MicroC_inKO_KO_256kb.ab_ev.png 14 -p square MicroC_inKO_KO_256kb.ab
+     -vmin -0.75 -vmax 0.75 -c RdBu_r -p line MicroC_inKO_KO_256kb.ev.txt
+
+fancplot -o Domains/MicroC_inKO_256kb.ab_ev_chr7.png 7:60mb-80mb -p line -f \
+         Domains/MicroC_inKO_WT_256kb.ev.txt Domains/MicroC_inKO_KO_256kb.ev.txt -c coral seagreen
+
+
+## AB enrichment profiles
+# The compartmentalisation of a genome can be visualised in an enrichment profile plot.
+# This will divide bins into percentiles using the associated eigenvector values, and then
+# the average observed/expected (O/E) values of contacts in each pair of percentile bins is
+# calculated and plotted.
+
+fanc compartments -g Mus_musculus.GRCm38.93.mm10.fa \
+                  -p 5 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95 100 \
+                  -e MicroC_inKO_WT_256kb.ab_profile.png \
+                  MicroC_inKO_Hippo_WT_matrix_1kb.mcool@256000 Domains/MicroC_inKO_WT_256kb.ab
+fanc compartments -g Mus_musculus.GRCm38.93.mm10.fa \
+                  -p 5 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95 100 \
+                  -e MicroC_inKO_KO_256kb.ab_profile.png \
+                  MicroC_inKO_Hippo_KO_matrix_1kb.mcool@256000 Domains/MicroC_inKO_KO_256kb.ab
+
+
+
+ 
+5. TAD (Topologically Associated Domains)
+# Recommended Software: Juicer Arrowhead
+
+# Plot domains: Hs6st3
+fancplot -o Plot/TADs_Hs6st3_WT.png 14:100mb-125mb \
+         -p triangular MicroC_inKO_Hippo_WT.hic@50kb -m 6000000 -vmin 0 -vmax 100
+fancplot -o Plot/TADs_Hs6st3_KO.png 14:100mb-125mb  \
+         -p triangular MicroC_inKO_Hippo_KO.hic@50kb -m 6000000 -vmin 0 -vmax 100
+
+fancplot -o Plot/TADs_Hs6st3_WT_2.png 14:115mb-125mb  \
+         -p triangular MicroC_inKO_Hippo_WT.hic@50kb -m 4000000 -vmin 0 -vmax 100
+fancplot -o Plot/TADs_Hs6st3_KO_2.png 14:115mb-125mb  \
+         -p triangular MicroC_inKO_Hippo_KO.hic@50kb -m 4000000 -vmin 0 -vmax 100
+
+fancplot -o Plot/TADs_Hs6st3_WT_KO_test.png 14:100mb-125mb -p mirror \
+         MicroC_inKO_Hippo_WT.hic@50kb MicroC_inKO_Hippo_KO.hic@50kb \
+         -d 10mb -uvmin 0 -uvmax 100 -lvmin 0 -lvmax 100 -uc Oranges -lc Greens
+
+
+# Insulation Score
+# The insulation score (Crane et al. 2015) adds up contacts in a sliding
+#  window align the Hi-C matrix diagonal.
+# Regions with low score are “insulating”, i.e. regions between domains.
+# Regions with high scores are most likely found inside domains.
+# By default, fanc insulation will normalise the insulation scores to the
+# chromosomal average and the log-transform them.
+fanc insulation MicroC_inKO_Hippo_WT.hic@50kb
+                Domains/MicroC_inKO_Hippo_WT_50kb.insulation
+                -w 1000000 1500000 2000000 2500000 3000000 3500000 4000000
+fanc insulation MicroC_inKO_Hippo_KO.hic@50kb
+                Domains/MicroC_inKO_Hippo_KO_50kb.insulation
+                -w 1000000 1500000 2000000 2500000 3000000 3500000 4000000
+
+fanc insulation MicroC_inKO_Hippo_WT.hic@5kb \
+                Domains/MicroC_inKO_Hippo_WT_5kb.insulation \
+                -w 1000000 1500000 2000000 2500000 3000000 3500000 4000000
+fanc insulation MicroC_inKO_Hippo_KO.hic@5kb \
+                Domains/MicroC_inKO_Hippo_KO_5kb.insulation \
+                -w 1000000 1500000 2000000 2500000 3000000 3500000 4000000
+
+fanc insulation MicroC_inKO_Hippo_WT.hic@10kb \
+                Domains/MicroC_inKO_Hippo_WT_10kb.insulation \
+                -w 1000000 1500000 2000000 2500000 3000000 3500000 4000000
+fanc insulation MicroC_inKO_Hippo_KO.hic@10kb \
+                Domains/MicroC_inKO_Hippo_KO_10kb.insulation \
+                -w 1000000 1500000 2000000 2500000 3000000 3500000 4000000
+
+fanc insulation MicroC_inKO_Hippo_WT.hic@25kb \
+                Domains/MicroC_inKO_Hippo_WT_25kb.insulation \
+                -w 1000000 1500000 2000000 2500000 3000000 3500000 4000000
+fanc insulation MicroC_inKO_Hippo_KO.hic@25kb \
+                Domains/MicroC_inKO_Hippo_KO_25kb.insulation \
+                -w 1000000 1500000 2000000 2500000 3000000 3500000 4000000
+
+
+# plot insulation scores: 7 window sizes, heatmap 
+fancplot -o Plot/TADs_insulation_Hs6st3_WT.png 14:100mb-125mb -p triangular
+         MicroC_inKO_Hippo_WT.hic@50kb -m 6000000 -vmin 0 -vmax 100
+         -p scores Domains/MicroC_inKO_Hippo_WT_50kb.insulation -vmin -1.5 -vmax 1.5
+fancplot -o Plot/TADs_insulation_Hs6st3_KO.png 14:100mb-125mb -p triangular
+         MicroC_inKO_Hippo_KO.hic@50kb -m 6000000 -vmin 0 -vmax 100
+         -p scores Domains/MicroC_inKO_Hippo_KO_50kb.insulation -vmin -1.5 -vmax 1.5
+
+# plot insulation scores: 1mb window size, line-plot
+fanc insulation Domains/MicroC_inKO_Hippo_WT_50kb.insulation -w 1mb -o bed
+fanc insulation Domains/MicroC_inKO_Hippo_KO_50kb.insulation -w 1mb -o bed
+fancplot --width 6 -o Plot/TADs_insulation_Hs6st3_WT_1mb.png 14:100mb-125mb -p triangular
+         MicroC_inKO_Hippo_WT.hic@50kb -m 6000000 -vmin 0 -vmax 100
+         -p line -f -y -2 2 Domains/MicroC_inKO_Hippo_WT_50kb.insulation_1mb.bed 
+fancplot --width 6 -o Plot/TADs_insulation_Hs6st3_KO_1mb.png 14:100mb-125mb -p triangular
+         MicroC_inKO_Hippo_KO.hic@50kb -m 6000000 -vmin 0 -vmax 100
+         -p line -f -y -5 2.5 Domains/MicroC_inKO_Hippo_KO_50kb.insulation_1mb.bed
+
+
+# Insulating boundaries, TAD boundaries
+# Regions in the genome where the insulation score reaches a local minimum
+# represent the region between two self-interacting domains, or TADs.
+fanc boundaries Domains/MicroC_inKO_Hippo_WT_50kb.insulation \
+                Domains/MicroC_inKO_Hippo_WT_50kb.insulation.boundary.1mb.bed -w 1mb
+fanc boundaries Domains/MicroC_inKO_Hippo_KO_50kb.insulation \
+                Domains/MicroC_inKO_Hippo_KO_50kb.insulation.boundary.1mb.bed -w 1mb
+
+fanc boundaries Domains/MicroC_inKO_Hippo_WT_5kb.insulation \
+                Domains/MicroC_inKO_Hippo_WT_5kb.insulation.boundary.1mb.bed -w 1mb
+fanc boundaries Domains/MicroC_inKO_Hippo_KO_5kb.insulation \
+                Domains/MicroC_inKO_Hippo_KO_5kb.insulation.boundary.1mb.bed -w 1mb
+
+fanc boundaries Domains/MicroC_inKO_Hippo_WT_10kb.insulation \
+                Domains/MicroC_inKO_Hippo_WT_10kb.insulation.boundary.1mb.bed -w 1mb
+fanc boundaries Domains/MicroC_inKO_Hippo_KO_10kb.insulation \
+                Domains/MicroC_inKO_Hippo_KO_10kb.insulation.boundary.1mb.bed -w 1mb
+
+fanc boundaries Domains/MicroC_inKO_Hippo_WT_25kb.insulation \
+                Domains/MicroC_inKO_Hippo_WT_25kb.insulation.boundary.1mb.bed -w 1mb
+fanc boundaries Domains/MicroC_inKO_Hippo_KO_25kb.insulation \
+                Domains/MicroC_inKO_Hippo_KO_25kb.insulation.boundary.1mb.bed -w 1mb
+
+
+# plot TAD boundries
+fancplot --width 6 -o Plot/TADs_insulation_Hs6st3_WT_1mb_boundary_2.png 14:100mb-125mb \
+         -p triangular MicroC_inKO_Hippo_WT.hic@50kb -m 6000000 -vmin 0 -vmax 100 -c Oranges \
+         -p line -f -c coral -y -2 2 Domains/MicroC_inKO_Hippo_WT_50kb.insulation_1mb.bed \
+         -p bar Domains/MicroC_inKO_Hippo_WT_50kb.insulation.boundary.1mb.bed -c coral
+fancplot --width 6 -o Plot/TADs_insulation_Hs6st3_KO_1mb_boundary_2.png 14:100mb-125mb \
+         -p triangular MicroC_inKO_Hippo_KO.hic@50kb -m 6000000 -vmin 0 -vmax 100 -c Greens \
+         -p line -f -c seagreen -y -5 2.5 Domains/MicroC_inKO_Hippo_KO_50kb.insulation_1mb.bed \
+         -p bar Domains/MicroC_inKO_Hippo_KO_50kb.insulation.boundary.1mb.bed -c seagreen
+
+
+# Directionality Index
+# The directionality index (Dixon et al. 2012) measures the bias in contact frequency up- 
+# and downstream of an Hi-C region. When inside TADs, this measure tends towards zero, as 
+# interactions in either direction are equally frequent. However, when approaching a TAD 
+# boundary this measure changes drastically, as one direction will remain inside the TAD, 
+# where there is a high contact intensity, whereas the other direction will lie in a low 
+# intensity region outside the TAD.
+
+
+## Juicer Arrowhead for TADs
+
+java -Xmx100000m  -Djava.awt.headless=true -jar /home/jerry/Tools/Juicer/juicer_tools_1.22.01.jar \
+     arrowhead --threads 100 -k KR -m 2000 -r 10000 --ignore-sparsity \
+     MicroC_inKO_Hippo_WT.hic MicroC_inKO_Hippo_WT_TADcalls
+java -Xmx100000m  -Djava.awt.headless=true -jar /home/jerry/Tools/Juicer/juicer_tools_1.22.01.jar \
+     arrowhead --threads 100 -k KR -m 2000 -r 10000 --ignore-sparsity \
+     MicroC_inKO_Hippo_KO.hic MicroC_inKO_Hippo_KO_TADcalls
+
+mv 10000_blocks.bedpe MicroC_inKO_Hippo_WT_TADcalls_10kb.bedpe
+mv 10000_blocks.bedpe MicroC_inKO_Hippo_KO_TADcalls_10kb.bedpe
+
+
+

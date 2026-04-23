@@ -1,0 +1,19 @@
+
+total <- read.table("PCA.inKO", header=T, sep="\t",row.names=1)
+total 
+
+WTPCA <- total[1:2,1:2]
+KOPCA <- total[3:4,1:2]
+
+png("PCA_MicroC.png", width = 300, height = 300)
+plot(WTPCA$ev_1, WTPCA$ev_2, pch=21, cex=2, col="gray28", bg=rgb(127,127,127,max=255), lwd=2, xlim=c(-200000,200000),ylim=c(-20000,20000))
+points(KOPCA$ev_1, KOPCA$ev_2, pch=21, cex=2, col="gray28", bg=rgb(244,177,131,max=255), lwd=2)
+dev.off()
+
+png("PCA_MicroC2.png", width = 300, height = 300)
+plot(WTPCA$ev_1, WTPCA$ev_2, pch=21, cex=2, col="gray28", bg="coral", lwd=2, xlim=c(-200000,200000),ylim=c(-20000,20000))
+points(KOPCA$ev_1, KOPCA$ev_2, pch=21, cex=2, col="gray28", bg="seagreen3", lwd=2)
+dev.off()
+
+
+

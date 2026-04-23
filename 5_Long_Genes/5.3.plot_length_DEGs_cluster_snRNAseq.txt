@@ -1,0 +1,93 @@
+
+total0 <- read.table("DEGs_Cluster_0.length.xls",header=T, sep="\t",row.names=1)
+total0[1:5,]
+downDEG0 <- total0[total0$p_val_adj < 0.05 & total0$avg_log2FC <0, ]
+dim(total0)   # 8860
+dim(downDEG0) # 183
+
+total1 <- read.table("DEGs_Cluster_1.length.xls",header=T, sep="\t",row.names=1)
+total1[1:5,]
+downDEG1 <- total1[total1$p_val_adj < 0.05 & total1$avg_log2FC <0, ]
+dim(total1)   # 9222 
+dim(downDEG1) # 385
+
+total2 <- read.table("DEGs_Cluster_2.length.xls",header=T, sep="\t",row.names=1)
+total2[1:5,]
+downDEG2 <- total2[total2$p_val_adj < 0.05 & total2$avg_log2FC <0, ]
+dim(total2)   # 7828
+dim(downDEG2) # 81
+
+total3 <- read.table("DEGs_Cluster_3.length.xls",header=T, sep="\t",row.names=1)
+total3[1:5,]
+downDEG3 <- total3[total3$p_val_adj < 0.05 & total3$avg_log2FC <0, ]
+dim(total3)   # 10534
+dim(downDEG3) # 533
+
+total4 <- read.table("DEGs_Cluster_4.length.xls",header=T, sep="\t",row.names=1)
+total4[1:5,]
+downDEG4 <- total4[total4$p_val_adj < 0.05 & total4$avg_log2FC <0, ]
+dim(total4)   # 10534
+dim(downDEG4) # 402
+
+total5 <- read.table("DEGs_Cluster_5.length.xls",header=T, sep="\t",row.names=1)
+total5[1:5,]
+downDEG5 <- total5[total5$p_val_adj < 0.05 & total5$avg_log2FC <0, ]
+dim(total5)   # 11147
+dim(downDEG5) # 504
+
+total6 <- read.table("DEGs_Cluster_6.length.xls",header=T, sep="\t",row.names=1)
+total6[1:5,]
+downDEG6 <- total6[total6$p_val_adj < 0.05 & total6$avg_log2FC <0, ]
+dim(total6)   # 10284
+dim(downDEG6) # 47
+
+total7 <- read.table("DEGs_Cluster_7.length.xls",header=T, sep="\t",row.names=1)
+total7[1:5,]
+downDEG7 <- total7[total7$p_val_adj < 0.05 & total7$avg_log2FC <0, ]
+dim(total7)   # 10896
+dim(downDEG7) # 88
+
+total8 <- read.table("DEGs_Cluster_8.length.xls",header=T, sep="\t",row.names=1)
+total8[1:5,]
+downDEG8 <- total8[total8$p_val_adj < 0.05 & total8$avg_log2FC <0, ]
+dim(total8)   # 10126
+dim(downDEG8) # 78
+
+
+inko <- data.frame(Length=c(total0$Length,downDEG0$Length,
+                            total1$Length,downDEG1$Length,
+                            total2$Length,downDEG2$Length,
+                            total3$Length,downDEG3$Length,
+                            total4$Length,downDEG4$Length,
+                            total5$Length,downDEG5$Length,
+                            total6$Length,downDEG6$Length,
+                            total7$Length,downDEG7$Length,
+                            total8$Length,downDEG8$Length),
+     Category=c(rep("Total0",length(total0$Length)),rep("Down0",length(downDEG0$Length)),
+                rep("Total1",length(total1$Length)),rep("Down1",length(downDEG1$Length)),
+                rep("Total2",length(total2$Length)),rep("Down2",length(downDEG2$Length)),
+                rep("Total3",length(total3$Length)),rep("Down3",length(downDEG3$Length)),
+                rep("Total4",length(total4$Length)),rep("Down4",length(downDEG4$Length)),
+                rep("Total5",length(total5$Length)),rep("Down5",length(downDEG5$Length)),
+                rep("Total6",length(total6$Length)),rep("Down6",length(downDEG6$Length)),
+                rep("Total7",length(total7$Length)),rep("Down7",length(downDEG7$Length)),
+                rep("Total8",length(total8$Length)),rep("Down8",length(downDEG8$Length))))
+
+##### box plot
+png("DEGs_length.png",width = 680, height = 480)
+boxplot(inko$Length~factor(inko$Category,levels=c("Total3","Down3","Total4","Down4","Total5","Down5","Total1","Down1","Total0","Down0","Total2","Down2")), col=c(rep(c("grey","aquamarine3"),9)), outcol="grey70",ylim=c(0,500000), outline=FALSE)
+dev.off()
+
+boxplot(inko$Length~factor(inko$Category,levels=c("Total3","Down3","Total4","Down4","Total8","Down8","Total5","Down5","Total1","Down1","Total0","Down0","Total2","Down2","Total6","Down6","Total7","Down7")), col=c(rep(c("grey","seagreen1"),8)), outcol="grey70",ylim=c(0,800000), outline=FALSE)
+
+
+## Welch Two Sample t-test 
+t.test(total3$Length,downDEG3$Length,alternative = "less") # p-value < 2.2e-16
+t.test(total4$Length,downDEG4$Length,alternative = "less") # p-value = 4.76e-16
+t.test(total5$Length,downDEG5$Length,alternative = "less") # p-value = 3.009e-14
+t.test(total1$Length,downDEG1$Length,alternative = "less") # p-value = 2.244e-14
+t.test(total0$Length,downDEG0$Length,alternative = "less") # p-value = 0.0005727
+t.test(total2$Length,downDEG2$Length,alternative = "less") # p-value = 0.1763
+
+
+

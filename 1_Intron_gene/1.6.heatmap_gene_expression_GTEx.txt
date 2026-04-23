@@ -1,0 +1,172 @@
+
+###### Loading expression data
+######
+# GCT format, which contains two rows of header data. 
+# The first two columns contain the gene ID and gene name; since gene names are 
+# not unique, all GTEx tables are indexed by GENCODE/ENSEMBL gene ID
+
+library(gplots)
+
+tpm.df <- read.delim("GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_tpm.gct",
+                     as.is=T, row.names=1, check.names=FALSE, skip=2)
+gene.names.df <- tpm.df[, 'Description', drop=FALSE]
+tpm.df <- tpm.df[, !(names(tpm.df) %in% c('Description'))]
+head(tpm.df)
+cat(paste("Number of genes in table: ", dim(tpm.df)[1]))    # Number of genes in table:  56200
+
+
+
+
+###### Selecting samples and subsets of the data
+######
+sample.df <- read.delim("GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt", as.is=TRUE, header=TRUE, row.names=1)
+head(sample.df)
+table(sample.df['SMAFRZE'])
+#        EXCLUDE    OMNI  RNASEQ     WES     WGS
+#    602    2700     450   17382     979     838
+
+# focus on the RNA-seq samples
+rnaseq.sample.df <- sample.df[sample.df['SMAFRZE']=='RNASEQ', ]
+head(rnaseq.sample.df)
+
+as.matrix(sort(table(rnaseq.sample.df['SMTSD']), decreasing=TRUE)) ## tissue summary
+as.matrix(sort(table(rnaseq.sample.df['SMTSD']), decreasing=TRUE)) ## tissue-subregion summary
+
+
+
+
+#### Load the gene list, calculate median and mean
+#### 
+
+# gene.list <- c('ENSG00000185352.8','ENSG00000171004.18','ENSG00000183098.10')
+gene.list.raw <- read.table("Top100_long_introns_human_geneID.txt")
+gene.list <- unlist(gene.list.raw, use.names = FALSE)
+
+
+#### all tissues
+#### 
+mat.tmp = matrix(ncol = 22, nrow = length(gene.list))
+total.median=data.frame(mat.tmp)
+total.mean=data.frame(mat.tmp)  
+
+row.names(total.median) <- gene.list
+row.names(total.mean) <- gene.list
+
+colnames(total.median) <- c('Brain-cortex','Brain-FC','Brain-ACC','Brain-hippocampus','Skin','Esophagus','Adipose Tissue','Heart','Muscle','Colon','Thyroid','Nerve','Lung','Breast','Stomach','Pancreas','Spleen','Liver','Small Intestine','Salivary Gland','Kidney','Bladder')
+colnames(total.mean) <- c('Brain-cortex','Brain-FC','Brain-ACC','Brain-hippocampus','Skin','Esophagus','Adipose Tissue','Heart','Muscle','Colon','Thyroid','Nerve','Lung','Breast','Stomach','Pancreas','Spleen','Liver','Small Intestine','Salivary Gland','Kidney','Bladder')
+
+total.median[1:5,]
+total.mean[1:5,]
+
+
+for (i in 1:length(gene.list))
+ {
+  gene <- tpm.df[gene.list[i], ] ## expression of a specific gene
+  gene[,1:10]
+  total.median[gene.list[i],] <- c(
+   median(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Cortex', ])],use.names = FALSE)),
+   median(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Frontal Cortex (BA9)', ])],use.names = FALSE)),
+   median(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Anterior cingulate cortex (BA24)', ])],use.names = FALSE)),
+   median(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Hippocampus', ])],use.names = FALSE)),
+
+   median(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Skin', ])],use.names = FALSE)),
+   median(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Esophagus', ])],use.names = FALSE)),
+   median(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Adipose Tissue', ])],use.names = FALSE)),
+   median(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Heart', ])],use.names = FALSE)),
+   median(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Muscle', ])],use.names = FALSE)),
+   median(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Colon', ])],use.names = FALSE)),
+   median(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Thyroid', ])],use.names = FALSE)),
+   median(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Nerve', ])],use.names = FALSE)),
+   median(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Lung', ])],use.names = FALSE)),
+   median(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Breast', ])],use.names = FALSE)),
+   median(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Stomach', ])],use.names = FALSE)),
+   median(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Pancreas', ])],use.names = FALSE)),
+   median(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Spleen', ])],use.names = FALSE)),
+   median(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Liver', ])],use.names = FALSE)),
+   median(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Small Intestine',])],use.names = FALSE)),
+   median(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Salivary Gland', ])],use.names = FALSE)),
+   median(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Kidney', ])],use.names = FALSE)),
+   median(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Bladder', ])],use.names = FALSE)))
+
+
+  total.mean[gene.list[i],] <- c(
+   mean(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Cortex', ])],use.names = FALSE)),
+   mean(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Frontal Cortex (BA9)', ])],use.names = FALSE)),
+   mean(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Anterior cingulate cortex (BA24)', ])],use.names = FALSE)),
+   mean(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTSD']=='Brain - Hippocampus', ])],use.names = FALSE)),
+
+   mean(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Skin', ])],use.names = FALSE)),
+   mean(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Esophagus', ])],use.names = FALSE)),
+   mean(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Adipose Tissue', ])],use.names = FALSE)),
+   mean(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Heart', ])],use.names = FALSE)),
+   mean(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Muscle', ])],use.names = FALSE)),
+   mean(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Colon', ])],use.names = FALSE)),
+   mean(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Thyroid', ])],use.names = FALSE)),
+   mean(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Nerve', ])],use.names = FALSE)),
+   mean(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Lung', ])],use.names = FALSE)),
+   mean(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Breast', ])],use.names = FALSE)),
+   mean(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Stomach', ])],use.names = FALSE)),
+   mean(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Pancreas', ])],use.names = FALSE)),
+   mean(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Spleen', ])],use.names = FALSE)),
+   mean(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Liver', ])],use.names = FALSE)),
+   mean(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Small Intestine',])],use.names = FALSE)),
+   mean(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Salivary Gland', ])],use.names = FALSE)),
+   mean(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Kidney', ])],use.names = FALSE)),
+   mean(unlist(gene[,rownames(rnaseq.sample.df[rnaseq.sample.df['SMTS']=='Bladder', ])],use.names = FALSE)))
+ }
+
+total.median[1:5,]
+total.mean[1:5,]
+
+total.median2 <- total.median[order(total.median$'Brain-cortex'),]
+total.mean2 <- total.median[order(total.mean$'Brain-cortex'),]
+
+png("Plot_heatmap_GTEx_TPM_Top100_longIntrons_median_subset_brainregions2.png",width = 500, height = 500)
+heatmap.2(as.matrix(total.median2),Rowv=F,Colv=F,trace="none",dendrogram="none",scale="none",labRow=NA,labCol=NA,col=colorpanel(5,low="grey85",high="steelblue"),breaks=c(0:5),
+density.info="none",keysize=1,cexCol=1,margins=c(5,5))
+dev.off()
+
+#png("Plot_heatmap_GTEx_TPM_Top100_longIntrons_mean_subset_brainregions2.png",width = 500, height = 500)
+heatmap.2(as.matrix(total.mean2),Rowv=F,Colv=F,trace="none",dendrogram="none",scale="none",labRow=NA,labCol=NA,col=colorpanel(5,low="grey85",high="steelblue"),breaks=c(0:5),
+density.info="none",keysize=1,cexCol=1,margins=c(5,5))
+#dev.off()
+
+
+write.table(total.median2,file="Plot_heatmap_GTEx_TPM_Top100_longIntrons_median_subset_brainregions2.xls",sep="\t",quote=FALSE)
+
+
+
+dim(total.median2) ## 88 22
+brain <- unlist(total.median2[,1:4], use.names = FALSE)
+nonbrain <- unlist(total.median2[,5:22], use.names = FALSE)
+t.test(brain,nonbrain,alternative="two.sided")
+t.test(brain,nonbrain,alternative="greater")
+
+> t.test(brain,nonbrain,alternative="two.sided")
+
+	Welch Two Sample t-test
+
+data:  brain and nonbrain
+t = 8.5475, df = 434.45, p-value < 2.2e-16
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 3.118818 4.981406
+sample estimates:
+mean of x mean of y 
+ 6.408885  2.358773 
+
+> t.test(brain,nonbrain,alternative="greater")
+
+	Welch Two Sample t-test
+
+data:  brain and nonbrain
+t = 8.5475, df = 434.45, p-value < 2.2e-16
+alternative hypothesis: true difference in means is greater than 0
+95 percent confidence interval:
+ 3.269057      Inf
+sample estimates:
+mean of x mean of y 
+ 6.408885  2.358773 
+
+
+

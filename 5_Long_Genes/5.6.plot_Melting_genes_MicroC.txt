@@ -1,0 +1,165 @@
+
+### Compare Micro-C ####
+1. Compare WT and inKO
+
+source /Users/jerry/Analysis/Tools/venv/bin/activate
+ 
+# cd /Users/jerry/Analysis/Tools/
+# source venv/bin/activate
+## deactivate 
+
+#### 10kb resolution
+fanc compare -c fold-change -tmp -l
+ MicroC_inKO_Hippo_KO.hic@10kb MicroC_inKO_Hippo_WT.hic@10kb Compare/Comp_inKO_FC_Scale_10kb.hic
+
+fanc compare -c difference -tmp
+ MicroC_inKO_Hippo_KO.hic@10kb MicroC_inKO_Hippo_WT.hic@10kb Compare/Comp_inKO_diff_Scale_10kb.hic
+
+
+
+
+
+
+
+####
+### Plot Micro-C profiles for Melting genes
+###
+
+
+source /Users/jerry/Analysis/Tools/venv/bin/activate
+## deactivate
+
+## gene_length + gene + gene_length
+
+### chr8:9205902-9771161:ENSMUSG00000079157_Fam155a:protein_coding:- 8640642-10336421
+fancplot -o MicroC/Fam155a_diff_Scale_10kb.png 8:8740642-10436421 -p mirror \
+         ../MicroC/Compare/Comp_inKO_diff_Scale_10kb.hic \
+         ../MicroC/Compare/Comp_inKO_diff_Scale_10kb.hic \
+         -uvmin 0 -uvmax 8 -lvmin -8 -lvmax 0 -uc Oranges -lc Greens_r 
+fancplot -o MicroC/Fam155a_FC_Scale_10kb.png 8:8740642-10436421 -p mirror \
+         ../MicroC/Compare/Comp_inKO_FC_Scale_10kb.hic \
+         ../MicroC/Compare/Comp_inKO_FC_Scale_10kb.hic \
+         -uvmin 0 -uvmax 2 -lvmin -2 -lvmax 0 -uc Oranges -lc Greens_r
+fancplot -o MicroC/Fam155a_FC_Scale_10kb2.png 8:8740642-10436421 -p triangular \
+         ../MicroC/Compare/Comp_inKO_FC_Scale_10kb.hic -vmin -2 -vmax 2 -c RdBu_r
+fancplot -o MicroC/Fam155a_mirror10k.png 8:8740642-10436421 -p mirror \
+         ../MicroC/MicroC_inKO_Hippo_WT.hic@10kb ../MicroC/MicroC_inKO_Hippo_KO.hic@10kb \
+         -uvmin 0 -uvmax 10 -lvmin 0 -lvmax 10 -uc Greens -lc Oranges
+
+
+
+### chr12:40445952-40846874:ENSMUSG00000035954_Dock4:protein_coding:+ 40045029-41247797
+fancplot -o MicroC/Dock4_diff_Scale_10kb.png 12:39945029-41147797 -p mirror \
+         ../MicroC/Compare/Comp_inKO_diff_Scale_10kb.hic \
+         ../MicroC/Compare/Comp_inKO_diff_Scale_10kb.hic \
+         -uvmin 0 -uvmax 8 -lvmin -8 -lvmax 0 -uc Oranges -lc Greens_r  
+fancplot -o MicroC/Dock4_FC_Scale_10kb.png 12:39945029-41147797 -p mirror \
+         ../MicroC/Compare/Comp_inKO_FC_Scale_10kb.hic \
+         ../MicroC/Compare/Comp_inKO_FC_Scale_10kb.hic \
+         -uvmin 0 -uvmax 2 -lvmin -2 -lvmax 0 -uc Oranges -lc Greens_r
+fancplot -o MicroC/Dock4_FC_Scale_10kb2.png 12:39945029-41147797 -p triangular \
+         ../MicroC/Compare/Comp_inKO_FC_Scale_10kb.hic -vmin -2 -vmax 2 -c RdBu_r
+fancplot -o MicroC/Dock4_mirror10k.png 12:39945029-41147797 -p mirror \
+         ../MicroC/MicroC_inKO_Hippo_WT.hic@10kb ../MicroC/MicroC_inKO_Hippo_KO.hic@10kb \
+         -uvmin 0 -uvmax 10 -lvmin 0 -lvmax 10 -uc Greens -lc Oranges
+
+
+
+### chr14:119138341-119869815:ENSMUSG00000053465_Hs6st3:protein_coding:+ 118406866-120601290
+fancplot -o MicroC/Hs6st3_diff_Scale_10kb.png 14:118406866-120601290 -p triangular \
+         ../MicroC/Compare/Comp_inKO_diff_Scale_10kb.hic -vmin -10 -vmax 10 -c RdBu_r
+fancplot -o MicroC/Hs6st3_FC_Scale_10kb2.png 14:118406866-120601290 -p triangular \
+         ../MicroC/Compare/Comp_inKO_FC_Scale_10kb.hic -vmin -2 -vmax 2 -c RdBu_r
+fancplot -o MicroC/Hs6st3_mirror10k.png 14:118406866-120601290 -p mirror \
+         ../MicroC/MicroC_inKO_Hippo_WT.hic@10kb ../MicroC/MicroC_inKO_Hippo_KO.hic@10kb \
+         -uvmin 0 -uvmax 10 -lvmin 0 -lvmax 10 -uc Greens -lc Oranges
+
+
+
+
+
+
+### chr10:49094833-49788766:ENSMUSG00000056073_Grik2:protein_coding:- 48400899-50482700
+fancplot -o MicroC/Grik2_FC_Scale_10kb.png 10:48400899-50482700 -p triangular \
+         ../MicroC/Compare/Comp_inKO_FC_Scale_10kb.hic -vmin -2 -vmax 2 -c RdBu_r
+fancplot -o MicroC/Grik2_mirror10k.png 10:48400899-50482700 -p mirror \
+         ../MicroC/MicroC_inKO_Hippo_WT.hic@10kb ../MicroC/MicroC_inKO_Hippo_KO.hic@10kb \
+         -uvmin 0 -uvmax 10 -lvmin 0 -lvmax 10 -uc Greens -lc Oranges
+
+### chr14:11553532-12242041:ENSMUSG00000021745_Ptprg:protein_coding:+ 10865022-12930551
+fancplot -o MicroC/Ptprg_FC_Scale_10kb.png 14:10765022-12830551 -p triangular \
+         ../MicroC/Compare/Comp_inKO_FC_Scale_10kb.hic -vmin -2 -vmax 2 -c RdBu_r
+fancplot -o MicroC/Ptprg_mirror10k.png 14:10765022-12830551 -p mirror \
+         ../MicroC/MicroC_inKO_Hippo_WT.hic@10kb ../MicroC/MicroC_inKO_Hippo_KO.hic@10kb \
+         -uvmin 0 -uvmax 10 -lvmin 0 -lvmax 10 -uc Greens -lc Oranges
+
+### chr5:71658113-72149037:ENSMUSG00000029212_Gabrb1:protein_coding:+ 71167188-72639962
+fancplot -o MicroC/Gabrb1_FC_Scale_10kb.png 5:71067188-72539962 -p triangular \
+         ../MicroC/Compare/Comp_inKO_FC_Scale_10kb.hic -vmin -2 -vmax 2 -c RdBu_r
+fancplot -o MicroC/Gabrb1_mirror10k.png 5:71067188-72539962 -p mirror \
+         ../MicroC/MicroC_inKO_Hippo_WT.hic@10kb ../MicroC/MicroC_inKO_Hippo_KO.hic@10kb \
+         -uvmin 0 -uvmax 10 -lvmin 0 -lvmax 10 -uc Greens -lc Oranges
+
+### chr2:48949508-49325405:ENSMUSG00000036792_Mbd5:protein_coding:+ 48573610-49701303
+fancplot -o MicroC/Mbd5_FC_Scale_10kb.png 2:48573610-49701303 -p triangular \
+         ../MicroC/Compare/Comp_inKO_FC_Scale_10kb.hic -vmin -2 -vmax 2 -c RdBu_r
+fancplot -o MicroC/Mbd5_mirror10k.png 2:48573610-49701303 -p mirror \
+         ../MicroC/MicroC_inKO_Hippo_WT.hic@10kb ../MicroC/MicroC_inKO_Hippo_KO.hic@10kb \
+         -uvmin 0 -uvmax 10 -lvmin 0 -lvmax 10 -uc Greens -lc Oranges
+
+### chr5:66745827-67057158:ENSMUSG00000037736_Limch1:protein_coding:+ 66434495-67368490
+fancplot -o MicroC/Limch1_FC_Scale_10kb.png 5:66394495-67328490 -p triangular \
+         ../MicroC/Compare/Comp_inKO_FC_Scale_10kb.hic -vmin -2 -vmax 2 -c RdBu_r
+fancplot -o MicroC/Limch1_mirror10k.png 5:66394495-67328490 -p mirror \
+         ../MicroC/MicroC_inKO_Hippo_WT.hic@10kb ../MicroC/MicroC_inKO_Hippo_KO.hic@10kb \
+         -uvmin 0 -uvmax 10 -lvmin 0 -lvmax 10 -uc Greens -lc Oranges
+
+### chr14:30039939-30491455:ENSMUSG00000015968_Cacna1d:protein_coding:- 29588422-30942972
+fancplot -o MicroC/Cacna1d_FC_Scale_10kb.png 14:29588422-30942972 -p triangular \
+         ../MicroC/Compare/Comp_inKO_FC_Scale_10kb.hic -vmin -2 -vmax 2 -c RdBu_r
+fancplot -o MicroC/Cacna1d_mirror10k.png 14:29588422-30942972 -p mirror \
+         ../MicroC/MicroC_inKO_Hippo_WT.hic@10kb ../MicroC/MicroC_inKO_Hippo_KO.hic@10kb \
+         -uvmin 0 -uvmax 10 -lvmin 0 -lvmax 10 -uc Greens -lc Oranges
+
+### chr15:12359711-12739924:ENSMUSG00000022197_Pdzd2:protein_coding:- 11979497-13120138
+fancplot -o MicroC/Pdzd2_FC_Scale_10kb.png 15:11979497-13120138 -p triangular \
+         ../MicroC/Compare/Comp_inKO_FC_Scale_10kb.hic -vmin -2 -vmax 2 -c RdBu_r
+fancplot -o MicroC/Pdzd2_mirror10k.png 15:11979497-13120138 -p mirror \
+         ../MicroC/MicroC_inKO_Hippo_WT.hic@10kb ../MicroC/MicroC_inKO_Hippo_KO.hic@10kb \
+         -uvmin 0 -uvmax 10 -lvmin 0 -lvmax 10 -uc Greens -lc Oranges
+
+### chr7:48908716-49610090:ENSMUSG00000052512_Nav2:protein_coding:+ 48207341-50311465
+fancplot -o MicroC/Nav2_FC_Scale_10kb.png 7:48207341-50311465 -p triangular \
+         ../MicroC/Compare/Comp_inKO_FC_Scale_10kb.hic -vmin -2 -vmax 2 -c RdBu_r
+fancplot -o MicroC/Nav2_mirror10k.png 7:48207341-50311465 -p mirror \
+         ../MicroC/MicroC_inKO_Hippo_WT.hic@10kb ../MicroC/MicroC_inKO_Hippo_KO.hic@10kb \
+         -uvmin 0 -uvmax 10 -lvmin 0 -lvmax 10 -uc Greens -lc Oranges
+
+### chr2:96318169-97631666:ENSMUSG00000050587_Lrrc4c:protein_coding:+ 95004671-98945164
+fancplot -o MicroC/Lrrc4c_FC_Scale_10kb.png 2:95004671-98945164 -p triangular \
+         ../MicroC/Compare/Comp_inKO_FC_Scale_10kb.hic -vmin -2 -vmax 2 -c RdBu_r
+fancplot -o MicroC/Lrrc4c_mirror10k.png 2:95004671-98945164 -p mirror \
+         ../MicroC/MicroC_inKO_Hippo_WT.hic@10kb ../MicroC/MicroC_inKO_Hippo_KO.hic@10kb \
+         -uvmin 0 -uvmax 10 -lvmin 0 -lvmax 10 -uc Greens -lc Oranges
+
+### chr1:161982453-162478034:ENSMUSG00000040265_Dnm3:protein_coding:- 161486871-162973616
+fancplot -o MicroC/Dnm3_FC_Scale_10kb.png 1:161386871-162873616 -p triangular \
+         ../MicroC/Compare/Comp_inKO_FC_Scale_10kb.hic -vmin -2 -vmax 2 -c RdBu_r
+fancplot -o MicroC/Dnm3_mirror10k.png 1:161386871-162873616 -p mirror \
+         ../MicroC/MicroC_inKO_Hippo_WT.hic@10kb ../MicroC/MicroC_inKO_Hippo_KO.hic@10kb \
+         -uvmin 0 -uvmax 10 -lvmin 0 -lvmax 10 -uc Greens -lc Oranges
+
+### chr12:78226379-78684772:ENSMUSG00000047454_Gphn:protein_coding:+ 77767985-79143166
+fancplot -o MicroC/Gphn_FC_Scale_10kb.png 12:77767985-79143166 -p triangular \
+         ../MicroC/Compare/Comp_inKO_FC_Scale_10kb.hic -vmin -2 -vmax 2 -c RdBu_r
+fancplot -o MicroC/Gphn_mirror10k.png 12:77767985-79143166 -p mirror \
+         ../MicroC/MicroC_inKO_Hippo_WT.hic@10kb ../MicroC/MicroC_inKO_Hippo_KO.hic@10kb \
+         -uvmin 0 -uvmax 10 -lvmin 0 -lvmax 10 -uc Greens -lc Oranges
+
+### chr4:103619359-104744844:ENSMUSG00000028519_Dab1:protein_coding:+ 102493873-105870330
+fancplot -o MicroC/Dab1_FC_Scale_10kb.png 4:102493873-105870330 -p triangular \
+         ../MicroC/Compare/Comp_inKO_FC_Scale_10kb.hic -vmin -2 -vmax 2 -c RdBu_r
+fancplot -o MicroC/Dab1_mirror10k.png 4:102493873-105870330 -p mirror \
+         ../MicroC/MicroC_inKO_Hippo_WT.hic@10kb ../MicroC/MicroC_inKO_Hippo_KO.hic@10kb \
+         -uvmin 0 -uvmax 10 -lvmin 0 -lvmax 10 -uc Greens -lc Oranges
+

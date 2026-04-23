@@ -1,0 +1,19 @@
+
+total <- read.table("Merged_MicroC_inKO_AB_256kb_ev.txt",header=T,sep="\t")
+total[1:5,]
+
+pdf("Merged_MicroC_inKO_AB_256kb_ev_score.pdf")
+plot(density(total$WT_score),col="white", xlim=c(-0.1,0.1))
+lines(density(total$KO_score),col="white")
+polygon(density(total$WT_score), col=rgb(0.97, 0.51, 0.47, alpha = 0.5), border="grey")
+polygon(density(total$KO_score), col=rgb(0.25, 0.87, 0.81, alpha = 0.5), border="grey")
+dev.off()
+
+png("Merged_MicroC_inKO_AB_256kb_ev_score.png")
+plot(density(total$WT_score),col="white", xlim=c(-0.1,0.1))
+lines(density(total$KO_score),col="white")
+polygon(density(total$WT_score), col=rgb(0.97, 0.51, 0.47, alpha = 0.5), border="grey")
+polygon(density(total$KO_score), col=rgb(0.25, 0.87, 0.81, alpha = 0.5), border="grey")
+dev.off()
+
+

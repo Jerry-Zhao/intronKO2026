@@ -1,0 +1,48 @@
+
+
+###### Plot individual genes: Topoisamerase ####
+
+library(Seurat)
+library(magrittr) ## %>% pipe operator
+library(dplyr)
+library(tidyr)
+library(Matrix)
+library("reshape2")
+library("gplots")
+library("ggplot2")
+packageVersion("Seurat") ## [1] ‘5.0.3’
+
+load("Jerry_inKO2024_SeuratObject_AfterDEG_20240412.RData")
+
+
+inko@meta.data[1:5,]
+
+my_levels <- c("WT","KO")
+inko$group2 <- factor(inko$group,levels = my_levels)
+
+my_levels2 <- c("3","4","5","1","6","7","0","2","10")
+inko$seurat_clusters2 <- factor(inko$seurat_clusters, levels = my_levels2)
+
+inko@meta.data[1:5,]
+
+png("Topoisomerase_Top1.png",width = 960, height = 360)
+VlnPlot(inko, features = "Top1", group.by ="seurat_clusters2", split.by = "group2", pt.size = 0, combine = FALSE)
+dev.off()
+
+png("Topoisomerase_Top2a.png",width = 960, height = 360)
+VlnPlot(inko, features = "Top2a", group.by ="seurat_clusters2", split.by = "group2", pt.size = 0, combine = FALSE)
+dev.off()
+
+png("Topoisomerase_Top2b.png",width = 960, height = 360)
+VlnPlot(inko, features = "Top2b", group.by ="seurat_clusters2", split.by = "group2", pt.size = 0, combine = FALSE)
+dev.off()
+
+png("Topoisomerase_Top3a.png",width = 960, height = 360)
+VlnPlot(inko, features = "Top3a", group.by ="seurat_clusters2", split.by = "group2", pt.size = 0, combine = FALSE)
+dev.off()
+
+png("Topoisomerase_Top3b.png",width = 960, height = 360)
+VlnPlot(inko, features = "Top3b", group.by ="seurat_clusters2", split.by = "group2", pt.size = 0, combine = FALSE)
+dev.off()
+
+

@@ -1,0 +1,197 @@
+
+######### All data #############
+library("DESeq2")
+options(width=300)
+
+countData <- read.table("Merged_Hs6st3iKO_RNAseq2022_male_cortex_hippocampus_whole_gene_Jerry.xls",sep="\t",header=T,row.names=1)
+countData[1:5,]
+countData2 <- countData
+countData2[1:5,]
+
+colData2 <- data.frame(condition=c(
+  "Ctx_WT","Ctx_WT","Ctx_WT","Ctx_WT","Ctx_WT",
+  "Ctx_Homo","Ctx_Homo","Ctx_Homo","Ctx_Homo","Ctx_Homo",
+  "Hip_WT","Hip_WT","Hip_WT","Hip_WT",
+  "Hip_Homo","Hip_Homo","Hip_Homo","Hip_Homo","Hip_Homo"),
+  row.names=c(
+  "Ctx_WT1","Ctx_WT2","Ctx_WT3","Ctx_WT4","Ctx_WT5",
+  "Ctx_Homo1","Ctx_Homo2","Ctx_Homo3","Ctx_Homo4","Ctx_Homo5",
+  "Hip_WT1","Hip_WT2","Hip_WT3","Hip_WT4",
+  "Hip_Homo1","Hip_Homo2","Hip_Homo3","Hip_Homo4","Hip_Homo5"))
+colData2
+
+dds <- DESeqDataSetFromMatrix(countData=countData2, colData=colData2, design=~condition)
+
+# keep <- rowSums(counts(dds)) >= 10 ## at least 10 reads total
+keep <- rowSums(counts(dds) >= 10) >= 5 ## at least 5 samples with >=10 counts; 5 = least replicate number
+dds <- dds[keep,]
+ 
+dds <- DESeq(dds) # Wald significance tests
+# dds <- DESeq(dds, test="LRT", reduced=~1) ## likelihood ratio test
+
+
+#### PCA 
+rld <- rlog(dds)
+# vsd <- varianceStabilizingTransformation(dds)
+
+print(plotPCA(rld, intgroup=c("condition"),ntop = 500))
+png("DESeq2_PCA_allData_Hs6st3iKO_whole_gene_top500.png", width = 800, height = 700)
+print(plotPCA(rld, intgroup=c("condition"),ntop = 500))
+dev.off()
+
+result2 <- plotPCA(rld, intgroup=c("condition"),ntop = 500, returnData = TRUE)
+result2
+
+#                 PC1        PC2    group condition      name
+# Ctx_WT1   -8.216060 -1.0323384   Ctx_WT    Ctx_WT   Ctx_WT1
+# Ctx_WT2   -7.243785 -1.9736292   Ctx_WT    Ctx_WT   Ctx_WT2
+# Ctx_WT3   -7.485220 -4.8934145   Ctx_WT    Ctx_WT   Ctx_WT3
+# Ctx_WT4   -7.986658 -1.2357308   Ctx_WT    Ctx_WT   Ctx_WT4
+# Ctx_WT5   -7.756246 -1.1694666   Ctx_WT    Ctx_WT   Ctx_WT5
+# Ctx_Homo1 -7.481409  1.2438530 Ctx_Homo  Ctx_Homo Ctx_Homo1
+# Ctx_Homo2 -7.727240  0.8961338 Ctx_Homo  Ctx_Homo Ctx_Homo2
+# Ctx_Homo3 -8.944415  1.2323842 Ctx_Homo  Ctx_Homo Ctx_Homo3
+# Ctx_Homo4 -9.111609  1.4349383 Ctx_Homo  Ctx_Homo Ctx_Homo4
+# Ctx_Homo5 -8.833992  1.5912417 Ctx_Homo  Ctx_Homo Ctx_Homo5
+# Hip_WT1   10.824308  0.4997898   Hip_WT    Hip_WT   Hip_WT1
+# Hip_WT2   10.286742 -4.0459603   Hip_WT    Hip_WT   Hip_WT2
+# Hip_WT3   11.504030 -9.9343128   Hip_WT    Hip_WT   Hip_WT3
+# Hip_WT4   10.216623 -0.3613330   Hip_WT    Hip_WT   Hip_WT4
+# Hip_Homo1  6.471855  3.5974659 Hip_Homo  Hip_Homo Hip_Homo1
+# Hip_Homo2 10.014359  2.6134660 Hip_Homo  Hip_Homo Hip_Homo2
+# Hip_Homo3  6.310117  4.3594898 Hip_Homo  Hip_Homo Hip_Homo3
+# Hip_Homo4  8.416734  2.9088240 Hip_Homo  Hip_Homo Hip_Homo4
+# Hip_Homo5  6.741866  4.2685991 Hip_Homo  Hip_Homo Hip_Homo5
+
+
+
+
+
+
+
+######### Cortex #############
+library("DESeq2")
+options(width=300)
+
+countData <- read.table("Merged_Hs6st3iKO_RNAseq2022_male_cortex_hippocampus_whole_gene_Jerry.xls",sep="\t",header=T,row.names=1)
+countData[1:5,]
+countData2 <- countData[,c(1:10)]
+countData2[1:5,]
+
+colData2 <- data.frame(condition=c(
+  "Ctx_WT","Ctx_WT","Ctx_WT","Ctx_WT","Ctx_WT",
+  "Ctx_Homo","Ctx_Homo","Ctx_Homo","Ctx_Homo","Ctx_Homo"),
+  row.names=c(
+  "Ctx_WT1","Ctx_WT2","Ctx_WT3","Ctx_WT4","Ctx_WT5",
+  "Ctx_Homo1","Ctx_Homo2","Ctx_Homo3","Ctx_Homo4","Ctx_Homo5"))
+colData2
+
+dds <- DESeqDataSetFromMatrix(countData=countData2, colData=colData2, design=~condition)
+
+# keep <- rowSums(counts(dds)) >= 10 ## at least 10 reads total
+keep <- rowSums(counts(dds) >= 10) >= 5 ## at least 5 samples with >=10 counts; 5 = least replicate number
+dds <- dds[keep,]
+ 
+dds <- DESeq(dds) # Wald significance tests
+# dds <- DESeq(dds, test="LRT", reduced=~1) ## likelihood ratio test
+
+
+#### PCA 
+rld <- rlog(dds)
+# vsd <- varianceStabilizingTransformation(dds)
+
+print(plotPCA(rld, intgroup=c("condition"),ntop = 500))
+png("DESeq2_PCA_Hs6st3iKO_Cortex_whole_gene_top500_raw.png", width = 800, height = 700)
+print(plotPCA(rld, intgroup=c("condition"),ntop = 500))
+dev.off()
+
+result2 <- plotPCA(rld, intgroup=c("condition"),ntop = 500, returnData = TRUE)
+WTPCA <- result2[1:5,]
+KOPCA <- result2[6:10,]
+
+png("DESeq2_PCA_Hs6st3iKO_Cortex_whole_gene_top500.png", width = 300, height = 300)
+plot(WTPCA$PC1, WTPCA$PC2, pch=21, cex=2, col="gray28", bg=rgb(127,127,127,max=255), lwd=2, xlim=c(-3,3),ylim=c(-6,4))
+points(KOPCA$PC1, KOPCA$PC2, pch=21, cex=2, col="gray28", bg=rgb(244,177,131,max=255), lwd=2)
+dev.off()
+
+result2
+#                 PC1        PC2    group condition      name
+# Ctx_WT1   -1.732168  0.5713211   Ctx_WT    Ctx_WT   Ctx_WT1
+# Ctx_WT2   -2.206929 -0.4466077   Ctx_WT    Ctx_WT   Ctx_WT2
+# Ctx_WT3   -2.679479 -0.1376091   Ctx_WT    Ctx_WT   Ctx_WT3
+# Ctx_WT4   -1.778045 -0.2266093   Ctx_WT    Ctx_WT   Ctx_WT4
+# Ctx_WT5   -1.853493 -0.7534741   Ctx_WT    Ctx_WT   Ctx_WT5
+# Ctx_Homo1  2.669809 -5.2274626 Ctx_Homo  Ctx_Homo Ctx_Homo1
+# Ctx_Homo2  1.987102  0.7839597 Ctx_Homo  Ctx_Homo Ctx_Homo2
+# Ctx_Homo3  2.013647  2.0915247 Ctx_Homo  Ctx_Homo Ctx_Homo3
+# Ctx_Homo4  1.865625  1.9096923 Ctx_Homo  Ctx_Homo Ctx_Homo4
+# Ctx_Homo5  1.713934  1.4352651 Ctx_Homo  Ctx_Homo Ctx_Homo5
+
+
+
+
+
+
+
+
+######### Hippocampus #############
+library("DESeq2")
+options(width=300)
+
+countData <- read.table("Merged_Hs6st3iKO_RNAseq2022_male_cortex_hippocampus_whole_gene_Jerry.xls",sep="\t",header=T,row.names=1)
+countData[1:5,]
+countData2 <- countData[,c(11:19)]
+countData2[1:5,]
+
+colData2 <- data.frame(condition=c(
+  "Hip_WT","Hip_WT","Hip_WT","Hip_WT",
+  "Hip_Homo","Hip_Homo","Hip_Homo","Hip_Homo","Hip_Homo"),
+  row.names=c(
+  "Hip_WT1","Hip_WT2","Hip_WT3","Hip_WT4",
+  "Hip_Homo1","Hip_Homo2","Hip_Homo3","Hip_Homo4","Hip_Homo5"))
+colData2
+
+dds <- DESeqDataSetFromMatrix(countData=countData2, colData=colData2, design=~condition)
+
+# keep <- rowSums(counts(dds)) >= 10 ## at least 10 reads total
+keep <- rowSums(counts(dds) >= 10) >= 5 ## at least 5 samples with >=10 counts; 5 = least replicate number
+dds <- dds[keep,]
+ 
+dds <- DESeq(dds) # Wald significance tests
+# dds <- DESeq(dds, test="LRT", reduced=~1) ## likelihood ratio test
+
+
+#### PCA 
+rld <- rlog(dds)
+# vsd <- varianceStabilizingTransformation(dds)
+
+
+print(plotPCA(rld, intgroup=c("condition"),ntop = 500))
+png("DESeq2_PCA_Hs6st3iKO_Hippocampus_whole_gene_top500_raw.png", width = 800, height = 700)
+print(plotPCA(rld, intgroup=c("condition"),ntop = 500))
+dev.off()
+
+result2 <- plotPCA(rld, intgroup=c("condition"),ntop = 500, returnData = TRUE)
+WTPCA <- result2[1:4,]
+KOPCA <- result2[5:9,]
+
+png("DESeq2_PCA_Hs6st3iKO_Hippocampus_whole_gene_top500.png", width = 300, height = 300)
+plot(WTPCA$PC1, WTPCA$PC2, pch=21, cex=2, col="gray28", bg=rgb(127,127,127,max=255), lwd=2, xlim=c(-12,8),ylim=c(-10,10))
+points(KOPCA$PC1, KOPCA$PC2, pch=21, cex=2, col="gray28", bg=rgb(244,177,131,max=255), lwd=2)
+dev.off()
+
+result2
+
+#                 PC1        PC2    group condition      name
+# Hip_WT1   -2.622844  6.6819524   Hip_WT    Hip_WT   Hip_WT1
+# Hip_WT2   -4.952206  1.9772463   Hip_WT    Hip_WT   Hip_WT2
+# Hip_WT3   -9.870293 -6.8846166   Hip_WT    Hip_WT   Hip_WT3
+# Hip_WT4   -2.137898  3.9773320   Hip_WT    Hip_WT   Hip_WT4
+# Hip_Homo1  3.398413  0.2415025 Hip_Homo  Hip_Homo Hip_Homo1
+# Hip_Homo2  1.380396  0.8362626 Hip_Homo  Hip_Homo Hip_Homo2
+# Hip_Homo3  5.074752 -1.4441678 Hip_Homo  Hip_Homo Hip_Homo3
+# Hip_Homo4  3.937884 -2.3803018 Hip_Homo  Hip_Homo Hip_Homo4
+# Hip_Homo5  5.791796 -3.0052097 Hip_Homo  Hip_Homo Hip_Homo5
+
+
+

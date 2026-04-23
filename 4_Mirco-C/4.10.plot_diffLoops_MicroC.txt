@@ -1,0 +1,74 @@
+
+## 10 kb
+diff10k <- read.table("Merged_diffLoops_MicroC_inKO_10kB.xls",header=T,sep="\t")
+diff10k[1:5,]
+
+wt <- diff10k[diff10k$Diff == "WT",]
+ko <- diff10k[diff10k$Diff == "KO",]
+wt[1:5,]
+ko[1:5,]
+
+dim(diff10k) # 4708
+dim(wt)      # 1943
+dim(ko)      # 2765
+
+pdf("Merged_diffLoops_MicroC_inKO_10kb_FDR_FC.pdf")
+plot(density(-log(wt$FDR1/wt$FDR2,10)),col="white",xlim=c(-8,8), ylim=c(0,0.8))
+polygon(density(-log(wt$FDR1/wt$FDR2,10)), col=rgb(0.97, 0.51, 0.47, alpha = 0.5), border="grey")
+polygon(density(-log(ko$FDR1/ko$FDR2,10)), col=rgb(0.25, 0.87, 0.81, alpha = 0.5), border="grey")
+dev.off()
+
+pdf("Merged_diffLoops_MicroC_inKO_10kb_Scale.pdf")
+plot(density(wt$Scale1 - wt$Scale2),col="white",xlim=c(-5,5), ylim=c(0,1.5))
+polygon(density(wt$Scale1 - wt$Scale2), col=rgb(0.97, 0.51, 0.47, alpha = 0.5), border="grey")
+polygon(density(ko$Scale1 - ko$Scale2), col=rgb(0.25, 0.87, 0.81, alpha = 0.5), border="grey")
+dev.off()
+
+ 
+t.test(wt$FDR1,wt$FDR2,alternative="less")
+#	Welch Two Sample t-test
+# data:  wt$FDR1 and wt$FDR2
+# t = -117.42, df = 1950.6, p-value < 2.2e-16
+# alternative hypothesis: true difference in means is less than 0
+# 95 percent confidence interval:
+#        -Inf -0.8520709
+# sample estimates:
+#  mean of x  mean of y 
+# 0.01508176 0.87926397 
+ 
+t.test(ko$FDR1,ko$FDR2,alternative="greater")
+#	Welch Two Sample t-test
+# data:  ko$FDR1 and ko$FDR2
+# t = 120.11, df = 2773.4, p-value < 2.2e-16
+# alternative hypothesis: true difference in means is greater than 0
+# 95 percent confidence interval:
+#  0.8172685       Inf
+# sample estimates:
+#  mean of x  mean of y 
+# 0.84236395 0.01374394 
+
+t.test(wt$Scale1,wt$Scale2,alternative="greater")
+#	Welch Two Sample t-test
+# data:  wt$Scale1 and wt$Scale2
+# t = 98.551, df = 2979.2, p-value < 2.2e-16
+# alternative hypothesis: true difference in means is greater than 0
+# 95 percent confidence interval:
+#  1.981106      Inf
+# sample estimates:
+# mean of x mean of y 
+# 2.3049364 0.2901934 
+  
+t.test(ko$Scale1,ko$Scale2,alternative="less")
+# 	Welch Two Sample t-test
+# data:  ko$Scale1 and ko$Scale2
+# t = -107.63, df = 3754, p-value < 2.2e-16
+# alternative hypothesis: true difference in means is less than 0
+# 95 percent confidence interval:
+#       -Inf -1.875227
+# sample estimates:
+# mean of x mean of y 
+# 0.3661796 2.2705164 
+
+
+
+

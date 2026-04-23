@@ -1,0 +1,114 @@
+
+1. Generating Contact Matrix
+# There are two common formats for contact maps, the Cooler format and Hic format. 
+# Both are compressed and sparsed formats to avoid large storage volumes; For a 
+# given number of bins in the genome, the size of the matrix would be , in addition, 
+# typically more than one resolution (bin size) is being used.
+
+
+2. Generating HiC contact maps using Juicer tools
+# Juicer Tools is used to convert .pairs file into a HiC contact matrix.
+# HiC is highly compressed binary representation of the contact matrix
+# Provides rapid random access to any genomic region matrix
+# Stores contact matrix at 9 different resolutions (2.5M, 1M, 500K, 250K, 100K, 
+# 50K, 25K, 10K, and 5K)
+
+# The .pairs file that you generated in the From fastq to final valid pairs bam file 
+# section can be used directly with Juicer tools to generate the HiC contact matrix
+
+# Visualizing .hic contact matrix
+# The visualization tool Juicebox can be used to visualize the contact matrix. You 
+# can either download a local version of the tool to your computer as a Java 
+# application or use a web version of Juicebox. Load your .hic file to visualize 
+# the contact map and zoom in to areas of interest.
+
+java -Xmx100000m  -Djava.awt.headless=true -jar /home/jerry/Tools/Juicer/juicer_tools_1.22.01.jar pre --threads 100 MicroC_inKO_Hippo_WT1_mapped.pairs MicroC_inKO_Hippo_WT1.hic mm10.genome
+
+java -Xmx100000m  -Djava.awt.headless=true -jar /home/jerry/Tools/Juicer/juicer_tools_1.22.01.jar pre --threads 100 MicroC_inKO_Hippo_WT2_mapped.pairs MicroC_inKO_Hippo_WT2.hic mm10.genome
+
+java -Xmx100000m  -Djava.awt.headless=true -jar /home/jerry/Tools/Juicer/juicer_tools_1.22.01.jar pre --threads 100 MicroC_inKO_Hippo_KO1_mapped.pairs MicroC_inKO_Hippo_KO1.hic mm10.genome
+
+java -Xmx100000m  -Djava.awt.headless=true -jar /home/jerry/Tools/Juicer/juicer_tools_1.22.01.jar pre --threads 100 MicroC_inKO_Hippo_KO2_mapped.pairs MicroC_inKO_Hippo_KO2.hic mm10.genome
+
+
+
+
+
+
+3. Generating cooler contact maps
+## Installing Cooler and its dependencies
+ # sudo apt-get install libhdf5-dev # libhdf5
+ # pip install h5py # h5py
+ # pip install cooler # cooler
+ # pip install pypairix # pypairix
+
+## Installing Pairix: Pairix is a tool for indexing and querying on a 
+## block-compressed text file containing pairs of genomic coordinates. 
+ # git clone https://github.com/4dn-dcic/pairix
+ # cd pairix
+ # make
+## Add the bin path ~/.bashrc
+ # export PATH="/home/jerry/Tools/pairix/bin:$PATH"
+ # source ~/.bashrc
+## 
+ # 
+
+## From .pairs to cooler contact matrix
+# Cooler tools is used to convert indexed .pairs file into cool and mcool contact 
+# matrices. Cooler generates a sparse, compressed, and binary persistent 
+# representation of proximity ligation contact matrix.
+# Store matrix as HDF5 file object
+# Provides python API to manipulate contact matrix
+# Each cooler matrix is computed at a specific resolution
+# Multi-cool (mcool) files store a set of cooler files into a single HDF5 file object
+# Multi-cool files are helpful for visualization
+
+# Indexing the .pairs file
+cp *.pairs .. ## make a copy of the pairs, the .pairs.gz will replace .pairs files
+bgzip MicroC_inKO_Hippo_WT1_mapped.pairs
+bgzip MicroC_inKO_Hippo_WT2_mapped.pairs
+bgzip MicroC_inKO_Hippo_KO1_mapped.pairs
+bgzip MicroC_inKO_Hippo_KO2_mapped.pairs
+mv ../*.pairs .
+
+# index the file .pairs.gz file
+pairix MicroC_inKO_Hippo_WT1_mapped.pairs.gz
+pairix MicroC_inKO_Hippo_WT2_mapped.pairs.gz
+pairix MicroC_inKO_Hippo_KO1_mapped.pairs.gz
+pairix MicroC_inKO_Hippo_KO2_mapped.pairs.gz
+
+# Genereting single resolution contact map files
+# use the cload pairix utility of Cooler to generate contact maps
+
+cooler cload pairix -p 100 mm10.genome:1000 MicroC_inKO_Hippo_WT1_mapped.pairs.gz MicroC_inKO_Hippo_WT1_matrix_1kb.cool
+
+cooler cload pairix -p 100 mm10.genome:1000 MicroC_inKO_Hippo_WT2_mapped.pairs.gz MicroC_inKO_Hippo_WT2_matrix_1kb.cool
+
+cooler cload pairix -p 100 mm10.genome:1000 MicroC_inKO_Hippo_KO1_mapped.pairs.gz MicroC_inKO_Hippo_KO1_matrix_1kb.cool
+
+cooler cload pairix -p 100 mm10.genome:1000 MicroC_inKO_Hippo_KO2_mapped.pairs.gz MicroC_inKO_Hippo_KO2_matrix_1kb.cool
+
+
+
+# Genereting multi-resolutions files and visualizing the contact matrix
+# When you wish to visualize the contact matrix, it is highly recommended to generate 
+# a multi-resolution .mcool file to allow zooming in and out to inspect regions of 
+# interest. The cooler zoomify utility allows you to generate a multi-resolution 
+# cooler file by coarsening. The input to cooler zoomify is a single resolution .cool 
+# file, to allow zooming in into regoins of interest we suggest to generate a .cool 
+# file with a small bin size, e.g. 1kb. Multi-resolution files uses the suffix .mcool.
+# resolutions (kb): 1 2 4 8 16 32 64 128 256 512 1024 2048 4096 8192
+cooler zoomify --balance -p 100 MicroC_inKO_Hippo_WT1_matrix_1kb.cool 
+cooler zoomify --balance -p 100 MicroC_inKO_Hippo_WT2_matrix_1kb.cool
+cooler zoomify --balance -p 100 MicroC_inKO_Hippo_KO1_matrix_1kb.cool
+cooler zoomify --balance -p 100 MicroC_inKO_Hippo_KO2_matrix_1kb.cool
+
+
+
+
+
+
+
+
+
+

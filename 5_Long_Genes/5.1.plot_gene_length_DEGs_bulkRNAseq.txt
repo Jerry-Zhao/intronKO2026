@@ -1,0 +1,152 @@
+
+total <- read.table("Length_Deseq2_allGenes.txt",header=T,sep="\t")
+down <- read.table("Length_Deseq2_downDEGs.txt",header=T,sep="\t")
+up <- read.table("Length_Deseq2_upDEGs.txt",header=T,sep="\t")
+
+total[1:5,]
+down[1:5,]
+up[1:5,]
+
+dim(total) # 17184
+dim(down)  # 1714
+dim(up)    # 815
+
+### density plot
+pdf("Length_DESeq2_DEGs_density.pdf")
+plot(density(log(up$Length,10)),xlim=c(2.5,6.5),ylim=c(0,1),col="white")
+polygon(density(log(down$Length,10)), col="aquamarine3", border="grey")
+polygon(density(log(up$Length,10)), col=rgb(1, 0.41, 0.71, alpha = 0.8), border="grey")
+dev.off()
+
+plot(density(total$Length),xlim=c(0,1000000),ylim=c(0,0.00006))
+polygon(density(total$Length),col="grey")
+polygon(density(up$Length), col=rgb(0.97, 0.51, 0.47, alpha = 0.5), border="grey")
+polygon(density(down$Length), col=rgb(0.25, 0.87, 0.81, alpha = 0.5), border="grey")
+
+plot(density(log(total$Length,10)),xlim=c(2.5,6.5),ylim=c(0,1))
+polygon(density(log(total$Length,10)),col="grey",border="grey50")
+polygon(density(log(up$Length,10)), col=rgb(1, 0.41, 0.71, alpha = 0.5), border="grey")
+polygon(density(log(down$Length,10)), col=rgb(0.33, 1, 0.62, alpha = 0.5), border="grey")
+
+
+#### boxplot
+databox <- data.frame(Length=c(total$Length,up$Length,down$Length),
+                      Category=c(rep("TOTAL",length(total$Length)),
+                                 rep("UP",length(up$Length)),
+                                 rep("DOWN",length(down$Length))))
+databox[1:5,]
+dim(databox) # 19713     2
+dim(databox[databox$Category == "TOTAL",]) # 17184     
+dim(databox[databox$Category == "UP",])    # 815
+dim(databox[databox$Category == "DOWN",])  # 1714
+
+pdf("Length_DESeq2_DEGs_boxplot.pdf")
+boxplot(databox$Length~factor(databox$Category,levels=c("TOTAL","UP","DOWN")), col=c("grey","hotpink","seagreen1"), outcol="grey70",ylim=c(0,800000), outline=FALSE)
+dev.off()
+
+
+
+databox2 <- data.frame(Length=c(total$Length,up$Length,down$Length,down$Length[1:100]),
+                      Category=c(rep("TOTAL",length(total$Length)),
+                                 rep("UP",length(up$Length)),
+                                 rep("DOWN",length(down$Length)),
+                                 rep("DOWN100",length(down$Length[1:100]))))
+databox2[1:5,]
+dim(databox2) # 19713     2
+dim(databox2[databox2$Category == "TOTAL",]) # 17184
+dim(databox2[databox2$Category == "UP",])    # 815
+dim(databox2[databox2$Category == "DOWN",])  # 1714
+dim(databox2[databox2$Category == "DOWN100",])  # 100
+
+median(total$Length)  # 26876
+median(up$Length)     # 9342
+median(down$Length)   # 148701
+median(down$Length[1:100]) # 556310
+
+pdf("Length_DESeq2_DEGs_boxplot2.pdf")
+boxplot(databox2$Length~factor(databox2$Category,levels=c("TOTAL","UP","DOWN","DOWN100")), col=c("grey","hotpink","seagreen4","aquamarine3"), outcol="grey70",ylim=c(0,2000000), outline=FALSE)
+dev.off()
+
+
+
+
+### t.test P-values 
+t.test(down$Length,total$Length,alternative="greater")
+# 	Welch Two Sample t-test
+# data:  down$Length and total$Length
+# t = 26.424, df = 1787.5, p-value < 2.2e-16
+# alternative hypothesis: true difference in means is greater than 0
+# 95 percent confidence interval:
+#  168445.3      Inf
+# sample estimates:
+# mean of x mean of y 
+# 242920.49  63287.66 
+
+t.test(down$Length,up$Length,alternative="greater")
+# 	Welch Two Sample t-test
+# data:  down$Length and up$Length
+# t = 33.465, df = 1768.1, p-value < 2.2e-16
+# alternative hypothesis: true difference in means is greater than 0
+# 95 percent confidence interval:
+#  215748.1      Inf
+# sample estimates:
+# mean of x mean of y 
+#  242920.5   16013.8 
+
+t.test(up$Length,total$Length,alternative="less")
+# 	Welch Two Sample t-test
+# data:  up$Length and total$Length
+# t = -36.166, df = 4063.9, p-value < 2.2e-16
+# alternative hypothesis: true difference in means is less than 0
+# 95 percent confidence interval:
+#       -Inf -45123.35
+# sample estimates:
+# mean of x mean of y 
+#  16013.80  63287.66 
+
+t.test(down$Length[1:100],total$Length,alternative="greater")
+# 	Welch Two Sample t-test
+# data:  down$Length[1:100] and total$Length
+# t = 13.286, df = 99.115, p-value < 2.2e-16
+# alternative hypothesis: true difference in means is greater than 0
+# 95 percent confidence interval:
+#  476608.4      Inf
+# sample estimates:
+# mean of x mean of y 
+# 607964.39  63287.66 
+
+
+
+
+
+
+## Scatter plot ##
+# top100 protein-coding genes
+top100 <- read.table("Length_Deseq2_top100_protein_coding.txt",row.names=1,header=T,sep="\t")
+
+plot(log(top100$Length,10),top100$log2FoldChange,ylim=c(-1,1),xlim=c(2,7))
+abline(v=log(40000,10))
+abline(h=0)
+
+up <- top100[top100$log2FoldChange>0,]
+down <- top100[top100$log2FoldChange<0,]
+
+dim(top100)  ## 100
+dim(up)      ## 13
+dim(down)    ## 87
+
+pdf("Top100_proteinDEG_length_Hs6st3iKO_Hippocampus_whole_gene.pdf")
+plot(log(top100$Length,10),top100$log2FoldChange,pch=21, col="gray28", bg=rgb(127,127,127,max=255), ylim=c(-1,1),xlim=c(2,7),cex=1.5)
+points(log(up$Length,10),up$log2FoldChange,pch=21,col="hotpink4", bg="hotpink", cex=1.5)
+points(log(down$Length,10),down$log2FoldChange,pch=21,col="seagreen4", bg="aquamarine3", cex=1.5)
+abline(v=log(40000,10),lty=3,lwd=3)
+abline(h=0,lty=3,lwd=3)
+dev.off()
+
+
+
+
+
+
+
+

@@ -1,0 +1,58 @@
+
+##### Hippocampus: WT vs KO ###### 
+library("DESeq2")
+options(width=300)
+
+countData <- read.table("Merged_Hs6st3_CMV_2023RNAseq_hippocampus_whole_gene_Jerry.xls",sep="\t",header=T,row.names=1)
+countData[1:5,]
+countData2 <- countData
+countData2[1:5,]
+
+colData2 <- data.frame(condition=c(
+  "Hip_WT","Hip_WT","Hip_WT","Hip_WT","Hip_WT",
+  "Hip_KO","Hip_KO","Hip_KO","Hip_KO","Hip_KO"),
+  row.names=c(
+  "Hip_WT1","Hip_WT2","Hip_WT3","Hip_WT4","Hip_WT5",
+  "Hip_KO1","Hip_KO2","Hip_KO3","Hip_KO4","Hip_KO5"))
+colData2
+
+dds <- DESeqDataSetFromMatrix(countData=countData2, colData=colData2, design=~condition)
+
+# keep <- rowSums(counts(dds)) >= 10 ## at least 10 reads total
+keep <- rowSums(counts(dds) >= 10) >= 3 ## at least 5 samples with >=10 counts; 5 = least replicate number
+dds <- dds[keep,]
+ 
+dds <- DESeq(dds) # Wald significance tests
+# dds <- DESeq(dds, test="LRT", reduced=~1) ## likelihood ratio test
+
+res <- results(dds,contrast=c("condition","Hip_KO","Hip_WT"),alpha=0.05)
+resOrdered <- res[order(res$padj),]
+head(resOrdered)
+dim(as.data.frame(resOrdered))
+
+sum(resOrdered$padj < 0.05, na.rm=TRUE) ## Total DEG 28
+sum(resOrdered$padj < 0.05 & resOrdered$log2FoldChange>0, na.rm=TRUE) # Up 22
+sum(resOrdered$padj < 0.05 & resOrdered$log2FoldChange<0, na.rm=TRUE) # Down 6
+
+sum(resOrdered$padj < 0.01, na.rm=TRUE) ## Total DEG: FDR-0.01: 13
+sum(resOrdered$padj < 0.1, na.rm=TRUE) ## Total DEG:FDR-0.1:  77
+
+write.table(as.data.frame(resOrdered),file="DESeq2_Wald_Hs6st3_CMV_2023RNAseq_Hippocampus_WT_KO_whole_gene.xls",sep="\t",quote=F)
+# write.table(as.data.frame(resOrdered),file="DESeq2_LRT_Hs6st3_CMV_2023RNAseq_Hippocampus_WT_KO_whole_gene.xls",sep="\t",quote=F)
+
+
+
+
+
+
+
+
+
+
+
+# # CPM values
+#cpm_counts <- round(fpm(dds, robust = FALSE),3) # only count per million (CPM) 
+cpm_counts <- round(fpm(dds, robust = TRUE),3) # default, median of ratios method
+write.table(cpm_counts, file="DESeq2_CPM_Hs6st3_CMV_2023RNAseq_Hippocampus_WT_KO_whole_gene.xls", sep="\t", quote=F)
+
+

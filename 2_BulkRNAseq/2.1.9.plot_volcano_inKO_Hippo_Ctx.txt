@@ -1,0 +1,64 @@
+
+## Hippocampus 
+total <- read.table("DESeq2_Wald_Hs6st3iKO_RNAseq2022_male_Hippocampus_WT_HOMO_whole_gene.xls",header=T, sep="\t",row.names=1)
+total[1:5,]
+total2 <- total[complete.cases(total),] ## Remove padj-NA rows
+ 
+diffgene <- total2[total2$padj<0.05,]
+upgene <- diffgene[diffgene$log2FoldChange>0,]
+downgene <- diffgene[diffgene$log2FoldChange<0,]
+ 
+dim(total2)     # 11845
+dim(diffgene)  # 2529
+dim(upgene)    # 815
+dim(downgene)  # 1714
+
+summary(total2$log2FoldChange)
+#     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+# -9.91033 -0.14280 -0.01508 -0.02568  0.10309  2.00147
+summary(-log(total2$padj,10))
+#      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+# 0.0000189 0.1506312 0.4278602       Inf 1.1258525       Inf
+ 
+pdf("Volcano_plot_Hs6st3iKO_Hippocampus_whole_gene.pdf")
+plot(total2$log2FoldChange, -log(total2$padj,10), pch=21, col="gray28", bg=rgb(127,127,127,max=255), xlim=c(-2,2),ylim=c(0,20), cex=0.8)
+points(upgene$log2FoldChange, -log(upgene$padj,10), pch=21, col="hotpink4", bg="hotpink", cex=0.8)
+points(downgene$log2FoldChange, -log(downgene$padj,10), pch=21, col="seagreen4", bg="seagreen1", cex=0.8)
+dev.off()
+
+## Hs6st3 : log2FoldChange -9.9103246   
+
+
+
+
+
+
+## Cortex 
+total <- read.table("DESeq2_Wald_Hs6st3iKO_RNAseq2022_male_Cortex_WT_HOMO_whole_gene.xls",header=T, sep="\t",row.names=1)
+total[1:5,]
+total2 <- total[complete.cases(total),] ## Remove padj-NA rows
+
+diffgene <- total2[total2$padj<0.05,]
+upgene <- diffgene[diffgene$log2FoldChange>0,]
+downgene <- diffgene[diffgene$log2FoldChange<0,]
+ 
+dim(total2)    # 16259
+dim(diffgene)  # 14
+dim(upgene)    # 10
+dim(downgene)  # 4
+ 
+summary(total2$log2FoldChange)
+#      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+# -9.185769 -0.069386 -0.002482 -0.007692  0.057546  2.257462 
+summary(-log(total2$padj,10))
+#      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+# 0.0000396 0.0002542 0.0002542       Inf 0.0002542       Inf 
+
+pdf("Volcano_plot_Hs6st3iKO_Cortex_whole_gene.pdf")
+plot(total2$log2FoldChange, -log(total2$padj,10), pch=21, col="gray28", bg=rgb(127,127,127,max=255), xlim=c(-4,4),ylim=c(0,20), cex=0.8)
+points(upgene$log2FoldChange, -log(upgene$padj,10), pch=21, col="hotpink4", bg="hotpink", cex=0.8)
+points(downgene$log2FoldChange, -log(downgene$padj,10), pch=21, col="seagreen4", bg="seagreen1", cex=0.8)
+dev.off()
+
+
+

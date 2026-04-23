@@ -1,0 +1,358 @@
+
+1. Conformation Analysis
+# There are many open-source tools available that enable researchers to perform 
+# conformation analyses on contact matrices. We aim to hightlight the tools and 
+# commands we use here at Cantata Bio call features. This is not a comprenisve 
+# list, nor do we own or manage any of the tools listed below. Please refer to 
+# their source document pages for more information or for help in trouble shooting 
+# the use of these tools. For each analysis performed below we provide, a link to 
+# the tool repo, the input file, the example command, and an example output for 
+# you to check your results against.
+
+# Example input files (.mcool and .hic files)
+
+2. A/B Compartments
+# Recommended Software: Fanc-C https://fan-c.readthedocs.io/en/latest/
+## install hdf5
+# tar xf hdf5-1.14.3.tar
+# ./configure
+# make
+# make install
+## installing FAN-C in a fresh virtual environment to prevent dependency issues
+# sudo apt install python3.10-venv
+# cd /home/jerry/Tools/Fanc-C 
+# python3 -m venv ./venv
+# source venv/bin/activate 
+# pip install biopython==1.76 
+
+# cd /home/jerry/Tools/Fanc-C
+# source venv/bin/activate
+# Output(s): AB compartments, AB compartments bed, AB Eigenvector
+
+## 64 kb
+fanc compartments -f -v MicroC_inKO_WT1_eigen_64kb.bed -d MicroC_inKO_WT1_64kb.bed 
+     -g Mus_musculus.GRCm38.93.mm10.fa MicroC_inKO_Hippo_WT1_matrix_1kb.mcool@64000 
+     MicroC_inKO_WT1_64kb.ab
+
+fanc compartments -f -v MicroC_inKO_WT2_eigen_64kb.bed -d MicroC_inKO_WT2_64kb.bed
+     -g Mus_musculus.GRCm38.93.mm10.fa MicroC_inKO_Hippo_WT2_matrix_1kb.mcool@64000 
+     MicroC_inKO_WT2_64kb.ab
+
+fanc compartments -f -v MicroC_inKO_KO1_eigen_64kb.bed -d MicroC_inKO_KO1_64kb.bed
+     -g Mus_musculus.GRCm38.93.mm10.fa MicroC_inKO_Hippo_KO1_matrix_1kb.mcool@64000 
+     MicroC_inKO_KO1_64kb.ab
+
+fanc compartments -f -v MicroC_inKO_KO2_eigen_64kb.bed -d MicroC_inKO_KO2_64kb.bed
+     -g Mus_musculus.GRCm38.93.mm10.fa MicroC_inKO_Hippo_KO2_matrix_1kb.mcool@64000
+     MicroC_inKO_KO2_64kb.ab
+
+## 256 kb
+fanc compartments -f -v MicroC_inKO_WT1_eigen_256kb.bed -d MicroC_inKO_WT1_256kb.bed
+     -g Mus_musculus.GRCm38.93.mm10.fa MicroC_inKO_Hippo_WT1_matrix_1kb.mcool@256000 
+     MicroC_inKO_WT1_256kb.ab
+
+fanc compartments -f -v MicroC_inKO_WT2_eigen_256kb.bed -d MicroC_inKO_WT2_256kb.bed
+     -g Mus_musculus.GRCm38.93.mm10.fa MicroC_inKO_Hippo_WT2_matrix_1kb.mcool@256000
+     MicroC_inKO_WT2_256kb.ab
+
+fanc compartments -f -v MicroC_inKO_KO1_eigen_256kb.bed -d MicroC_inKO_KO1_256kb.bed
+     -g Mus_musculus.GRCm38.93.mm10.fa MicroC_inKO_Hippo_KO1_matrix_1kb.mcool@256000
+     MicroC_inKO_KO1_256kb.ab
+
+fanc compartments -f -v MicroC_inKO_KO2_eigen_256kb.bed -d MicroC_inKO_KO2_256kb.bed
+     -g Mus_musculus.GRCm38.93.mm10.fa MicroC_inKO_Hippo_KO2_matrix_1kb.mcool@256000
+     MicroC_inKO_KO2_256kb.ab
+
+
+## plot: chr14
+# AB Eigenvector: The eigenvector of the correlation matrix is used to derive 
+# compartment type and strength for each matrix bin. Generally, regions with positive 
+# values are assigned the ‘A’, regions with negative values the ‘B’ compartment. 
+fanc compartments -v MicroC_inKO_WT1_256kb.ev.txt MicroC_inKO_WT1_256kb.ab
+fanc compartments -v MicroC_inKO_WT2_256kb.ev.txt MicroC_inKO_WT2_256kb.ab
+fanc compartments -v MicroC_inKO_KO1_256kb.ev.txt MicroC_inKO_KO1_256kb.ab
+fanc compartments -v MicroC_inKO_KO2_256kb.ev.txt MicroC_inKO_KO2_256kb.ab
+
+fancplot -o MicroC_inKO_WT1_256kb.ab_ev.png 14 -p square MicroC_inKO_WT1_256kb.ab 
+     -vmin -0.75 -vmax 0.75 -c RdBu_r -p line MicroC_inKO_WT1_256kb.ev.txt 
+fancplot -o MicroC_inKO_WT2_256kb.ab_ev.png 14 -p square MicroC_inKO_WT2_256kb.ab     
+     -vmin -0.75 -vmax 0.75 -c RdBu_r -p line MicroC_inKO_WT2_256kb.ev.txt
+fancplot -o MicroC_inKO_KO1_256kb.ab_ev.png 14 -p square MicroC_inKO_KO1_256kb.ab     
+     -vmin -0.75 -vmax 0.75 -c RdBu_r -p line MicroC_inKO_KO1_256kb.ev.txt
+fancplot -o MicroC_inKO_KO2_256kb.ab_ev.png 14 -p square MicroC_inKO_KO2_256kb.ab
+     -vmin -0.75 -vmax 0.75 -c RdBu_r -p line MicroC_inKO_KO2_256kb.ev.txt
+
+
+## AB enrichment profiles
+# The compartmentalisation of a genome can be visualised in an enrichment profile plot. 
+# This will divide bins into percentiles using the associated eigenvector values, and then 
+# the average observed/expected (O/E) values of contacts in each pair of percentile bins is 
+# calculated and plotted.
+
+fanc compartments -g Mus_musculus.GRCm38.93.mm10.fa \ 
+                  -p 5 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95 100 \
+                  -e MicroC_inKO_WT1_256kb.ab_profile.png \
+                  MicroC_inKO_Hippo_WT1_matrix_1kb.mcool@256000 Domains/MicroC_inKO_WT1_256kb.ab
+fanc compartments -g Mus_musculus.GRCm38.93.mm10.fa \
+                  -p 5 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95 100 \
+                  -e MicroC_inKO_WT2_256kb.ab_profile.png \
+                  MicroC_inKO_Hippo_WT2_matrix_1kb.mcool@256000 Domains/MicroC_inKO_WT2_256kb.ab
+fanc compartments -g Mus_musculus.GRCm38.93.mm10.fa \
+                  -p 5 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95 100 \
+                  -e MicroC_inKO_KO1_256kb.ab_profile.png \
+                  MicroC_inKO_Hippo_KO1_matrix_1kb.mcool@256000 Domains/MicroC_inKO_KO1_256kb.ab
+fanc compartments -g Mus_musculus.GRCm38.93.mm10.fa \
+                  -p 5 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95 100 \
+                  -e MicroC_inKO_KO2_256kb.ab_profile.png \
+                  MicroC_inKO_Hippo_KO2_matrix_1kb.mcool@256000 Domains/MicroC_inKO_KO2_256kb.ab
+
+
+
+
+
+
+3. PCA analysis
+# When working with multiple Hi-C libraries, it is often useful to assess the 
+# variability between replicates and samples from different conditions. This can 
+# provide valuable information about potential experimental biases and whether 
+# samples from different replicates can be safely merged.
+# -r 14: only focused on chr14 
+fanc pca -n "WT1" "WT2" "KO1" "KO2" -Z -s 100000 -r 14 -p PCA14.inKO.png 
+         MicroC_inKO_Hippo_WT1.hic MicroC_inKO_Hippo_WT2.hic 
+         MicroC_inKO_Hippo_KO1.hic MicroC_inKO_Hippo_KO2.hic 
+         PCA14.inKO
+
+fanc pca -n "WT1" "WT2" "KO1" "KO2" -Z -s 100000 -p PCA.inKO.png 
+         MicroC_inKO_Hippo_WT1.hic MicroC_inKO_Hippo_WT2.hic
+         MicroC_inKO_Hippo_KO1.hic MicroC_inKO_Hippo_KO2.hic
+         PCA.inKO
+
+
+fanc pca -n "Hippo1" "Hippo2" "BCell" "mESC1" "mESC2" "mESC3" "mESC4" "mESC5" 
+         -Z -s 100000 -r 14 -p PCA14.AllMouse.MicroC.png
+         /media/HiC2/MicroC/inKO/MicroC_inKO_Hippo_WT1.hic 
+         /media/HiC2/MicroC/inKO/MicroC_inKO_Hippo_WT2.hic
+         /media/HiC2/MicroC/Published/mBCell/MicroC_BCell.hic
+         /media/HiC2/MicroC/Published/mESC/MicroC_mESC_rep1.hic
+         /media/HiC2/MicroC/Published/mESC/MicroC_mESC_rep2.hic
+         /media/HiC2/MicroC/Published/mESC/MicroC_mESC_rep3.hic
+         /media/HiC2/MicroC/Published/mESC/MicroC_mESC_rep4.hic
+         /media/HiC2/MicroC/Published/mESC/MicroC_mESC_rep5.hic
+         PCA14.AllMouse.MicroC
+
+fanc pca -n "Hippo1" "Hippo2" "BCell" "mESC1" "mESC2" "mESC3" "mESC4" "mESC5"
+         -Z -s 100000 -p PCA.AllMouse.MicroC.png
+         /media/HiC2/MicroC/inKO/MicroC_inKO_Hippo_WT1.hic
+         /media/HiC2/MicroC/inKO/MicroC_inKO_Hippo_WT2.hic
+         /media/HiC2/MicroC/Published/mBCell/MicroC_BCell.hic
+         /media/HiC2/MicroC/Published/mESC/MicroC_mESC_rep1.hic
+         /media/HiC2/MicroC/Published/mESC/MicroC_mESC_rep2.hic
+         /media/HiC2/MicroC/Published/mESC/MicroC_mESC_rep3.hic
+         /media/HiC2/MicroC/Published/mESC/MicroC_mESC_rep4.hic
+         /media/HiC2/MicroC/Published/mESC/MicroC_mESC_rep5.hic
+         PCA.AllMouse.MicroC
+
+
+
+4. TAD (Topologically Associated Domains)
+# Recommended Software: Juicer Arrowhead
+
+# Plot domains: Hs6st3 
+fancplot -o Plot/TADs_Hs6st3_WT1.png 14:115mb-125mb 
+         -p triangular MicroC_inKO_Hippo_WT1.hic@50kb -m 4000000 -vmin 0 -vmax 100
+fancplot -o Plot/TADs_Hs6st3_WT2.png 14:115mb-125mb 
+         -p triangular MicroC_inKO_Hippo_WT2.hic@50kb -m 4000000 -vmin 0 -vmax 100
+fancplot -o Plot/TADs_Hs6st3_KO1.png 14:115mb-125mb 
+         -p triangular MicroC_inKO_Hippo_KO1.hic@50kb -m 4000000 -vmin 0 -vmax 100
+fancplot -o Plot/TADs_Hs6st3_KO2.png 14:115mb-125mb 
+         -p triangular MicroC_inKO_Hippo_KO2.hic@50kb -m 4000000 -vmin 0 -vmax 100
+
+# FAN-C provides multiple “scores” to find the boundaries between domains.
+
+# Insulation Score
+# The insulation score (Crane et al. 2015) adds up contacts in a sliding 
+#  window align the Hi-C matrix diagonal.
+# Regions with low score are “insulating”, i.e. regions between domains. 
+# Regions with high scores are most likely found inside domains.
+
+# By default, fanc insulation will normalise the insulation scores to the 
+# chromosomal average and the log-transform them. 
+fanc insulation MicroC_inKO_Hippo_WT1.hic@50kb 
+                Domains/MicroC_inKO_Hippo_WT1_50kb.insulation 
+                -w 1000000 1500000 2000000 2500000 3000000 3500000 4000000
+fanc insulation MicroC_inKO_Hippo_WT2.hic@50kb 
+                Domains/MicroC_inKO_Hippo_WT2_50kb.insulation
+                -w 1000000 1500000 2000000 2500000 3000000 3500000 4000000
+fanc insulation MicroC_inKO_Hippo_KO1.hic@50kb 
+                Domains/MicroC_inKO_Hippo_KO1_50kb.insulation
+                -w 1000000 1500000 2000000 2500000 3000000 3500000 4000000
+fanc insulation MicroC_inKO_Hippo_KO2.hic@50kb
+                Domains/MicroC_inKO_Hippo_KO2_50kb.insulation
+                -w 1000000 1500000 2000000 2500000 3000000 3500000 4000000
+
+fanc insulation MicroC_inKO_Hippo_WT1.hic@5kb \
+                Domains/MicroC_inKO_Hippo_WT1_5kb.insulation \
+                -w 1000000 1500000 2000000 2500000 3000000 3500000 4000000
+fanc insulation MicroC_inKO_Hippo_WT2.hic@5kb \
+                Domains/MicroC_inKO_Hippo_WT2_5kb.insulation \
+                -w 1000000 1500000 2000000 2500000 3000000 3500000 4000000
+fanc insulation MicroC_inKO_Hippo_KO1.hic@5kb \
+                Domains/MicroC_inKO_Hippo_KO1_5kb.insulation \
+                -w 1000000 1500000 2000000 2500000 3000000 3500000 4000000
+fanc insulation MicroC_inKO_Hippo_KO2.hic@5kb \
+                Domains/MicroC_inKO_Hippo_KO2_5kb.insulation \
+                -w 1000000 1500000 2000000 2500000 3000000 3500000 4000000
+
+
+# plot insulation scores: 7 window sizes, heatmap
+fancplot -o Plot/TADs_insulation_Hs6st3_WT1.png 14:100mb-125mb 
+         -p triangular MicroC_inKO_Hippo_WT1.hic@50kb -m 6000000 -vmin 0 -vmax 50
+         -p scores Domains/MicroC_inKO_Hippo_WT1_50kb.insulation -vmin -1.5 -vmax 1.5
+fancplot -o Plot/TADs_insulation_Hs6st3_WT2.png 14:100mb-125mb 
+         -p triangular MicroC_inKO_Hippo_WT2.hic@50kb -m 6000000 -vmin 0 -vmax 50
+         -p scores Domains/MicroC_inKO_Hippo_WT2_50kb.insulation -vmin -1.5 -vmax 1.5
+fancplot -o Plot/TADs_insulation_Hs6st3_KO1.png 14:100mb-125mb 
+         -p triangular MicroC_inKO_Hippo_KO1.hic@50kb -m 6000000 -vmin 0 -vmax 50
+         -p scores Domains/MicroC_inKO_Hippo_KO1_50kb.insulation -vmin -1.5 -vmax 1.5
+fancplot -o Plot/TADs_insulation_Hs6st3_KO2.png 14:100mb-125mb 
+         -p triangular MicroC_inKO_Hippo_KO2.hic@50kb -m 6000000 -vmin 0 -vmax 50
+         -p scores Domains/MicroC_inKO_Hippo_KO2_50kb.insulation -vmin -1.5 -vmax 1.5
+
+# plot insulation scores: 1mb window size, line-plot
+fanc insulation Domains/MicroC_inKO_Hippo_WT1_50kb.insulation -w 1mb -o bed
+fanc insulation Domains/MicroC_inKO_Hippo_WT2_50kb.insulation -w 1mb -o bed
+fanc insulation Domains/MicroC_inKO_Hippo_KO1_50kb.insulation -w 1mb -o bed
+fanc insulation Domains/MicroC_inKO_Hippo_KO2_50kb.insulation -w 1mb -o bed
+fancplot --width 6 -o Plot/TADs_insulation_Hs6st3_WT1_1mb.png 14:100mb-125mb \
+         -p triangular MicroC_inKO_Hippo_WT1.hic@50kb -m 6000000 -vmin 0 -vmax 50 \
+         -p line -f -y -2 2 Domains/MicroC_inKO_Hippo_WT1_50kb.insulation_1mb.bed
+fancplot --width 6 -o Plot/TADs_insulation_Hs6st3_WT2_1mb.png 14:100mb-125mb \
+         -p triangular MicroC_inKO_Hippo_WT2.hic@50kb -m 6000000 -vmin 0 -vmax 50 \
+         -p line -f -y -2 2 Domains/MicroC_inKO_Hippo_WT2_50kb.insulation_1mb.bed
+fancplot --width 6 -o Plot/TADs_insulation_Hs6st3_KO1_1mb.png 14:100mb-125mb \
+         -p triangular MicroC_inKO_Hippo_KO1.hic@50kb -m 6000000 -vmin 0 -vmax 50 \
+         -p line -f -y -5 2.5 Domains/MicroC_inKO_Hippo_KO1_50kb.insulation_1mb.bed
+fancplot --width 6 -o Plot/TADs_insulation_Hs6st3_KO2_1mb.png 14:100mb-125mb \
+         -p triangular MicroC_inKO_Hippo_KO2.hic@50kb -m 6000000 -vmin 0 -vmax 50 \
+         -p line -f -y -5 2.5 Domains/MicroC_inKO_Hippo_KO2_50kb.insulation_1mb.bed
+
+
+# Insulating boundaries, TAD boundaries
+# Regions in the genome where the insulation score reaches a local minimum 
+# represent the region between two self-interacting domains, or TADs. 
+fanc boundaries Domains/MicroC_inKO_Hippo_WT1_50kb.insulation
+                Domains/MicroC_inKO_Hippo_WT1_50kb.insulation.boundary.1mb.bed -w 1mb
+fanc boundaries Domains/MicroC_inKO_Hippo_WT2_50kb.insulation
+                Domains/MicroC_inKO_Hippo_WT2_50kb.insulation.boundary.1mb.bed -w 1mb
+fanc boundaries Domains/MicroC_inKO_Hippo_KO1_50kb.insulation
+                Domains/MicroC_inKO_Hippo_KO1_50kb.insulation.boundary.1mb.bed -w 1mb
+fanc boundaries Domains/MicroC_inKO_Hippo_KO2_50kb.insulation
+                Domains/MicroC_inKO_Hippo_KO2_50kb.insulation.boundary.1mb.bed -w 1mb
+
+fanc boundaries Domains/MicroC_inKO_Hippo_WT1_5kb.insulation \
+                Domains/MicroC_inKO_Hippo_WT1_5kb.insulation.boundary.1mb.bed -w 1mb
+fanc boundaries Domains/MicroC_inKO_Hippo_WT2_5kb.insulation \
+                Domains/MicroC_inKO_Hippo_WT2_5kb.insulation.boundary.1mb.bed -w 1mb
+fanc boundaries Domains/MicroC_inKO_Hippo_KO1_5kb.insulation \
+                Domains/MicroC_inKO_Hippo_KO1_5kb.insulation.boundary.1mb.bed -w 1mb
+fanc boundaries Domains/MicroC_inKO_Hippo_KO2_5kb.insulation \
+                Domains/MicroC_inKO_Hippo_KO2_5kb.insulation.boundary.1mb.bed -w 1mb
+
+# plot TAD boundries
+fancplot --width 6 -o Plot/TADs_insulation_Hs6st3_WT1_1mb_boundary.png 14:100mb-125mb \
+         -p triangular MicroC_inKO_Hippo_WT1.hic@50kb -m 6000000 -vmin 0 -vmax 50 -c Oranges \
+         -p line -f -c coral -y -2 2 Domains/MicroC_inKO_Hippo_WT1_50kb.insulation_1mb.bed \
+         -p bar Domains/MicroC_inKO_Hippo_WT1_50kb.insulation.boundary.1mb.bed -c coral
+fancplot --width 6 -o Plot/TADs_insulation_Hs6st3_WT2_1mb_boundary.png 14:100mb-125mb \
+         -p triangular MicroC_inKO_Hippo_WT2.hic@50kb -m 6000000 -vmin 0 -vmax 50 -c Oranges \
+         -p line -f -c coral -y -2 2 Domains/MicroC_inKO_Hippo_WT2_50kb.insulation_1mb.bed \
+         -p bar Domains/MicroC_inKO_Hippo_WT2_50kb.insulation.boundary.1mb.bed -c coral
+fancplot --width 6 -o Plot/TADs_insulation_Hs6st3_KO1_1mb_boundary.png 14:100mb-125mb \
+         -p triangular MicroC_inKO_Hippo_KO1.hic@50kb -m 6000000 -vmin 0 -vmax 50 -c Greens \
+         -p line -f -c seagreen -y -5 2.5 Domains/MicroC_inKO_Hippo_KO1_50kb.insulation_1mb.bed \
+         -p bar Domains/MicroC_inKO_Hippo_KO1_50kb.insulation.boundary.1mb.bed -c seagreen 
+fancplot --width 6 -o Plot/TADs_insulation_Hs6st3_KO2_1mb_boundary.png 14:100mb-125mb \
+         -p triangular MicroC_inKO_Hippo_KO2.hic@50kb -m 6000000 -vmin 0 -vmax 50 -c Greens \
+         -p line -f -c seagreen -y -5 2.5 Domains/MicroC_inKO_Hippo_KO2_50kb.insulation_1mb.bed \
+         -p bar Domains/MicroC_inKO_Hippo_KO2_50kb.insulation.boundary.1mb.bed -c seagreen
+
+# Directionality Index
+# The directionality index (Dixon et al. 2012) measures the bias in contact frequency up- 
+# and downstream of an Hi-C region. When inside TADs, this measure tends towards zero, as 
+# interactions in either direction are equally frequent. However, when approaching a TAD 
+# boundary this measure changes drastically, as one direction will remain inside the TAD, 
+# where there is a high contact intensity, whereas the other direction will lie in a low 
+# intensity region outside the TAD.
+
+
+
+
+## Juicer Arrowhead for TADs 
+
+java -Xmx100000m  -Djava.awt.headless=true -jar /home/jerry/Tools/Juicer/juicer_tools_1.22.01.jar \
+     arrowhead --threads 100 -k KR -m 2000 -r 10000 --ignore-sparsity \ 
+     MicroC_inKO_Hippo_WT1.hic MicroC_inKO_Hippo_WT1_TADcalls
+java -Xmx100000m  -Djava.awt.headless=true -jar /home/jerry/Tools/Juicer/juicer_tools_1.22.01.jar \
+     arrowhead --threads 100 -k KR -m 2000 -r 10000 --ignore-sparsity \
+     MicroC_inKO_Hippo_WT2.hic MicroC_inKO_Hippo_WT2_TADcalls
+java -Xmx100000m  -Djava.awt.headless=true -jar /home/jerry/Tools/Juicer/juicer_tools_1.22.01.jar \
+     arrowhead --threads 100 -k KR -m 2000 -r 10000 --ignore-sparsity \
+     MicroC_inKO_Hippo_KO1.hic MicroC_inKO_Hippo_KO1_TADcalls
+java -Xmx100000m  -Djava.awt.headless=true -jar /home/jerry/Tools/Juicer/juicer_tools_1.22.01.jar \
+     arrowhead --threads 100 -k KR -m 2000 -r 10000 --ignore-sparsity \
+     MicroC_inKO_Hippo_KO2.hic MicroC_inKO_Hippo_KO2_TADcalls
+
+mv 10000_blocks.bedpe MicroC_inKO_Hippo_WT1_TADcalls_10kb.bedpe
+mv 10000_blocks.bedpe MicroC_inKO_Hippo_WT2_TADcalls_10kb.bedpe
+mv 10000_blocks.bedpe MicroC_inKO_Hippo_KO1_TADcalls_10kb.bedpe
+mv 10000_blocks.bedpe MicroC_inKO_Hippo_KO2_TADcalls_10kb.bedpe
+
+
+
+
+6. Chromatin Loops
+# Recommended Software: Mustache https://github.com/ay-lab/mustache
+# cd ~/Tools
+# git clone https://github.com/ay-lab/mustache
+# conda env create -f ./mustache/environment.yml
+# conda activate mustache
+
+# -pt 0.1: P-value 
+# -pt2 0.1: FDR
+# -r 10000: resolution
+# -st 0.7: sparsity threshold
+# -p 50: processes 
+conda activate mustache
+python3 /home/jerry/Tools/mustache/mustache/diff_mustache.py \ 
+        -f1 MicroC_inKO_Hippo_WT.hic -f2 MicroC_inKO_Hippo_KO.hic \ 
+        -pt 0.05 -pt2 0.1 -o MicroC_inKO_10kb -r 10000 -st 0.7 -p 50 
+
+# hic files: chr14 IndexError: list index out of range 
+# python3 /home/jerry/Tools/mustache/mustache/diff_mustache.py \
+#        -f1 MicroC_inKO_Hippo_WT.hic -f2 MicroC_inKO_Hippo_KO.hic \
+#        -pt 0.05 -pt2 0.1 -o MicroC_inKO_5kb -r 5000 -st 0.7 -p 20
+
+# -p 50: processes (50 uses too much memory for 1kb resolution)
+# 1kb: slow, resulted loop is 0.
+# python3 /home/jerry/Tools/mustache/mustache/diff_mustache.py \
+#         -f1 MicroC_inKO_Hippo_WT.hic -f2 MicroC_inKO_Hippo_KO.hic \
+#         -pt 0.05 -pt2 0.1 -o MicroC_inKO_1kb -r 1000 -st 0.7 -p 10
+
+
+# mcool files: 4kb
+python3 /home/jerry/Tools/mustache/mustache/diff_mustache.py \
+        -f1 MicroC_inKO_Hippo_WT_matrix_1kb.mcool -f2 MicroC_inKO_Hippo_KO_matrix_1kb.mcool \
+        -pt 0.05 -pt2 0.1 -o MicroC_inKO_4kb -r 4000 -st 0.7 -p 20
+
+mv MicroC_inKO_10kb.diffloop1 MicroC_inKO_10kb.diffloop1.WT
+mv MicroC_inKO_10kb.diffloop2 MicroC_inKO_10kb.diffloop2.KO
+mv MicroC_inKO_10kb.loop1 MicroC_inKO_10kb.loop1.WT
+mv MicroC_inKO_10kb.loop2 MicroC_inKO_10kb.loop2.KO
+
+mv MicroC_inKO_4kb.diffloop1 MicroC_inKO_4kb.diffloop1.WT
+mv MicroC_inKO_4kb.diffloop2 MicroC_inKO_4kb.diffloop2.KO
+mv MicroC_inKO_4kb.loop1 MicroC_inKO_4kb.loop1.WT
+mv MicroC_inKO_4kb.loop2 MicroC_inKO_4kb.loop2.KO
+
+ 
+ 

@@ -1,0 +1,202 @@
+Readme: 
+1. bwa and raw data 
+ ## bwa ##
+ samtools faidx Mus_musculus.GRCm38.93.mm10.fa
+ cut -f1,2 Mus_musculus.GRCm38.93.mm10.fa.fai > mm10.genome
+ bwa index Mus_musculus.GRCm38.93.mm10.fa
+
+ ## rename the raw FASTQ file ##
+ mv DTG_MicroC_380_R1.fastq.gz MicroC_inKO_Hippo_KO1_R1.fastq.gz
+ mv DTG_MicroC_380_R2.fastq.gz MicroC_inKO_Hippo_KO1_R2.fastq.gz
+ mv DTG_MicroC_381_R1.fastq.gz MicroC_inKO_Hippo_KO2_R1.fastq.gz
+ mv DTG_MicroC_381_R2.fastq.gz MicroC_inKO_Hippo_KO2_R2.fastq.gz
+ mv DTG_MicroC_382_R1.fastq.gz MicroC_inKO_Hippo_WT1_R1.fastq.gz
+ mv DTG_MicroC_382_R2.fastq.gz MicroC_inKO_Hippo_WT1_R2.fastq.gz
+ mv DTG_MicroC_383_R1.fastq.gz MicroC_inKO_Hippo_WT2_R1.fastq.gz
+ mv DTG_MicroC_383_R2.fastq.gz MicroC_inKO_Hippo_WT2_R2.fastq.gz
+ ## NEW4008	DTG-MicroC-380	JZKO
+ ## NEW4008	DTG-MicroC-381	JZKO
+ ## NEW4007	DTG-MicroC-382	JZWT
+ ## NEW4007	DTG-MicroC-383	JZWT
+
+2. bwa Alignment
+# align Micro-C library to the reference. Please note the specific settings 
+# that are needed to map mates independently and for optimal results with 
+# our proximity library reads.
+
+ bwa mem -5SP -T0 -t100 /home/jerry/Tools/Genome/bwa/mm10/Mus_musculus.GRCm38.93.mm10.fa MicroC_inKO_Hippo_WT1_R1.fastq.gz MicroC_inKO_Hippo_WT1_R2.fastq.gz -o MicroC_inKO_Hippo_WT1
+mv MicroC_inKO_Hippo_WT1 MicroC_inKO_Hippo_WT1.sam
+
+ bwa mem -5SP -T0 -t100 /home/jerry/Tools/Genome/bwa/mm10/Mus_musculus.GRCm38.93.mm10.fa MicroC_inKO_Hippo_WT2_R1.fastq.gz MicroC_inKO_Hippo_WT2_R2.fastq.gz -o MicroC_inKO_Hippo_WT2.sam
+
+ bwa mem -5SP -T0 -t100 /home/jerry/Tools/Genome/bwa/mm10/Mus_musculus.GRCm38.93.mm10.fa MicroC_inKO_Hippo_KO1_R1.fastq.gz MicroC_inKO_Hippo_KO1_R2.fastq.gz -o MicroC_inKO_Hippo_KO1.sam
+
+ bwa mem -5SP -T0 -t100 /home/jerry/Tools/Genome/bwa/mm10/Mus_musculus.GRCm38.93.mm10.fa MicroC_inKO_Hippo_KO2_R1.fastq.gz MicroC_inKO_Hippo_KO2_R2.fastq.gz -o MicroC_inKO_Hippo_KO2.sam
+
+
+
+3. Recording valid ligation events
+# We use the parse module of the pairtools pipeline to find ligation junctions 
+# in Micro-C libraries. When a ligation event is identified in the alignment 
+# file the pairtools pipeline will record the outer-most (5’) aligned base pair 
+# and the strand of each one of the paired reads into .pairsam file (pairsam 
+# format captures SAM entries together with the Hi-C pair information). 
+# In addition, it will also asign a pair type for each event. e.g. if both reads 
+# aligned uniquely to only one region in the genome, the type UU (Unique-Unique) 
+# will be assigned to the pair. 
+# At the parsing step, pairs will be flipped such that regardless of read1 and read2, 
+# pairs are always recorded with first side of the pair having the lower genomic 
+# coordinates.
+
+pairtools parse --min-mapq 40 --walks-policy 5unique --max-inter-align-gap 30 --nproc-in 50 --nproc-out 50 --chroms-path /home/jerry/Tools/Genome/bwa/mm10/mm10.genome MicroC_inKO_Hippo_WT1.sam >  MicroC_inKO_Hippo_WT1_parsed.pairsam
+
+pairtools parse --min-mapq 40 --walks-policy 5unique --max-inter-align-gap 30 --nproc-in 50 --nproc-out 50 --chroms-path /home/jerry/Tools/Genome/bwa/mm10/mm10.genome MicroC_inKO_Hippo_WT2.sam >  MicroC_inKO_Hippo_WT2_parsed.pairsam
+
+pairtools parse --min-mapq 40 --walks-policy 5unique --max-inter-align-gap 30 --nproc-in 50 --nproc-out 50 --chroms-path /home/jerry/Tools/Genome/bwa/mm10/mm10.genome MicroC_inKO_Hippo_KO1.sam >  MicroC_inKO_Hippo_KO1_parsed.pairsam
+
+pairtools parse --min-mapq 40 --walks-policy 5unique --max-inter-align-gap 30 --nproc-in 50 --nproc-out 50 --chroms-path /home/jerry/Tools/Genome/bwa/mm10/mm10.genome MicroC_inKO_Hippo_KO2.sam >  MicroC_inKO_Hippo_KO2_parsed.pairsam
+
+
+
+4. Sorting the pairsam file
+# The parsed pairs are then sorted using pairtools sort
+
+pairtools sort --nproc 100 --tmpdir=/media/Backup2/temp/  MicroC_inKO_Hippo_WT1_parsed.pairsam > MicroC_inKO_Hippo_WT1_sorted.pairsam
+
+pairtools sort --nproc 100 --tmpdir=/media/Backup2/temp/  MicroC_inKO_Hippo_WT2_parsed.pairsam > MicroC_inKO_Hippo_WT2_sorted.pairsam
+
+pairtools sort --nproc 100 --tmpdir=/media/Backup2/temp/  MicroC_inKO_Hippo_KO1_parsed.pairsam > MicroC_inKO_Hippo_KO1_sorted.pairsam
+
+pairtools sort --nproc 100 --tmpdir=/media/Backup2/temp/  MicroC_inKO_Hippo_KO2_parsed.pairsam > MicroC_inKO_Hippo_KO2_sorted.pairsam
+
+
+
+5. Removig PCR duplicates
+# pairtools dedup detects molecules that could be formed via PCR duplication and 
+# tags them as “DD” pair type. These pairs should be excluded from downstream 
+# analysis. Use the pairtools dedup command with the –output-stats option to 
+# save the dup stats into a text file.
+
+pairtools dedup --nproc-in 50 --nproc-out 50 --mark-dups --output-stats MicroC_inKO_Hippo_WT1_stats.txt --output MicroC_inKO_Hippo_WT1_dedup.pairsam MicroC_inKO_Hippo_WT1_sorted.pairsam
+
+pairtools dedup --nproc-in 50 --nproc-out 50 --mark-dups --output-stats MicroC_inKO_Hippo_WT2_stats.txt --output MicroC_inKO_Hippo_WT2_dedup.pairsam MicroC_inKO_Hippo_WT2_sorted.pairsam
+
+pairtools dedup --nproc-in 50 --nproc-out 50 --mark-dups --output-stats MicroC_inKO_Hippo_KO1_stats.txt --output MicroC_inKO_Hippo_KO1_dedup.pairsam MicroC_inKO_Hippo_KO1_sorted.pairsam
+
+pairtools dedup --nproc-in 50 --nproc-out 50 --mark-dups --output-stats MicroC_inKO_Hippo_KO2_stats.txt --output MicroC_inKO_Hippo_KO2_dedup.pairsam MicroC_inKO_Hippo_KO2_sorted.pairsam
+
+
+
+6. Generate .pairs and bam files
+# The pairtools split command is used to split the final .pairsam into two files: 
+# .sam (or .bam) and .pairs (.pairsam has two extra columns containing the 
+# alignments from which the Micro-C pair was extracted, these two columns 
+# are not included in .pairs files)
+# The .pairs file can be used for generating contact matrix 
+
+pairtools split --nproc-in 50 --nproc-out 50 --output-pairs MicroC_inKO_Hippo_WT1_mapped.pairs --output-sam MicroC_inKO_Hippo_WT1_unsorted.bam MicroC_inKO_Hippo_WT1_dedup.pairsam
+
+pairtools split --nproc-in 50 --nproc-out 50 --output-pairs MicroC_inKO_Hippo_WT2_mapped.pairs --output-sam MicroC_inKO_Hippo_WT2_unsorted.bam MicroC_inKO_Hippo_WT2_dedup.pairsam
+
+pairtools split --nproc-in 50 --nproc-out 50 --output-pairs MicroC_inKO_Hippo_KO1_mapped.pairs --output-sam MicroC_inKO_Hippo_KO1_unsorted.bam MicroC_inKO_Hippo_KO1_dedup.pairsam
+
+pairtools split --nproc-in 50 --nproc-out 50 --output-pairs MicroC_inKO_Hippo_KO2_mapped.pairs --output-sam MicroC_inKO_Hippo_KO2_unsorted.bam MicroC_inKO_Hippo_KO2_dedup.pairsam
+
+
+7. Generating the final bam file
+# For downstream steps, the bam file should be sorted, using the command samtools
+# The mapped.PT.bam is the final bam file that will be used downstream steps.
+# For future steps an index (.bai) of the bam file is also needed.
+
+samtools sort -@100 -T /media/Backup2/temp/temp.bam -o MicroC_inKO_Hippo_WT1_mapped.PT.bam MicroC_inKO_Hippo_WT1_unsorted.bam
+samtools index MicroC_inKO_Hippo_WT1_mapped.PT.bam
+
+samtools sort -@100 -T /media/Backup2/temp/temp.bam -o MicroC_inKO_Hippo_WT2_mapped.PT.bam MicroC_inKO_Hippo_WT2_unsorted.bam
+samtools index MicroC_inKO_Hippo_WT2_mapped.PT.bam
+
+samtools sort -@100 -T /media/Backup2/temp/temp.bam -o MicroC_inKO_Hippo_KO1_mapped.PT.bam MicroC_inKO_Hippo_KO1_unsorted.bam
+samtools index MicroC_inKO_Hippo_KO1_mapped.PT.bam
+
+samtools sort -@100 -T /media/Backup2/temp/temp.bam -o MicroC_inKO_Hippo_KO2_mapped.PT.bam MicroC_inKO_Hippo_KO2_unsorted.bam
+samtools index MicroC_inKO_Hippo_KO2_mapped.PT.bam
+
+
+
+
+
+
+8. Library QC
+# At step Removing PCR duplicates you used the flag –output-stats, generating a stats 
+# file in addition to the pairsam output (e.g. –output-stats stats.txt). The stats 
+# file is an extensive output of pairs statistics as calculated by pairtools, 
+# including total reads, total mapped, total dups, total pairs for each pair of 
+# chromosomes etc’. Although you can use directly the pairtools stats file as is to 
+# get informed on the quality of the Micro-C library, we find it easier to focus on 
+# a few key metrics. We include in this repository the script get_qc.py that 
+# summarize the paired-tools stats file and present them in percentage values in 
+# addition to absolute values.
+ 
+python /home/jerry/Tools/Micro-C/get_qc.py -p MicroC_inKO_Hippo_WT1_stats.txt
+# Total Read Pairs                              182,052,916  100%
+# Unmapped Read Pairs                           23,898,752   13.13%
+# Mapped Read Pairs                             126,817,230  69.66%
+# PCR Dup Read Pairs                            15,754,366   8.65%
+# No-Dup Read Pairs                             111,062,864  61.01%
+# No-Dup Cis Read Pairs                         89,606,419   80.68%
+# No-Dup Trans Read Pairs                       21,456,445   19.32%
+# No-Dup Valid Read Pairs (cis >= 1kb + trans)  100,056,170  90.09%
+# No-Dup Cis Read Pairs < 1kb                   11,006,694   9.91%
+# No-Dup Cis Read Pairs >= 1kb                  78,599,725   70.77%
+# No-Dup Cis Read Pairs >= 10kb                 61,295,768   55.19%
+
+
+python /home/jerry/Tools/Micro-C/get_qc.py -p MicroC_inKO_Hippo_WT2_stats.txt
+# Total Read Pairs                              164,161,807  100%
+# Unmapped Read Pairs                           21,505,088   13.1%
+# Mapped Read Pairs                             114,392,013  69.68%
+# PCR Dup Read Pairs                            13,897,516   8.47%
+# No-Dup Read Pairs                             100,494,497  61.22%
+# No-Dup Cis Read Pairs                         80,993,184   80.59%
+# No-Dup Trans Read Pairs                       19,501,313   19.41%
+# No-Dup Valid Read Pairs (cis >= 1kb + trans)  90,778,776   90.33%
+# No-Dup Cis Read Pairs < 1kb                   9,715,721    9.67%
+# No-Dup Cis Read Pairs >= 1kb                  71,277,463   70.93%
+# No-Dup Cis Read Pairs >= 10kb                 55,633,755   55.36%
+
+
+python /home/jerry/Tools/Micro-C/get_qc.py -p MicroC_inKO_Hippo_KO1_stats.txt
+# Total Read Pairs                              175,275,605  100%
+# Unmapped Read Pairs                           23,708,896   13.53%
+# Mapped Read Pairs                             121,736,007  69.45%
+# PCR Dup Read Pairs                            17,286,763   9.86%
+# No-Dup Read Pairs                             104,449,244  59.59%
+# No-Dup Cis Read Pairs                         85,935,960   82.28%
+# No-Dup Trans Read Pairs                       18,513,284   17.72%
+# No-Dup Valid Read Pairs (cis >= 1kb + trans)  94,622,829   90.59%
+# No-Dup Cis Read Pairs < 1kb                   9,826,415    9.41%
+# No-Dup Cis Read Pairs >= 1kb                  76,109,545   72.87%
+# No-Dup Cis Read Pairs >= 10kb                 58,389,182   55.9%
+
+
+python /home/jerry/Tools/Micro-C/get_qc.py -p MicroC_inKO_Hippo_KO2_stats.txt
+# Total Read Pairs                              168,587,953  100%
+# Unmapped Read Pairs                           23,159,525   13.74%
+# Mapped Read Pairs                             116,836,024  69.3%
+# PCR Dup Read Pairs                            14,681,020   8.71%
+# No-Dup Read Pairs                             102,155,004  60.59%
+# No-Dup Cis Read Pairs                         84,051,193   82.28%
+# No-Dup Trans Read Pairs                       18,103,811   17.72%
+# No-Dup Valid Read Pairs (cis >= 1kb + trans)  92,465,479   90.51%
+# No-Dup Cis Read Pairs < 1kb                   9,689,525    9.49%
+# No-Dup Cis Read Pairs >= 1kb                  74,361,668   72.79%
+# No-Dup Cis Read Pairs >= 10kb                 57,046,263   55.84%
+
+
+
+
+
+
+
+
+
+

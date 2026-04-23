@@ -1,0 +1,27 @@
+
+
+total <- read.table("Topotecan_DEGs_Bulk_DEGs.txt",sep="\t",header=T)
+total[1:5,]
+
+plot(total$Bulk.FC,total$log2FC)
+
+pdf("Topotecan_DEGs_Bulk_DEGs.pdf")
+plot(total$Bulk.FC,total$log2FC,xlim=c(-2,2),ylim=c(-4,4),pch=21, col="seagreen4", bg="aquamarine3", cex=1.5)
+dev.off()
+
+
+pdf("Topotecan_DEGs_Bulk_DEGs_Length.pdf")
+plot(density(total$Length),xlim=c(0,3000000),col="white")
+polygon(density(total$Length),col="aquamarine3", border="seagreen4")
+dev.off()
+
+polygon(density(total$Length),col="seagreen1", border="seagreen4")
+
+summary(total$Length)
+#   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#   4978  477858  719756  785439 1065860 2270657
+
+
+
+
+

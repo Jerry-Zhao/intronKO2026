@@ -1,0 +1,49 @@
+Readme: 
+
+1. Download from Novogene using wget 
+ wget -r -c ftp://X202SC22123058-Z01-F001:p062s1u1@usftp21.novogene.com:21/
+
+ Rename: 
+mv Chomo1_CKDL220033261-1A_HMMCHDSX5_L1_1.fq.gz Hs6st3iKO_RNAseq_male_cortex_HOMO_rep1_1.fastq.gz
+mv Chomo1_CKDL220033261-1A_HMMCHDSX5_L1_2.fq.gz Hs6st3iKO_RNAseq_male_cortex_HOMO_rep1_2.fastq.gz
+mv Chomo2_CKDL220033262-1A_HMMCHDSX5_L1_1.fq.gz Hs6st3iKO_RNAseq_male_cortex_HOMO_rep2_1.fastq.gz
+mv Chomo2_CKDL220033262-1A_HMMCHDSX5_L1_2.fq.gz Hs6st3iKO_RNAseq_male_cortex_HOMO_rep2_2.fastq.gz
+mv Chomo3_CKDL220033263-1A_HMMCHDSX5_L1_1.fq.gz Hs6st3iKO_RNAseq_male_cortex_HOMO_rep3_1.fastq.gz
+mv Chomo3_CKDL220033263-1A_HMMCHDSX5_L1_2.fq.gz Hs6st3iKO_RNAseq_male_cortex_HOMO_rep3_2.fastq.gz
+mv Chomo4_CKDL220033264-1A_HMMCHDSX5_L1_1.fq.gz Hs6st3iKO_RNAseq_male_cortex_HOMO_rep4_1.fastq.gz
+mv Chomo4_CKDL220033264-1A_HMMCHDSX5_L1_2.fq.gz Hs6st3iKO_RNAseq_male_cortex_HOMO_rep4_2.fastq.gz
+mv Chomo5_CKDL220033265-1A_HMMCHDSX5_L1_1.fq.gz Hs6st3iKO_RNAseq_male_cortex_HOMO_rep5_1.fastq.gz
+mv Chomo5_CKDL220033265-1A_HMMCHDSX5_L1_2.fq.gz Hs6st3iKO_RNAseq_male_cortex_HOMO_rep5_2.fastq.gz
+
+mv Cwt1_CKDL220033251-1A_HMMCHDSX5_L1_1.fq.gz Hs6st3iKO_RNAseq_male_cortex_WT_rep1_1.fastq.gz
+mv Cwt1_CKDL220033251-1A_HMMCHDSX5_L1_2.fq.gz Hs6st3iKO_RNAseq_male_cortex_WT_rep1_2.fastq.gz
+mv Cwt2_CKDL220033252-1A_HMMCHDSX5_L1_1.fq.gz Hs6st3iKO_RNAseq_male_cortex_WT_rep2_1.fastq.gz
+mv Cwt2_CKDL220033252-1A_HMMCHDSX5_L1_2.fq.gz Hs6st3iKO_RNAseq_male_cortex_WT_rep2_2.fastq.gz
+mv Cwt3_CKDL220033253-1A_HMMCHDSX5_L1_1.fq.gz Hs6st3iKO_RNAseq_male_cortex_WT_rep3_1.fastq.gz
+mv Cwt3_CKDL220033253-1A_HMMCHDSX5_L1_2.fq.gz Hs6st3iKO_RNAseq_male_cortex_WT_rep3_2.fastq.gz
+mv Cwt4_CKDL220033254-1A_HMMCHDSX5_L1_1.fq.gz Hs6st3iKO_RNAseq_male_cortex_WT_rep4_1.fastq.gz
+mv Cwt4_CKDL220033254-1A_HMMCHDSX5_L1_2.fq.gz Hs6st3iKO_RNAseq_male_cortex_WT_rep4_2.fastq.gz
+mv Cwt5_CKDL220033255-1A_HMMCHDSX5_L1_1.fq.gz Hs6st3iKO_RNAseq_male_cortex_WT_rep5_1.fastq.gz
+mv Cwt5_CKDL220033255-1A_HMMCHDSX5_L1_2.fq.gz Hs6st3iKO_RNAseq_male_cortex_WT_rep5_2.fastq.gz
+
+ 
+mv Hhomo1_CKDL220033276-1A_HMMCHDSX5_L1_1.fq.gz Hs6st3iKO_RNAseq_male_hippocampus_HOMO_rep1_1.fastq.gz
+mv Hhomo1_CKDL220033276-1A_HMMCHDSX5_L1_2.fq.gz Hs6st3iKO_RNAseq_male_hippocampus_HOMO_rep1_2.fastq.gz
+mv Hhomo2_CKDL220033277-1A_HMMCHDSX5_L1_1.fq.gz Hs6st3iKO_RNAseq_male_hippocampus_HOMO_rep2_1.fastq.gz
+mv Hhomo2_CKDL220033277-1A_HMMCHDSX5_L1_2.fq.gz Hs6st3iKO_RNAseq_male_hippocampus_HOMO_rep2_2.fastq.gz
+mv Hhomo3_CKDL220033278-1A_HMMCHDSX5_L1_1.fq.gz Hs6st3iKO_RNAseq_male_hippocampus_HOMO_rep3_1.fastq.gz
+mv Hhomo3_CKDL220033278-1A_HMMCHDSX5_L1_2.fq.gz Hs6st3iKO_RNAseq_male_hippocampus_HOMO_rep3_2.fastq.gz
+mv Hhomo4_CKDL220033279-1A_HMMCHDSX5_L1_1.fq.gz Hs6st3iKO_RNAseq_male_hippocampus_HOMO_rep4_1.fastq.gz
+mv Hhomo4_CKDL220033279-1A_HMMCHDSX5_L1_2.fq.gz Hs6st3iKO_RNAseq_male_hippocampus_HOMO_rep4_2.fastq.gz
+mv Hhomo5_CKDL220033280-1A_HMMCHDSX5_L1_1.fq.gz Hs6st3iKO_RNAseq_male_hippocampus_HOMO_rep5_1.fastq.gz
+mv Hhomo5_CKDL220033280-1A_HMMCHDSX5_L1_2.fq.gz Hs6st3iKO_RNAseq_male_hippocampus_HOMO_rep5_2.fastq.gz
+
+mv Hwt5_CKDL220033270-1A_HMMCHDSX5_L1_1.fq.gz Hs6st3iKO_RNAseq_male_hippocampus_WT_rep1_1.fastq.gz
+mv Hwt5_CKDL220033270-1A_HMMCHDSX5_L1_2.fq.gz Hs6st3iKO_RNAseq_male_hippocampus_WT_rep1_2.fastq.gz
+mv Hwt2_CKDL220033267-1A_HMMCHDSX5_L1_1.fq.gz Hs6st3iKO_RNAseq_male_hippocampus_WT_rep2_1.fastq.gz
+mv Hwt2_CKDL220033267-1A_HMMCHDSX5_L1_2.fq.gz Hs6st3iKO_RNAseq_male_hippocampus_WT_rep2_2.fastq.gz
+mv Hwt3_CKDL220033268-1A_HMMCHDSX5_L1_1.fq.gz Hs6st3iKO_RNAseq_male_hippocampus_WT_rep3_1.fastq.gz
+mv Hwt3_CKDL220033268-1A_HMMCHDSX5_L1_2.fq.gz Hs6st3iKO_RNAseq_male_hippocampus_WT_rep3_2.fastq.gz
+mv Hwt4_CKDL220033269-1A_HMMCHDSX5_L1_1.fq.gz Hs6st3iKO_RNAseq_male_hippocampus_WT_rep4_1.fastq.gz
+mv Hwt4_CKDL220033269-1A_HMMCHDSX5_L1_2.fq.gz Hs6st3iKO_RNAseq_male_hippocampus_WT_rep4_2.fastq.gz
+ 

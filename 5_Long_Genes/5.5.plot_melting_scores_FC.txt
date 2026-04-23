@@ -1,0 +1,29 @@
+
+## Total DEGs with Melting scores
+total <- read.table("Melting_scores_Total.txt", header=T, sep="\t")
+total[1:5,]
+
+score <- data.frame(Score1=total$meltingScore_PGN_mean, Score2=total$meltingScore_PGN_mean)
+score[1:5,]
+atac <- data.frame(Atac1=total$lsARPM_PGN, Atac2=total$lsARPM_PGN)
+atac[1:5,]
+foldchange <- data.frame(FC1=total$Bulk.FC,FC2=total$CA1.1.FC, FC3=total$CA1.2.FC,FC4=total$CA1.3.FC)
+foldchange[1:5,]
+
+library("RColorBrewer")
+library("pheatmap")
+
+png("Melting_Total_Score.png",width = 480, height = 960)
+pheatmap(score, color = colorRampPalette(brewer.pal(n =5, name ="Oranges"))(50), breaks = seq(0, 8, length.out = 50), cluster_cols = FALSE, cluster_rows=FALSE)
+dev.off()
+
+png("Melting_Total_FC.png",width = 480, height = 960)
+pheatmap(foldchange, color = colorRampPalette(rev(brewer.pal(n =5, name ="RdYlGn")))(100), breaks = seq(-0.3, 0.3, length.out = 100), cluster_cols = FALSE, cluster_rows=FALSE)
+dev.off()
+
+
+
+
+
+
+

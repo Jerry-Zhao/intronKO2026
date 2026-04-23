@@ -1,0 +1,63 @@
+
+######### All data #############
+library("DESeq2")
+options(width=300)
+
+countData <- read.table("Merged_Hs6st3_CMV_2023RNAseq_hippocampus_whole_gene_Jerry.xls",sep="\t",header=T,row.names=1)
+countData[1:5,]
+countData2 <- countData
+countData2[1:5,]
+
+colData2 <- data.frame(condition=c(
+  "Hip_WT","Hip_WT","Hip_WT","Hip_WT","Hip_WT",
+  "Hip_Homo","Hip_Homo","Hip_Homo","Hip_Homo","Hip_Homo"),
+  row.names=c(
+  "Hip_WT1","Hip_WT2","Hip_WT3","Hip_WT4","Hip_WT5",
+  "Hip_Homo1","Hip_Homo2","Hip_Homo3","Hip_Homo4","Hip_Homo5"))
+colData2
+
+dds <- DESeqDataSetFromMatrix(countData=countData2, colData=colData2, design=~condition)
+
+# keep <- rowSums(counts(dds)) >= 10 ## at least 10 reads total
+keep <- rowSums(counts(dds) >= 10) >= 5 ## at least 5 samples with >=10 counts; 5 = least replicate number
+dds <- dds[keep,]
+ 
+dds <- DESeq(dds) # Wald significance tests
+# dds <- DESeq(dds, test="LRT", reduced=~1) ## likelihood ratio test
+
+
+#### PCA 
+rld <- rlog(dds)
+# vsd <- varianceStabilizingTransformation(dds)
+
+## Need the raw PCA plot for the % 
+print(plotPCA(rld, intgroup=c("condition"),ntop = 500))
+png("DESeq2_PCA_Hs6st3CMV_Hippocampus_whole_gene_top500_raw.png", width = 800, height = 700)
+print(plotPCA(rld, intgroup=c("condition"),ntop = 500))
+dev.off()
+
+result2 <- plotPCA(rld, intgroup=c("condition"),ntop = 500, returnData = TRUE)
+WTPCA <- result2[1:5,]
+KOPCA <- result2[6:10,]
+
+png("DESeq2_PCA_Hs6st3CMV_Hippocampus_whole_gene_top500.png", width = 300, height = 300)
+plot(WTPCA$PC1, WTPCA$PC2, pch=21, cex=2, col="gray28", bg=rgb(127,127,127,max=255), lwd=2, xlim=c(-8,8),ylim=c(-10,10))
+points(KOPCA$PC1, KOPCA$PC2, pch=21, cex=2, col="gray28", bg=rgb(244,177,131,max=255), lwd=2)
+dev.off()
+
+result2
+#                 PC1        PC2    group condition      name
+# Hip_WT1   -3.9628604  1.0418524   Hip_WT    Hip_WT   Hip_WT1
+# Hip_WT2   -6.3872507 -1.5558378   Hip_WT    Hip_WT   Hip_WT2
+# Hip_WT3    3.1904620  4.8372519   Hip_WT    Hip_WT   Hip_WT3
+# Hip_WT4   -2.3748838  1.6783547   Hip_WT    Hip_WT   Hip_WT4
+# Hip_WT5   -0.9584204  2.3622174   Hip_WT    Hip_WT   Hip_WT5
+# Hip_Homo1  5.5291643 -1.8835247 Hip_Homo  Hip_Homo Hip_Homo1
+# Hip_Homo2 -0.6164996 -1.5316741 Hip_Homo  Hip_Homo Hip_Homo2
+# Hip_Homo3  3.3976650 -0.1156284 Hip_Homo  Hip_Homo Hip_Homo3
+# Hip_Homo4  1.3707633 -2.1566284 Hip_Homo  Hip_Homo Hip_Homo4
+# Hip_Homo5  0.8118603 -2.6763832 Hip_Homo  Hip_Homo Hip_Homo5
+  
+
+
+

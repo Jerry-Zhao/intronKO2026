@@ -1,0 +1,27 @@
+
+total <- read.table("Human_gene_exon_intron_lengths_rank.txt", header=T, sep="\t")
+total[1:5,]
+
+smoothScatter(total[,c(3,5)])
+smoothScatter(total[,c(3,7)])
+ 
+
+datax <- cbind(total$Gene_rank, total$Exon_rank)
+png("Gene_exon_rank_density_human.png")
+plot(datax, col = densCols(datax), pch = 20)
+dev.off()
+
+datay <- cbind(total$Gene_rank, total$Intron_rank)
+png("Gene_intron_rank_density_human.png")
+plot(datay, col = densCols(datay), pch = 20)
+dev.off()
+
+
+
+cor(total$Gene_rank, total$Exon_rank)
+# [1] 0.6180654 Pearson Correlation Coefficient
+
+cor(total$Gene_rank, total$Intron_rank)
+# [1] 0.9770689 Pearson Correlation Coefficient 
+
+

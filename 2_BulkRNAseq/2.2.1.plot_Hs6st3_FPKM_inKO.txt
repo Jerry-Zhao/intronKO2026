@@ -1,0 +1,26 @@
+
+### FPKM values from the hippocampus
+Hs6st3 <- data.frame(Type=c("WT","WT","WT","WT","iKO","iKO","iKO","iKO","iKO"),
+                     FPKM=c(1.2155,1.266,1.04088,1.30901,0.00122,0.00175,0.00119,0.00115,0.00171))
+
+Hs6st3
+ 
+png("Boxplot_FPKM_Hs6st3_Hippocampus_WT_iKO.png",width = 300, height = 400) ## 
+boxplot(Hs6st3$FPKM~factor(Hs6st3$Type,levels=c("WT","iKO")),
+        col=c(rgb(255,184,95,max=255),rgb(0,170,160,max=255)),ylim=c(-1,2))
+dev.off()
+
+t.test(c(1.2155,1.266,1.04088,1.30901),c(0.00122,0.00175,0.00119,0.00115,0.00171),alternative="two.sided")
+ 
+# 	Welch Two Sample t-test
+# data:  c(1.2155, 1.266, 1.04088, 1.30901) and c(0.00122, 0.00175, 0.00119, 0.00115, 0.00171)
+# t = 20.502, df = 3, p-value = 0.0002537
+# alternative hypothesis: true difference in means is not equal to 0
+# 95 percent confidence interval:
+#  1.019174 1.393713
+# sample estimates:
+# mean of x mean of y 
+#  1.207847  0.001404 
+
+
+
